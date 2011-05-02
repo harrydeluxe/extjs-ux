@@ -1,4 +1,4 @@
-/*
+/**
  * Ext.ux.container.ButtonSegment Class
  * 
  * @author Harald Hanek (c) 2011
