@@ -1,0 +1,47 @@
+.x-sbtn .x-btn
+{
+	margin-right: 0px;
+	margin-left: 0px;
+}
+
+.x-sbtn .x-sbtn-first
+{
+	-moz-border-radius: 3px 0px 0px 3px;
+	-webkit-border-radius: 3px 0px 0px 3px;
+	-o-border-radius: 3px 0px 0px 3px;
+	-ms-border-radius: 3px 0px 0px 3px;
+	-khtml-border-radius: 3px 0px 0px 3px;
+	border-radius: 3px 0px 0px 3px;
+	
+	margin-left: 0px;
+}
+
+.x-sbtn .x-sbtn-last
+{
+	-moz-border-radius: 0px 3px 3px 0px;
+	-webkit-border-radius: 0px 3px 3px 0px;
+	-o-border-radius: 0px 3px 3px 0px;
+	-ms-border-radius: 0px 3px 3px 0px;
+	-khtml-border-radius: 0px 3px 3px 0px;
+	border-radius: 0px 3px 3px 0px;
+	
+	border-left: none;
+	margin-right: 0px;
+}
+
+.x-sbtn .x-sbtn-item
+{
+	-moz-border-radius: 0px;
+	-webkit-border-radius: 0px;
+	-o-border-radius: 0px;
+	-ms-border-radius: 0px;
+	-khtml-border-radius: 0px;
+	border-radius: 0px;
+	
+	border-left: none;
+}
+
+.x-sbtn .x-sbtn-single
+{
+	
+}
