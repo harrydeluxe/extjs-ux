@@ -1,11 +1,15 @@
-h1. Plugins and extensions for EXT JS 4
+h1. Plugins and Extensions for EXT JS 4
 
 h2. Ext.ux.container.ButtonSegment
+
+!http://harrydeluxe.github.com/ext4/img/segmentedbuttons.jpg!
 
 Demo: "Link":http://harrydeluxe.github.com/ext4/example/button/buttonsegment.html
 Forum: "Link":http://www.sencha.com/forum/showthread.php?132048-Ext.ux.container.ButtonSegment
 
 h2. Ext.ux.grid.RowEditing
+
+!http://harrydeluxe.github.com/ext4/img/rowediting.jpg!
 
 Demo: "Link":http://harrydeluxe.github.com/ext4/example/grid/rowediting.html
 Forum: "Link":http://www.sencha.com/forum/showthread.php?131482-Ext.ux.RowEditing-add-some-usefull-features
