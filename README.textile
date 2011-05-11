@@ -12,7 +12,7 @@ h2. Ext.ux.grid.plugin.RowEditing
 !http://harrydeluxe.github.com/ext4/img/rowediting.jpg!
 
 Demo: "Link":http://harrydeluxe.github.com/ext4/example/grid/rowediting.html
-Forum: "Link":http://www.sencha.com/forum/showthread.php?131482-Ext.ux.RowEditing-add-some-usefull-features
+Forum: "Link":http://www.sencha.com/forum/showthread.php?131482-Ext.ux.RowEditing-add-some-usefull-features&p=597278&viewfull=1#post597278
 
 h2. Ext.ux.grid.plugin.DragSelector
 
