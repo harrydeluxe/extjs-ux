@@ -7,9 +7,11 @@ h2. Ext.ux.container.ButtonSegment
 Demo: "Link":http://harrydeluxe.github.com/ext4/example/button/buttonsegment.html
 Forum: "Link":http://www.sencha.com/forum/showthread.php?132048-Ext.ux.container.ButtonSegment
 
-h2. Ext.ux.grid.RowEditing
+h2. Ext.ux.grid.plugin.RowEditing
 
 !http://harrydeluxe.github.com/ext4/img/rowediting.jpg!
 
 Demo: "Link":http://harrydeluxe.github.com/ext4/example/grid/rowediting.html
 Forum: "Link":http://www.sencha.com/forum/showthread.php?131482-Ext.ux.RowEditing-add-some-usefull-features
+
+h2. Ext.ux.grid.plugin.DragSelector
