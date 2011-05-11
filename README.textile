@@ -15,3 +15,7 @@ Demo: "Link":http://harrydeluxe.github.com/ext4/example/grid/rowediting.html
 Forum: "Link":http://www.sencha.com/forum/showthread.php?131482-Ext.ux.RowEditing-add-some-usefull-features
 
 h2. Ext.ux.grid.plugin.DragSelector
+
+!http://harrydeluxe.github.com/ext4/img/dragselector.jpg!
+
+Demo: "Link":http://harrydeluxe.github.com/ext4/example/grid/dragselector.html
