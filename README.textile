@@ -19,3 +19,4 @@ h2. Ext.ux.grid.plugin.DragSelector
 !http://harrydeluxe.github.com/ext4/img/dragselector.jpg!
 
 Demo: "Link":http://harrydeluxe.github.com/ext4/example/grid/dragselector.html
+Forum: "Link":http://www.sencha.com/forum/showthread.php?133150-Ext.ux.grid.plugin.DragSelector
