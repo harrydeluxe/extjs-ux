@@ -1,5 +1,5 @@
 /**
- * Ext.ux.grid.RowEditing Class
+ * Ext.ux.grid.plugin.RowEditing Class
  * 
  * @extends Ext.grid.plugin.RowEditing
  * 
@@ -11,7 +11,7 @@
  *          (http://www.opensource.org/licenses/mit-license.php)
  */
 
-Ext.define('Ext.ux.grid.RowEditing', {
+Ext.define('Ext.ux.grid.plugin.RowEditing', {
 	extend: 'Ext.grid.plugin.RowEditing',
 	alias: 'plugin.ux.rowediting',
 
@@ -58,7 +58,7 @@ Ext.define('Ext.ux.grid.RowEditing', {
 	startEditByClick: function()
 	{
 		var me = this;
-
+		
 		if(!me.editing || me.clicksToMoveEditor === me.clicksToEdit)
 		{
 			if(me.context && me.context.record._blank)
