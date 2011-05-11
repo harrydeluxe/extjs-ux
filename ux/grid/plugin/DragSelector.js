@@ -15,7 +15,7 @@
 Ext.define('Ext.ux.grid.plugin.DragSelector', {
 	extend: 'Ext.util.Observable',
 	requires: [ 'Ext.dd.DragTracker', 'Ext.util.Region', 'Ext.grid.Scroller' ],
-	alias: 'plugin.dragselector',
+	alias: 'plugin.ux.dragselector',
 
 	isDragging: false,
 	scrollTopStart: 0,
