@@ -156,64 +156,67 @@ Ext.define('Ext.ux.grid.plugin.DragSelector', {
 
 	onDrag: function(e, scaleSelector)
 	{
-		var startXY = this.tracker.startXY, xy = this.tracker.getXY();
+		var me = this,
+			startXY = me.tracker.startXY,
+			xy = me.tracker.getXY();
 
 		if(xy[0] < startXY[0] && !scaleSelector)
 		{
 			xy[0] += 2;
 		}
 
-		if(this.scrollTop >= 0)
+		if(me.scrollTop >= 0)
 		{
-			if((startXY[1] - this.scrollTop) <= xy[1])
+			if((startXY[1] - me.scrollTop) <= xy[1])
 			{
-				var y = startXY[1] - this.scrollTop;
+				var y = startXY[1] - me.scrollTop;
 				var h = Math.abs(y - xy[1]);
 			}
 			else
 			{
 				var y = xy[1];
-				var h = Math.abs(startXY[1] - xy[1]) - this.scrollTop;
+				var h = Math.abs(startXY[1] - xy[1]) - me.scrollTop;
 			}
 			var x = Math.min(startXY[0], xy[0]);
 			var w = Math.abs(startXY[0] - xy[0]);
-			this.bodyRegion.top -= this.scrollTop;
+			me.bodyRegion.top -= me.scrollTop;
 		}
 		else
 		{
-			if((startXY[1] - this.scrollTop) < xy[1])
+			if((startXY[1] - me.scrollTop) < xy[1])
 			{
-				var y = startXY[1] - this.scrollTop;
+				var y = startXY[1] - me.scrollTop;
 				var h = Math.abs(y - xy[1]);
 			}
 			else
 			{
 				var y = xy[1];
-				var h = Math.abs((startXY[1] - this.scrollTop) - xy[1]);
+				var h = Math.abs((startXY[1] - me.scrollTop) - xy[1]);
 			}
 
 			var x = Math.min(startXY[0], xy[0]);
 			var w = Math.abs(startXY[0] - xy[0]);
 
-			this.bodyRegion.bottom -= this.scrollTop;
+			me.bodyRegion.bottom -= me.scrollTop;
 		}
 
 		// ( Number top, Number right, Number bottom, Number left )
 		var dragRegion = Ext.create('Ext.util.Region', y, x + w, y + h, x);
 
 		// dragRegion.constrainTo(view.el.getRegion());
-		dragRegion.constrainTo(this.bodyRegion);
+		dragRegion.constrainTo(me.bodyRegion);
 
-		this.proxy.setRegion(dragRegion);
+		me.proxy.setRegion(dragRegion);
 
-		var view = this.view; // neu
-		var s = this.scroller; // neu
+		var view = me.view,
+			s = me.scroller;
 
-		for( var i = 0; i < this.rs.length; i++)
+		for( var i = 0; i < me.rs.length; i++)
 		{
-			var r = this.rs[i], sel = dragRegion.intersect(r);
-			var selected = this.selModel.isSelected(i);
-			var selectedBefore = this.objectsSelected[i];
+			var r = me.rs[i],
+				sel = dragRegion.intersect(r),
+				selected = me.selModel.isSelected(i),
+				selectedBefore = me.objectsSelected[i];
 
 			if(this.ctrlState)
 			{
@@ -253,35 +256,35 @@ Ext.define('Ext.ux.grid.plugin.DragSelector', {
 			}
 		}
 
-		if(xy[1] + 10 >= this.mainRegion.bottom)
+		if(xy[1] + 10 >= me.mainRegion.bottom)
 		{
 			// slow up for ie
 			if(Ext.isIE)
 			{
 				setTimeout(function()
 				{
-					this.scroller.scrollTo('top', this.scroller.getScroll().top + 40);
+					s.scrollTo('top', s.getScroll().top + 40);
 				}, 100);
 			}
 			else
 			{
-				this.grid.verticalScroller.setScrollTop(s.getScroll().top + 40);
+				me.grid.verticalScroller.setScrollTop(s.getScroll().top + 40);
 			}
 		}
 
-		if(xy[1] - 10 <= this.mainRegion.top)
+		if(xy[1] - 10 <= me.mainRegion.top)
 		{
 			// slow up for ie
 			if(Ext.isIE)
 			{
 				setTimeout(function()
 				{
-					this.scroller.scrollTo('top', this.scroller.getScroll().top - 40);
+					s.scrollTo('top', s.getScroll().top - 40);
 				}, 100);
 			}
 			else
 			{
-				this.grid.verticalScroller.setScrollTop(s.getScroll().top - 40);
+				me.grid.verticalScroller.setScrollTop(s.getScroll().top - 40);
 			}
 		}
 	},
