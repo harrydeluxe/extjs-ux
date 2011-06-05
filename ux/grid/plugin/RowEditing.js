@@ -67,6 +67,19 @@ Ext.define('Ext.ux.grid.plugin.RowEditing', {
 			me.callParent(arguments);
 		}
 	},
+	
+	moveEditorByClick: function()
+	{
+        var me = this;
+        if(me.editing)
+        {
+        	if(me.context && me.context.record._blank)
+        		me.cancelEdit();
+
+        	me.editing = false;
+        	me.superclass.startEditByClick.apply(me, arguments);
+        }
+    },
 
 	cancelEdit: function()
 	{
