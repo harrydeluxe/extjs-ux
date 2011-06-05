@@ -104,7 +104,7 @@ Ext.define('Ext.ux.grid.plugin.DragSelector', {
 		// grid.stopEditing();
 		var target = e.getTarget();
 
-		if(!this.ctrlState && !this.shiftState && target.className === 'x-grid-body')
+		if(!this.ctrlState && !this.shiftState && target.className === 'x-grid-view')
 		{
 			this.selModel.clearSelections();
 		}
@@ -119,8 +119,8 @@ Ext.define('Ext.ux.grid.plugin.DragSelector', {
 			return false;
 		}
 
-		// return false if any grid editor is active
-		if(this.grid.activeEditor && this.grid.activeEditor !== null)
+		// return false if any grid editor is active		
+		if(this.grid.editingPlugin && this.grid.editingPlugin.editing)
 		{
 			return false;
 		}
