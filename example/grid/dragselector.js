@@ -2,6 +2,7 @@ Ext.Loader.setConfig({
     enabled: true
 });
 Ext.Loader.setPath('Ext.ux', '../../ux');
+Ext.Loader.setPath('Ext.ux.grid', '../../ux/grid');
 Ext.Loader.setPath('Ext.ux.grid.plugin', '../../ux/grid/plugin');
 Ext.require([
     'Ext.grid.*',
@@ -10,7 +11,8 @@ Ext.require([
     'Ext.state.*',
     'Ext.form.*',
     'Ext.ux.CheckColumn',
-    'Ext.ux.grid.plugin.RowEditing'
+    'Ext.ux.grid.plugin.RowEditing',
+    'Ext.ux.grid.plugin.DragSelector'
 ]);
 
 Ext.onReady(function(){
@@ -84,10 +86,10 @@ Ext.onReady(function(){
     });
 
     var rowEditing = Ext.create('Ext.ux.grid.plugin.RowEditing', {
-    	clicksToMoveEditor: 1,
+        clicksToMoveEditor: 1,
         autoCancel: false
     });
- 
+
     // create the grid and specify what field you want
     // to use for the editor at each column.
     var grid = Ext.create('Ext.grid.Panel', {
@@ -148,6 +150,7 @@ Ext.onReady(function(){
         height: 400,
         title: 'Employee Salaries',
         frame: true,
+        multiSelect: true,
         tbar: [{
             text: 'Add Employee',
             iconCls: 'employee-add',
@@ -170,15 +173,19 @@ Ext.onReady(function(){
             itemId: 'removeEmployee',
             text: 'Remove Employee',
             iconCls: 'employee-remove',
-            handler: function() {
-                var sm = grid.getSelectionModel();
-                rowEditing.cancelEdit();
-                store.remove(sm.getSelection());
-               // sm.select(0);
+            handler: function()
+            {
+                var sm = grid.getSelectionModel().getSelection();
+
+				for( var i = 0; i < sm.length; i++)
+				{
+					//sm[i].commit();
+					store.remove(sm[i]);
+				}
             },
             disabled: true
         }],
-        plugins: [rowEditing],
+        plugins: [rowEditing, Ext.create('Ext.ux.grid.plugin.DragSelector', {})],
         listeners: {
             'selectionchange': function(view, records) {
                 grid.down('#removeEmployee').setDisabled(!records.length);
