@@ -5,31 +5,29 @@
  * 
  * @class Ext.ux.container.SwitchButtonSegment
  * @extends Ext.ux.container.ButtonSegment
- *
-*/
+ * 
+ */
 
 Ext.define('Ext.ux.container.SwitchButtonSegment', {
 	extend: 'Ext.ux.container.ButtonSegment',
 	alias: 'widget.switchbuttonsegment',
 
-    
-    activeItem: 0,
-    
-    constructor: function(config)
+	activeItem: 0,
+
+	constructor: function(config)
 	{
-    	var me = this,
-    		gId = Ext.id();
-    	
-    	me.internalDefaults = {
-    		xtype: 'button',
-    		toggleGroup: gId,
-    		clickEvent: 'mousedown',
-    		enableToggle: true,
-    		allowDepress: false
-    	};
-    	me.callParent([config]);
+		var me = this, gId = Ext.id();
+
+		me.internalDefaults = {
+			xtype: 'button',
+			toggleGroup: gId,
+			clickEvent: 'mousedown',
+			enableToggle: true,
+			allowDepress: false
+		};
+		me.callParent([ config ]);
 	},
-	
+
 	initComponent: function()
 	{
 		var me = this;
@@ -69,10 +67,10 @@ Ext.define('Ext.ux.container.SwitchButtonSegment', {
 
 	setActiveItem: function(item)
 	{
-		if(typeof(item) === 'number')
+		if(typeof (item) === 'number')
 			item = this.items.getAt(item);
-		
-		item.toggle(true);		
+
+		item.toggle(true);
 	},
 
 	onToggle: function(btn, state)
