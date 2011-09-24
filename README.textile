@@ -20,3 +20,7 @@ h2. Ext.ux.grid.plugin.DragSelector
 
 Demo: "Link":http://harrydeluxe.github.com/ext4/example/grid/dragselector.html
 Forum: "Link":http://www.sencha.com/forum/showthread.php?133150-Ext.ux.grid.plugin.DragSelector
+
+h2. Ext.ux.window.EachDialog
+
+Demo: "Link":http://harrydeluxe.github.com/ext4/example/window/eachdialog.html
