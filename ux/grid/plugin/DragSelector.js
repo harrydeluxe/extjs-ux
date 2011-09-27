@@ -20,6 +20,7 @@ Ext.define('Ext.ux.grid.plugin.DragSelector', {
 	isDragging: false,
 	scrollTopStart: 0,
 	scrollTop: 0,
+	targetDragSelector: '.dragselect',
 
 	init: function(cmp)
 	{
@@ -134,7 +135,7 @@ Ext.define('Ext.ux.grid.plugin.DragSelector', {
 		// call cancelClick
 		this.cancelClick(e);
 
-		return !this.dragSafe || e.target == this.view.el.dom;
+		return !this.dragSafe || e.target == this.view.el.dom || Ext.DomQuery.is(e.target, this.targetDragSelector);
 	},
 
 	onStart: function(e)
