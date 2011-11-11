@@ -31,3 +31,5 @@ h2. Ext.ux.aceeditor.Panel
 
 Demo (simple): "Link":http://harrydeluxe.github.com/ext4/example/aceeditor/simple.html
 Demo: "Link":http://harrydeluxe.github.com/ext4/example/aceeditor/aceeditor.html
+
+Forum: "Link":http://www.sencha.com/forum/showthread.php?154570-Ext.ux.aceeditor.Panel
