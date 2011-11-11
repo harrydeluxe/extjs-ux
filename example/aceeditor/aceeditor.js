@@ -71,7 +71,7 @@ Ext.onReady(function()
 				title: 'HTML',
 				fontSize: '14px',
 				theme: 'crimson_editor',
-				url: 'dialog.html',
+				url: 'aceeditor.html',
 				parser: 'html',
 				printMargin: true
 			} ]
