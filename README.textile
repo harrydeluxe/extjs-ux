@@ -27,4 +27,5 @@ Demo: "Link":http://harrydeluxe.github.com/ext4/example/window/eachdialog.html
 
 h2. Ext.ux.aceeditor.Panel
 
-Demo: "Link":http://harrydeluxe.github.com/ext4/example/aceeditor/simple.html
+Demo (simple): "Link":http://harrydeluxe.github.com/ext4/example/aceeditor/simple.html
+Demo: "Link":http://harrydeluxe.github.com/ext4/example/aceeditor/aceeditor.html
