@@ -1,8 +1,9 @@
 Ext.Loader.setConfig({
-	enabled: true
+	enabled: true,
+	paths: {
+		'Ext.ux.window': '../../ux/window'
+	}
 });
-
-Ext.Loader.setPath('Ext.ux.window', '../../ux/window');
 
 Ext.require([ 'Ext.ux.window.EachDialog' ]);
 

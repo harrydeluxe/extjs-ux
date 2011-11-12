@@ -1,9 +1,12 @@
 Ext.Loader.setConfig({
-    enabled: true
+    enabled: true,
+	paths: {
+		'Ext.ux': 'http://extjs.cachefly.net/ext-4.0.7-gpl/examples/ux/',
+		'Ext.ux.grid': '../../ux/grid',
+		'Ext.ux.grid.plugin': '../../ux/grid/plugin'
+	}
 });
-Ext.Loader.setPath('Ext.ux', 'http://extjs.cachefly.net/ext-4.0.2a/examples/ux/');
-Ext.Loader.setPath('Ext.ux.grid', '../../ux/grid');
-Ext.Loader.setPath('Ext.ux.grid.plugin', '../../ux/grid/plugin');
+
 Ext.require([
     'Ext.grid.*',
     'Ext.data.*',

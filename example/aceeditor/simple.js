@@ -1,8 +1,9 @@
 Ext.Loader.setConfig({
-	enabled: true
+	enabled: true,
+	paths: {
+		'Ext.ux.aceeditor': '../../ux/aceeditor'
+	}
 });
-
-Ext.Loader.setPath('Ext.ux.aceeditor', '../../ux/aceeditor');
 
 Ext.require([ 'Ext.ux.aceeditor.Panel' ]);
 

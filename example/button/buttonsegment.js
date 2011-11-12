@@ -1,8 +1,9 @@
 Ext.Loader.setConfig({
-	enabled: true
+	enabled: true,
+	paths: {
+		'Ext.ux.container': '../../ux/container'
+	}
 });
-
-Ext.Loader.setPath('Ext.ux.container', '../../ux/container');
 
 Ext.require([ 'Ext.ux.container.ButtonSegment' ]);
 
