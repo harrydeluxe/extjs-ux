@@ -1,11 +1,9 @@
 /**
- * @author Harald Hanek
- * @copyright Copyright (c) 2011 Harald Hanek
- * @license http://www.opensource.org/licenses/mit-license.php
- * 
  * @class Ext.ux.container.SwitchButtonSegment
  * @extends Ext.ux.container.ButtonSegment
  * 
+ * @author Harald Hanek (c) 2011
+ * @license MIT (http://www.opensource.org/licenses/mit-license.php)
  */
 
 Ext.define('Ext.ux.container.SwitchButtonSegment', {

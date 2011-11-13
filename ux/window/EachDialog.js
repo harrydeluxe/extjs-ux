@@ -1,9 +1,9 @@
 /**
- * Ext.ux.window.EachDialog Class
+ * @class Ext.ux.window.EachDialog
+ * @extends Ext.window.MessageBox
  * 
  * @author Harald Hanek (c) 2011
- * 
- * License: MIT (http://www.opensource.org/licenses/mit-license.php)
+ * @license MIT (http://www.opensource.org/licenses/mit-license.php)
  */
 
 Ext.define('Ext.ux.window.EachDialog', {

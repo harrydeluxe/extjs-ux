@@ -1,5 +1,6 @@
 /**
- * Ext.ux.grid.plugin DragSelector Class
+ * @class Ext.ux.grid.plugin DragSelector
+ * @extends Ext.util.Observable
  * 
  * @author Harald Hanek
  * @copyright 2011, DELACAP, all rights reserved.
@@ -10,7 +11,6 @@
  * @copyright 2007-2008, UWD GmbH, all rights reserved.
  * 
  * License details: http://www.gnu.org/licenses/lgpl.html
- * 
  */
 Ext.define('Ext.ux.grid.plugin.DragSelector', {
 	extend: 'Ext.util.Observable',

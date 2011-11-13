@@ -1,11 +1,9 @@
 /**
- * Ext.ux.aceeditor.Editor Class
- * 
+ * @class Ext.ux.aceeditor.Editor
  * @extends Ext.AbstractComponent
- * @version 1.0
  * 
- * @author Harald Hanek (c) 2011 License: MIT
- *         (http://www.opensource.org/licenses/mit-license.php)
+ * @author Harald Hanek (c) 2011
+ * @license MIT (http://www.opensource.org/licenses/mit-license.php)
  */
 
 Ext.define('Ext.ux.aceeditor.Editor', {

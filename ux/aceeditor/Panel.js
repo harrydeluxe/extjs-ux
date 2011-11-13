@@ -1,11 +1,9 @@
 /**
- * Ext.ux.aceeditor.Panel Class
- * 
+ * @class Ext.ux.aceeditor.Panel
  * @extends Ext.Panel Converts a panel into a ACE editor
- * @version 1.0
  * 
- * @author Harald Hanek (c) 2011 License: MIT
- *         (http://www.opensource.org/licenses/mit-license.php)
+ * @author Harald Hanek (c) 2011
+ * @license MIT (http://www.opensource.org/licenses/mit-license.php)
  */
 
 Ext.define('Ext.ux.aceeditor.Panel', {

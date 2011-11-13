@@ -1,14 +1,12 @@
 /**
- * Ext.ux.grid.plugin.RowEditing Class
- * 
+ * @class Ext.ux.grid.plugin.RowEditing
  * @extends Ext.grid.plugin.RowEditing
  * 
  * The Initial Developer of the Original Code is tz (atian25@qq.com)
  * @see http://www.sencha.com/forum/showthread.php?131482-Ext.ux.RowEditing-add-some-usefull-features
  * 
  * @author Harald Hanek (c) 2011
- * @version 1.0 License: MIT
- *          (http://www.opensource.org/licenses/mit-license.php)
+ * @license MIT (http://www.opensource.org/licenses/mit-license.php)
  */
 
 Ext.define('Ext.ux.grid.plugin.RowEditing', {
