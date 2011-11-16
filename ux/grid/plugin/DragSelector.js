@@ -25,31 +25,30 @@ Ext.define('Ext.ux.grid.plugin.DragSelector', {
 
 	constructor: function(config)
 	{
-        var me = this;
+		var me = this;
 
-        me.addEvents(            
-    		/**
-			 * @event dragselectorstart Fires when DragSelector starts
-			 * 
-			 * @param {Ext.ux.grid.plugin.DragSelector} this
-			 */
-    		'dragselectorstart',
-    		
-    		/**
-			 * @event dragselectorend Fires when DragSelector ends
-			 * 
-			 * @param {Ext.ux.grid.plugin.DragSelector} this
-			 */
-            'dragselectorend'
-        );
-        
-        me.callParent([config]);
-    },
-       
+		me.addEvents(
+		/**
+		 * @event dragselectorstart Fires when DragSelector starts
+		 * 
+		 * @param {Ext.ux.grid.plugin.DragSelector} this
+		 */
+		'dragselectorstart',
+
+		/**
+		 * @event dragselectorend Fires when DragSelector ends
+		 * 
+		 * @param {Ext.ux.grid.plugin.DragSelector} this
+		 */
+		'dragselectorend');
+
+		me.callParent([ config ]);
+	},
+
 	init: function(cmp)
 	{
 		var me = this;
-		
+
 		me.grid = cmp;
 		me.view = me.grid.getView();
 		me.selModel = me.view.getSelectionModel();
@@ -71,7 +70,7 @@ Ext.define('Ext.ux.grid.plugin.DragSelector', {
 	onRender: function(view)
 	{
 		var me = this;
-		
+
 		me.tracker = Ext.create('Ext.dd.DragTracker', {
 			onBeforeStart: Ext.Function.bind(me.onBeforeStart, me),
 			onStart: Ext.Function.bind(me.onStart, me),
@@ -121,11 +120,11 @@ Ext.define('Ext.ux.grid.plugin.DragSelector', {
 			rs.push(el.getRegion());
 		});
 	},
-	
+
 	/*
 	 * syncRegions: function() { this.fillRegions(); },
 	 */
-	
+
 	cancelClick: function(e)
 	{
 		this.ctrlState = e.ctrlKey;
@@ -148,7 +147,7 @@ Ext.define('Ext.ux.grid.plugin.DragSelector', {
 			return false;
 		}
 
-		// return false if any grid editor is active		
+		// return false if any grid editor is active
 		if(this.grid.editingPlugin && this.grid.editingPlugin.editing)
 		{
 			return false;
@@ -183,15 +182,13 @@ Ext.define('Ext.ux.grid.plugin.DragSelector', {
 			me.proxy.setDisplayed('block');
 		}
 		me.isDragging = true;
-		
+
 		me.fireEvent('dragselectorstart', me);
 	},
 
 	onDrag: function(e, scaleSelector)
 	{
-		var me = this,
-			startXY = me.tracker.startXY,
-			xy = me.tracker.getXY();
+		var me = this, startXY = me.tracker.startXY, xy = me.tracker.getXY();
 
 		if(xy[0] < startXY[0] && !scaleSelector)
 		{
@@ -241,15 +238,11 @@ Ext.define('Ext.ux.grid.plugin.DragSelector', {
 
 		me.proxy.setRegion(dragRegion);
 
-		var view = me.view,
-			s = me.scroller;
+		var view = me.view, s = me.scroller;
 
 		for( var i = 0; i < me.rs.length; i++)
 		{
-			var r = me.rs[i],
-				sel = dragRegion.intersect(r),
-				selected = me.selModel.isSelected(i),
-				selectedBefore = me.objectsSelected[i];
+			var r = me.rs[i], sel = dragRegion.intersect(r), selected = me.selModel.isSelected(i), selectedBefore = me.objectsSelected[i];
 
 			if(this.ctrlState)
 			{
@@ -324,9 +317,9 @@ Ext.define('Ext.ux.grid.plugin.DragSelector', {
 
 	onEnd: function(e)
 	{
-		var me = this;		
+		var me = this;
 		me.isDragging = false;
-		
+
 		if(me.proxy)
 		{
 			// this.proxy.setDisplayed(false);
@@ -335,7 +328,7 @@ Ext.define('Ext.ux.grid.plugin.DragSelector', {
 			me.proxy = null;
 		}
 		e.preventDefault();
-		
+
 		me.fireEvent('dragselectorend', me);
 	}
 });
