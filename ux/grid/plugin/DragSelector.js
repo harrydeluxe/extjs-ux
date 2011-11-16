@@ -12,6 +12,7 @@
  * 
  * License details: http://www.gnu.org/licenses/lgpl.html
  */
+
 Ext.define('Ext.ux.grid.plugin.DragSelector', {
 	extend: 'Ext.util.Observable',
 	requires: [ 'Ext.dd.DragTracker', 'Ext.util.Region', 'Ext.grid.Scroller' ],
@@ -22,18 +23,43 @@ Ext.define('Ext.ux.grid.plugin.DragSelector', {
 	scrollTop: 0,
 	targetDragSelector: '.dragselect',
 
+	constructor: function(config)
+	{
+        var me = this;
+
+        me.addEvents(            
+    		/**
+			 * @event dragselectorstart Fires when DragSelector starts
+			 * 
+			 * @param {Ext.ux.grid.plugin.DragSelector} this
+			 */
+    		'dragselectorstart',
+    		
+    		/**
+			 * @event dragselectorend Fires when DragSelector ends
+			 * 
+			 * @param {Ext.ux.grid.plugin.DragSelector} this
+			 */
+            'dragselectorend'
+        );
+        
+        me.callParent([config]);
+    },
+       
 	init: function(cmp)
 	{
-		this.grid = cmp;
-		this.view = this.grid.getView();
-		this.selModel = this.view.getSelectionModel();
+		var me = this;
+		
+		me.grid = cmp;
+		me.view = me.grid.getView();
+		me.selModel = me.view.getSelectionModel();
 
-		this.mon(this.view, 'render', this.onRender, this);
-		this.mon(this.view, 'bodyscroll', this.syncScroll, this);
+		me.mon(me.view, 'render', me.onRender, me);
+		me.mon(me.view, 'bodyscroll', me.syncScroll, me);
 
-		if(!this.grid.verticalScroller)
+		if(!me.grid.verticalScroller)
 		{
-			Ext.apply(this.grid, {
+			Ext.apply(me.grid, {
 				verticalScroller: {
 					xtype: 'gridscroller',
 					activePrefetch: false
@@ -44,15 +70,17 @@ Ext.define('Ext.ux.grid.plugin.DragSelector', {
 
 	onRender: function(view)
 	{
-		this.tracker = Ext.create('Ext.dd.DragTracker', {
-			onBeforeStart: Ext.Function.bind(this.onBeforeStart, this),
-			onStart: Ext.Function.bind(this.onStart, this),
-			onDrag: Ext.Function.bind(this.onDrag, this),
-			onEnd: Ext.Function.bind(this.onEnd, this)
+		var me = this;
+		
+		me.tracker = Ext.create('Ext.dd.DragTracker', {
+			onBeforeStart: Ext.Function.bind(me.onBeforeStart, me),
+			onStart: Ext.Function.bind(me.onStart, me),
+			onDrag: Ext.Function.bind(me.onDrag, me),
+			onEnd: Ext.Function.bind(me.onEnd, me)
 		});
 
-		this.tracker.initEl(view.el);
-		this.scroller = view.el;
+		me.tracker.initEl(view.el);
+		me.scroller = view.el;
 	},
 
 	syncScroll: function(e)
@@ -140,19 +168,23 @@ Ext.define('Ext.ux.grid.plugin.DragSelector', {
 
 	onStart: function(e)
 	{
-		this.scrollTopStart = this.scroller.getScroll().top;
-		this.fillAllRegions();
-		if(!this.proxy)
+		var me = this;
+
+		me.scrollTopStart = me.scroller.getScroll().top;
+		me.fillAllRegions();
+		if(!me.proxy)
 		{
-			this.proxy = this.view.el.createChild({
+			me.proxy = me.view.el.createChild({
 				cls: 'x-view-selector'
 			});
 		}
 		else
 		{
-			this.proxy.setDisplayed('block');
+			me.proxy.setDisplayed('block');
 		}
-		this.isDragging = true;
+		me.isDragging = true;
+		
+		me.fireEvent('dragselectorstart', me);
 	},
 
 	onDrag: function(e, scaleSelector)
@@ -292,8 +324,9 @@ Ext.define('Ext.ux.grid.plugin.DragSelector', {
 
 	onEnd: function(e)
 	{
-		var me = this;
+		var me = this;		
 		me.isDragging = false;
+		
 		if(me.proxy)
 		{
 			// this.proxy.setDisplayed(false);
@@ -302,5 +335,7 @@ Ext.define('Ext.ux.grid.plugin.DragSelector', {
 			me.proxy = null;
 		}
 		e.preventDefault();
+		
+		me.fireEvent('dragselectorend', me);
 	}
 });
