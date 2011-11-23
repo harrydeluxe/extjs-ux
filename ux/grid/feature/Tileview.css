@@ -1,0 +1,32 @@
+.x-grid-view
+{
+	overflow-y: scroll;
+}
+
+.x-grid-table.tileview .x-grid-row-alt
+{
+	background-color: transparent;
+}
+
+.x-grid-table.tileview .x-grid-row-table
+{
+	table-layout: fixed;
+}
+
+.x-grid-table.tileview .x-grid-row
+{
+	float: left;
+	margin: 8px 0 0 8px;
+	display: inline-block;
+}
+
+.x-grid-table.tileview .x-grid-cell
+{
+	border: none;
+	background: transparent;
+}
+
+.x-grid-table.tileview .x-grid-col
+{
+	border: none;
+}
