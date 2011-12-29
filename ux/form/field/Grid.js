@@ -1,9 +1,6 @@
 /**
  * @class Ext.ux.form.field.Grid
  * 
- * The Initial Developer of the Original Code is tz (atian25@qq.com)
- * @see http://www.sencha.com/forum/showthread.php?131482-Ext.ux.RowEditing-add-some-usefull-features
- * 
  * @author Harald Hanek (c) 2011
  * @license MIT (http://www.opensource.org/licenses/mit-license.php)
  */
