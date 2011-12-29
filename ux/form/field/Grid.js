@@ -64,7 +64,7 @@ Ext.define('Ext.ux.form.field.Grid', {
 
 		me.store.removeAll();
 
-		me.setValue(me.originalValue);
+		//me.setValue(me.originalValue);
 		me.clearInvalid();
 		// delete here so we reset back to the original state
 		delete me.wasValid;
