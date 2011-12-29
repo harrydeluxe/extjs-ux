@@ -1,0 +1,19 @@
+{
+	"success": true,
+	"data":{
+		'firstName': 'Ed',
+		'lastName': 'Spencer',
+		'company': 'Ext JS',
+		'email': 'info@sencha.com',
+		"phonenumbers": [{
+			type: "Home",
+			number: "(889) 333-4343",
+			active: true
+		},{
+			type: "Business",
+			number: "(888) 555-1212",
+			active: true
+		}]
+	}
+}
+
