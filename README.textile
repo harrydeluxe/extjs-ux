@@ -24,6 +24,8 @@ Forum: "Link":http://www.sencha.com/forum/showthread.php?133150-Ext.ux.grid.plug
 
 h2. Ext.ux.window.EachDialog
 
+!http://harrydeluxe.github.com/ext4/img/eachdialog.jpg!
+
 Demo: "Link":http://harrydeluxe.github.com/ext4/example/window/eachdialog.html
 
 h2. Ext.ux.aceeditor.Panel
@@ -36,5 +38,7 @@ Demo: "Link":http://harrydeluxe.github.com/ext4/example/aceeditor/aceeditor.html
 Forum: "Link":http://www.sencha.com/forum/showthread.php?154570-Ext.ux.aceeditor.Panel
 
 h2. Ext.ux.form.field.Grid
+
+!http://harrydeluxe.github.com/ext4/img/gridform.jpg!
 
 Demo: "Link":http://harrydeluxe.github.com/ext4/example/form/grid.html
