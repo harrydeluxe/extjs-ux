@@ -34,3 +34,7 @@ Demo (simple): "Link":http://harrydeluxe.github.com/ext4/example/aceeditor/simpl
 Demo: "Link":http://harrydeluxe.github.com/ext4/example/aceeditor/aceeditor.html
 
 Forum: "Link":http://www.sencha.com/forum/showthread.php?154570-Ext.ux.aceeditor.Panel
+
+h2. Ext.ux.form.field.Grid
+
+Demo: "Link":http://harrydeluxe.github.com/ext4/example/form/grid.html

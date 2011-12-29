@@ -188,6 +188,7 @@ Ext.onReady(function()
 			handler: function()
 			{
 				formPanel.getForm().load({
+					method: 'get',
 					url: 'grid.json',
 					waitMsg: 'Loading...'
 				});
