@@ -74,7 +74,7 @@ Ext.onReady(function()
 				allowBlank: false,
 				forceSelection: true,
 				triggerAction: 'all',
-				store: [ 'Home', 'Bussines', 'Mobile', 'Fax' ],
+				store: [ 'Home', 'Business', 'Mobile', 'Fax' ],
 				queryMode: 'local',
 				lazyRender: true,
 				listClass: 'x-combo-list-small'
