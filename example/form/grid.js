@@ -32,7 +32,16 @@ Ext.onReady(function()
 
 	Ext.define('Ext.Rudi.grid.Panel', {
 		extend: 'Ext.grid.Panel',
-		mixins: [ 'Ext.ux.form.field.Grid' ]
+		mixins: [ 'Ext.ux.form.field.Grid' ],
+		initComponent: function()
+		{
+			var me = this;
+			
+			me.callParent(arguments);
+			
+			// Init mixins
+			me.initField();
+		}
 	});
 
 	var grid = Ext.create('Ext.Rudi.grid.Panel', {
