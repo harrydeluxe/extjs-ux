@@ -11,62 +11,60 @@ Ext.define('Ext.ux.form.field.Grid', {
 		field: 'Ext.form.field.Field'
 	},
 
-	initField: function() {
+	initField: function()
+	{
 		var me = this;
-		
+
 		me.addEvents(
-            /**
-             * @event change
-             * Fires when a user-initiated change is detected in the value of the field.
-             * @param {Ext.form.field.Field} this
-             * @param {Object} newValue The new value
-             * @param {Object} oldValue The original value
-             */
-            'change',
-            /**
-             * @event validitychange
-             * Fires when a change in the field's validity is detected.
-             * @param {Ext.form.field.Field} this
-             * @param {Boolean} isValid Whether or not the field is now valid
-             */
-            'validitychange',
-            /**
-             * @event dirtychange
-             * Fires when a change in the field's {@link #isDirty} state is detected.
-             * @param {Ext.form.field.Field} this
-             * @param {Boolean} isDirty Whether or not the field is now dirty
-             */
-            'dirtychange'
-        );
-		
+		/**
+		 * @event change Fires when a user-initiated change is detected in the
+		 *        value of the field.
+		 * @param {Ext.form.field.Field} this
+		 * @param {Object} newValue The new value
+		 * @param {Object} oldValue The original value
+		 */
+		'change',
+		/**
+		 * @event validitychange Fires when a change in the field's validity is
+		 *        detected.
+		 * @param {Ext.form.field.Field} this
+		 * @param {Boolean} isValid Whether or not the field is now valid
+		 */
+		'validitychange',
+		/**
+		 * @event dirtychange Fires when a change in the field's
+		 *        {@link #isDirty} state is detected.
+		 * @param {Ext.form.field.Field} this
+		 * @param {Boolean} isDirty Whether or not the field is now dirty
+		 */
+		'dirtychange');
+
 		me.initValue();
-		
+
 		me.store.addListener('add', me.checkDirty, me);
 		me.store.addListener('update', me.checkDirty, me);
 		me.store.addListener('remove', me.checkDirty, me);
-    },
+	},
 
-    
-    isDirty : function() {
-        var me = this;
-        return !me.disabled && !me.isEqual(Ext.encode(me.getValue()), Ext.encode(me.originalValue));
-    },
-    
-    
+	isDirty: function()
+	{
+		var me = this;
+		return !me.disabled && !me.isEqual(Ext.encode(me.getValue()), Ext.encode(me.originalValue));
+	},
+
 	setValue: function(value)
 	{
 		var me = this;
 
 		if(value === null || value === undefined)
 		{
-            value = [];
-        }
+			value = [];
+		}
 		me.store.loadData(value);
 		me.value = value;
 		me.checkChange();
 		return me;
 	},
-
 
 	getSubmitData: function()
 	{
@@ -79,14 +77,12 @@ Ext.define('Ext.ux.form.field.Grid', {
 		return data;
 	},
 
-	
 	getValue: function()
 	{
 		var me = this;
 		return me.getData();
 	},
 
-	
 	getData: function()
 	{
 		var me = this, data = [], i, r, key;
@@ -105,7 +101,6 @@ Ext.define('Ext.ux.form.field.Grid', {
 		return data;
 	},
 
-	
 	reset: function()
 	{
 		var me = this;
