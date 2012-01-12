@@ -1,1 +1,444 @@
-(function(){if(window.google&&google.gears){return}var a=null;if(typeof GearsFactory!="undefined"){a=new GearsFactory()}else{try{a=new ActiveXObject("Gears.Factory");if(a.getBuildInfo().indexOf("ie_mobile")!=-1){a.privateSetGlobalObject(this)}}catch(b){if((typeof navigator.mimeTypes!="undefined")&&navigator.mimeTypes["application/x-googlegears"]){a=document.createElement("object");a.style.display="none";a.width=0;a.height=0;a.type="application/x-googlegears";document.documentElement.appendChild(a)}}}if(!a){return}if(!window.google){window.google={}}if(!google.gears){google.gears={factory:a}}})();(function(e,b,c,d){var f={};function a(h,j,l){var g,i,k,n;i=google.gears.factory.create("beta.canvas");try{i.decode(h);if(!j.width){j.width=i.width}if(!j.height){j.height=i.height}n=Math.min(width/i.width,height/i.height);if(n<1||(n===1&&l==="image/jpeg")){i.resize(Math.round(i.width*n),Math.round(i.height*n));if(j.quality){return i.encode(l,{quality:j.quality/100})}return i.encode(l)}}catch(m){}return h}c.runtimes.Gears=c.addRuntime("gears",{getFeatures:function(){return{dragdrop:true,jpgresize:true,pngresize:true,chunks:true,progress:true,multipart:true,multi_selection:true}},init:function(i,k){var j;if(!e.google||!google.gears){return k({success:false})}try{j=google.gears.factory.create("beta.desktop")}catch(h){return k({success:false})}function g(n){var m,l,o=[],p;for(l=0;l<n.length;l++){m=n[l];p=c.guid();f[p]=m.blob;o.push(new c.File(p,m.name,m.blob.length))}i.trigger("FilesAdded",o)}i.bind("PostInit",function(){var m=i.settings,l=b.getElementById(m.drop_element);if(l){c.addEvent(l,"dragover",function(n){j.setDropEffect(n,"copy");n.preventDefault()},i.id);c.addEvent(l,"drop",function(o){var n=j.getDragData(o,"application/x-gears-files");if(n){g(n.files)}o.preventDefault()},i.id);l=0}c.addEvent(b.getElementById(m.browse_button),"click",function(r){var q=[],o,n,p;r.preventDefault();no_type_restriction:for(o=0;o<m.filters.length;o++){p=m.filters[o].extensions.split(",");for(n=0;n<p.length;n++){if(p[n]==="*"){q=[];break no_type_restriction}q.push("."+p[n])}}j.openFiles(g,{singleFile:!m.multi_selection,filter:q})},i.id)});i.bind("UploadFile",function(r,o){var t=0,s,p,q=0,n=r.settings.resize,l;if(n&&/\.(png|jpg|jpeg)$/i.test(o.name)){f[o.id]=a(f[o.id],n,/\.png$/i.test(o.name)?"image/png":"image/jpeg")}o.size=f[o.id].length;p=r.settings.chunk_size;l=p>0;s=Math.ceil(o.size/p);if(!l){p=o.size;s=1}function m(){var y,A,v=r.settings.multipart,u=0,z={name:o.target_name||o.name},w=r.settings.url;function x(C){var B,H="----pluploadboundary"+c.guid(),E="--",G="\r\n",D,F;if(v){y.setRequestHeader("Content-Type","multipart/form-data; boundary="+H);B=google.gears.factory.create("beta.blobbuilder");c.each(c.extend(z,r.settings.multipart_params),function(J,I){B.append(E+H+G+'Content-Disposition: form-data; name="'+I+'"'+G+G);B.append(J+G)});F=c.mimeTypes[o.name.replace(/^.+\.([^.]+)/,"$1").toLowerCase()]||"application/octet-stream";B.append(E+H+G+'Content-Disposition: form-data; name="'+r.settings.file_data_name+'"; filename="'+o.name+'"'+G+"Content-Type: "+F+G+G);B.append(C);B.append(G+E+H+E+G);D=B.getAsBlob();u=D.length-C.length;C=D}y.send(C)}if(o.status==c.DONE||o.status==c.FAILED||r.state==c.STOPPED){return}if(l){z.chunk=t;z.chunks=s}A=Math.min(p,o.size-(t*p));if(!v){w=c.buildUrl(r.settings.url,z)}y=google.gears.factory.create("beta.httprequest");y.open("POST",w);if(!v){y.setRequestHeader("Content-Disposition",'attachment; filename="'+o.name+'"');y.setRequestHeader("Content-Type","application/octet-stream")}c.each(r.settings.headers,function(C,B){y.setRequestHeader(B,C)});y.upload.onprogress=function(B){o.loaded=q+B.loaded-u;r.trigger("UploadProgress",o)};y.onreadystatechange=function(){var B;if(y.readyState==4){if(y.status==200){B={chunk:t,chunks:s,response:y.responseText,status:y.status};r.trigger("ChunkUploaded",o,B);if(B.cancelled){o.status=c.FAILED;return}q+=A;if(++t>=s){o.status=c.DONE;r.trigger("FileUploaded",o,{response:y.responseText,status:y.status})}else{m()}}else{r.trigger("Error",{code:c.HTTP_ERROR,message:c.translate("HTTP Error."),file:o,chunk:t,chunks:s,status:y.status})}}};if(t<s){x(f[o.id].slice(t*p,A))}}m()});i.bind("Destroy",function(l){var m,n,o={browseButton:l.settings.browse_button,dropElm:l.settings.drop_element};for(m in o){n=b.getElementById(o[m]);if(n){c.removeAllEvents(n,l.id)}}});k({success:true})}})})(window,document,plupload);
+/**
+ * plupload.gears.js
+ *
+ * Copyright 2009, Moxiecode Systems AB
+ * Released under GPL License.
+ *
+ * License: http://www.plupload.com/license
+ * Contributing: http://www.plupload.com/contributing
+ */
+
+// JSLint defined globals
+/*global window:false, document:false, plupload:false, google:false, GearsFactory:false, ActiveXObject:false */
+
+// Copyright 2007, Google Inc.
+//
+// Redistribution and use in source and binary forms, with or without
+// modification, are permitted provided that the following conditions are met:
+//
+//  1. Redistributions of source code must retain the above copyright notice,
+//     this list of conditions and the following disclaimer.
+//  2. Redistributions in binary form must reproduce the above copyright notice,
+//     this list of conditions and the following disclaimer in the documentation
+//     and/or other materials provided with the distribution.
+//  3. Neither the name of Google Inc. nor the names of its contributors may be
+//     used to endorse or promote products derived from this software without
+//     specific prior written permission.
+//
+// THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED
+// WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+// MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
+// EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+// SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+// PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+// OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+// WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+// OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+// ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+//
+// Sets up google.gears.*, which is *the only* supported way to access Gears.
+//
+// Circumvent this file at your own risk!
+//
+// In the future, Gears may automatically define google.gears.* without this
+// file. Gears may use these objects to transparently fix bugs and compatibility
+// issues. Applications that use the code below will continue to work seamlessly
+// when that happens.
+
+(function() {
+  // We are already defined. Hooray!
+  if (window.google && google.gears) {
+    return;
+  }
+
+  var factory = null;
+
+  // Firefox
+  if (typeof GearsFactory != 'undefined') {
+    factory = new GearsFactory();
+  } else {
+    // IE
+    try {
+      factory = new ActiveXObject('Gears.Factory');
+      // privateSetGlobalObject is only required and supported on WinCE.
+      if (factory.getBuildInfo().indexOf('ie_mobile') != -1) {
+        factory.privateSetGlobalObject(this);
+      }
+    } catch (e) {
+      // Safari
+      if ((typeof navigator.mimeTypes != 'undefined') && navigator.mimeTypes["application/x-googlegears"]) {
+        factory = document.createElement("object");
+        factory.style.display = "none";
+        factory.width = 0;
+        factory.height = 0;
+        factory.type = "application/x-googlegears";
+        document.documentElement.appendChild(factory);
+      }
+    }
+  }
+
+  // *Do not* define any objects if Gears is not installed. This mimics the
+  // behavior of Gears defining the objects in the future.
+  if (!factory) {
+    return;
+  }
+
+  // Now set up the objects, being careful not to overwrite anything.
+  //
+  // Note: In Internet Explorer for Windows Mobile, you can't add properties to
+  // the window object. However, global objects are automatically added as
+  // properties of the window object in all browsers.
+  if (!window.google) {
+    window.google = {};
+  }
+
+  if (!google.gears) {
+    google.gears = {factory: factory};
+  }
+})();
+
+(function(window, document, plupload, undef) {
+	var blobs = {};
+
+	function scaleImage(image_blob, resize, mime) {
+		var percentage, canvas, context, scale;
+
+		// Setup canvas and scale
+		canvas = google.gears.factory.create('beta.canvas');
+		try {
+			canvas.decode(image_blob);
+			
+			if (!resize['width']) {
+				resize['width'] = canvas.width;
+			}
+			
+			if (!resize['height']) {
+				resize['height'] = canvas.height;	
+			}
+			
+			scale = Math.min(width / canvas.width, height / canvas.height);
+
+			if (scale < 1 || (scale === 1 && mime === 'image/jpeg')) {
+				canvas.resize(Math.round(canvas.width * scale), Math.round(canvas.height * scale));
+				
+				if (resize['quality']) {
+					return canvas.encode(mime, {quality : resize.quality / 100});
+				}
+
+				return canvas.encode(mime);
+			}
+		} catch (e) {
+			// Ignore for example when a user uploads a file that can't be decoded
+		}
+
+		return image_blob;
+	}
+
+	/**
+	 * Gears implementation. This runtime supports these features: dragdrop, jpgresize, pngresize, chunks.
+	 *
+	 * @static
+	 * @class plupload.runtimes.Gears
+	 * @extends plupload.Runtime
+	 */
+	plupload.runtimes.Gears = plupload.addRuntime("gears", {
+		/**
+		 * Returns a list of supported features for the runtime.
+		 *
+		 * @return {Object} Name/value object with supported features.
+		 */
+		getFeatures : function() {
+			return {
+				dragdrop: true,
+				jpgresize: true,
+				pngresize: true,
+				chunks: true,
+				progress: true,
+				multipart: true,
+				multi_selection: true
+			};
+		},
+
+		/**
+		 * Initializes the upload runtime.
+		 *
+		 * @method init
+		 * @param {plupload.Uploader} uploader Uploader instance that needs to be initialized.
+		 * @param {function} callback Callback to execute when the runtime initializes or fails to initialize. If it succeeds an object with a parameter name success will be set to true.
+		 */
+		init : function(uploader, callback) {
+			var desktop, req, disabled = false;
+
+			// Check for gears support
+			if (!window.google || !google.gears) {
+				return callback({success : false});
+			}
+
+			try {
+				desktop = google.gears.factory.create('beta.desktop');
+			} catch (e) {
+				// Might fail on the latest Gecko build for some odd reason
+				return callback({success : false});
+			}
+
+			function addSelectedFiles(selected_files) {
+				var file, i, files = [], id;
+
+				// Add the selected files to the file queue
+				for (i = 0; i < selected_files.length; i++) {
+					file = selected_files[i];
+
+					// Store away gears blob internally
+					id = plupload.guid();
+					blobs[id] = file.blob;
+
+					files.push(new plupload.File(id, file.name, file.blob.length));
+				}
+
+				// Fire FilesAdded event
+				uploader.trigger("FilesAdded", files);
+			}
+
+			// Add drop handler
+			uploader.bind("PostInit", function() {
+				var settings = uploader.settings, dropElm = document.getElementById(settings.drop_element);
+
+				if (dropElm) {
+					// Block browser default drag over
+					plupload.addEvent(dropElm, 'dragover', function(e) {
+						desktop.setDropEffect(e, 'copy');
+						e.preventDefault();
+					}, uploader.id);
+
+					// Attach drop handler and grab files from Gears
+					plupload.addEvent(dropElm, 'drop', function(e) {
+						var dragData = desktop.getDragData(e, 'application/x-gears-files');
+
+						if (dragData) {
+							addSelectedFiles(dragData.files);
+						}
+
+						e.preventDefault();
+					}, uploader.id);
+
+					// Prevent IE leak
+					dropElm = 0;
+				}
+
+				// Add browse button
+				plupload.addEvent(document.getElementById(settings.browse_button), 'click', function(e) {
+					var filters = [], i, a, ext;
+
+					e.preventDefault();
+					
+					if (disabled) {
+						return;	
+					}
+					
+					no_type_restriction:
+					for (i = 0; i < settings.filters.length; i++) {
+						ext = settings.filters[i].extensions.split(',');
+
+						for (a = 0; a < ext.length; a++) {
+							if (ext[a] === '*') {
+								filters = [];
+								break no_type_restriction;
+							}
+							
+							filters.push('.' + ext[a]);
+						}
+					}
+
+					desktop.openFiles(addSelectedFiles, {singleFile : !settings.multi_selection, filter : filters});
+				}, uploader.id);
+			});
+			
+			
+			uploader.bind("CancelUpload", function() {
+				if (req.abort) {
+					req.abort();	
+				}
+			});
+			
+
+			uploader.bind("UploadFile", function(up, file) {
+				var chunk = 0, chunks, chunkSize, loaded = 0, resize = up.settings.resize, chunking;
+
+				// If file is png or jpeg and resize is configured then resize it
+				if (resize && /\.(png|jpg|jpeg)$/i.test(file.name)) {
+					blobs[file.id] = scaleImage(blobs[file.id], resize, /\.png$/i.test(file.name) ? 'image/png' : 'image/jpeg');
+				}
+
+				file.size = blobs[file.id].length;
+
+				chunkSize = up.settings.chunk_size;
+				chunking = chunkSize > 0;
+				chunks = Math.ceil(file.size / chunkSize);
+
+				// If chunking is disabled then upload the whole file in one huge chunk
+				if (!chunking) {
+					chunkSize = file.size;
+					chunks = 1;
+				}
+
+				function uploadNextChunk() {
+					var curChunkSize, multipart = up.settings.multipart, multipartLength = 0, reqArgs = {name : file.target_name || file.name}, url = up.settings.url;
+
+					// Sends the binary blob multipart encoded or raw depending on config
+					function sendBinaryBlob(blob) {
+						var builder, boundary = '----pluploadboundary' + plupload.guid(), dashdash = '--', crlf = '\r\n', multipartBlob, mimeType;
+
+						// Build multipart request
+						if (multipart) {
+							req.setRequestHeader('Content-Type', 'multipart/form-data; boundary=' + boundary);
+							builder = google.gears.factory.create('beta.blobbuilder');
+
+							// Append mutlipart parameters
+							plupload.each(plupload.extend(reqArgs, up.settings.multipart_params), function(value, name) {
+								builder.append(
+									dashdash + boundary + crlf +
+									'Content-Disposition: form-data; name="' + name + '"' + crlf + crlf
+								);
+
+								builder.append(value + crlf);
+							});
+
+							mimeType = plupload.mimeTypes[file.name.replace(/^.+\.([^.]+)/, '$1').toLowerCase()] || 'application/octet-stream';
+
+							// Add file header
+							builder.append(
+								dashdash + boundary + crlf +
+								'Content-Disposition: form-data; name="' + up.settings.file_data_name + '"; filename="' + file.name + '"' + crlf +
+								'Content-Type: ' + mimeType + crlf + crlf
+							);
+
+							// Add file data
+							builder.append(blob);
+
+							// Add footer
+							builder.append(crlf + dashdash + boundary + dashdash + crlf);
+							multipartBlob = builder.getAsBlob();
+							multipartLength = multipartBlob.length - blob.length;
+							blob = multipartBlob;
+						}
+
+						// Send blob or multipart blob depending on config
+						req.send(blob);
+					}
+
+					// File upload finished
+					if (file.status == plupload.DONE || file.status == plupload.FAILED || up.state == plupload.STOPPED) {
+						return;
+					}
+
+					// Only add chunking args if needed
+					if (chunking) {
+						reqArgs.chunk = chunk;
+						reqArgs.chunks = chunks;
+					}
+
+					// Setup current chunk size
+					curChunkSize = Math.min(chunkSize, file.size - (chunk  * chunkSize));
+
+					if (!multipart) {
+						url = plupload.buildUrl(up.settings.url, reqArgs);
+					}
+
+					req = google.gears.factory.create('beta.httprequest');
+					req.open('POST', url);
+
+					// Add disposition and type if multipart is disabled
+					if (!multipart) {
+						req.setRequestHeader('Content-Disposition', 'attachment; filename="' + file.name + '"');
+						req.setRequestHeader('Content-Type', 'application/octet-stream');
+					}
+
+					// Set custom headers
+					plupload.each(up.settings.headers, function(value, name) {
+						req.setRequestHeader(name, value);
+					});
+
+					req.upload.onprogress = function(progress) {
+						file.loaded = loaded + progress.loaded - multipartLength;
+						up.trigger('UploadProgress', file);
+					};
+
+					req.onreadystatechange = function() {
+						var chunkArgs;
+
+						if (req.readyState == 4) {
+							if (req.status == 200) {
+								chunkArgs = {
+									chunk : chunk,
+									chunks : chunks,
+									response : req.responseText,
+									status : req.status
+								};
+
+								up.trigger('ChunkUploaded', file, chunkArgs);
+
+								// Stop upload
+								if (chunkArgs.cancelled) {
+									file.status = plupload.FAILED;
+									return;
+								}
+
+								loaded += curChunkSize;
+
+								if (++chunk >= chunks) {
+									file.status = plupload.DONE;
+									up.trigger('FileUploaded', file, {
+										response : req.responseText,
+										status : req.status
+									});
+								} else {
+									uploadNextChunk();
+								}
+							} else {
+								up.trigger('Error', {
+									code : plupload.HTTP_ERROR,
+									message : plupload.translate('HTTP Error.'),
+									file : file,
+									chunk : chunk,
+									chunks : chunks,
+									status : req.status
+								});
+							}
+						}
+					};
+
+					if (chunk < chunks) {
+						sendBinaryBlob(blobs[file.id].slice(chunk * chunkSize, curChunkSize));
+					}
+				}
+
+				// Start uploading chunks
+				uploadNextChunk();
+			});
+			
+			uploader.bind("DisableBrowse", function(up, state) {
+				disabled = state;
+			});
+			
+			
+			uploader.bind("Destroy", function(up) {
+				var name, element,
+					elements = {		
+						browseButton:	up.settings.browse_button, 
+						dropElm:		up.settings.drop_element	
+					};
+				
+				// Unbind event handlers
+				for (name in elements) {
+					element = document.getElementById(elements[name]);
+					if (element) {
+						plupload.removeAllEvents(element, up.id);
+					}
+				}
+			});
+			
+
+			callback({success : true});
+		}
+	});
+})(window, document, plupload);
