@@ -16,14 +16,20 @@ Ext.define('Ext.ux.form.field.TinyMCE', {
 	},
 	alternateClassName: [ 'Ext.form.TinyMCE' ],
 	alias: 'widget.tinymcefield',
-
-	fieldSubTpl: [ '<textarea id="{id}" ', '<tpl if="name">name="{name}" </tpl>', 'tabIndex="-1" ',
-			'class="{fieldCls}" autocomplete="off" />', '</textarea>', {
-				compiled: true,
-				disableFormats: true
-			} ],
-
+	
+	fieldSubTpl: [ '<textarea id="{id}" ',
+	               '<tpl if="name">name="{name}" </tpl>',
+	               'tabIndex="-1" ',
+	               'class="{fieldCls}" autocomplete="off" />',
+	               '</textarea>',
+	               {
+					compiled: true,
+					disableFormats: true
+	               }
+		],
+		
 	hideMode: 'offsets',
+	
 	fieldCls: Ext.baseCSSPrefix + 'tinymce-field',
 
 	constructor: function(config)
@@ -62,8 +68,6 @@ Ext.define('Ext.ux.form.field.TinyMCE', {
 	initComponent: function()
 	{
 		var me = this;
-
-		// Add events?
 
 		me.callParent(arguments);
 

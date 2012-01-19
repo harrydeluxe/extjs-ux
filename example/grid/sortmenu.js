@@ -201,4 +201,56 @@ Ext.onReady(function(){
             }
         }
     });
+    
+    var sortmenu2 = Ext.create('Ext.ux.grid.plugin.SortMenu', {
+		sortAscText: 'Ascending',
+		sortDescText: 'Descending'
+	});
+    
+    Ext.create('Ext.grid.Panel', {
+    	hideHeaders: true,
+    	renderTo: 'editor-grid2',
+    	width: 600,
+    	height: 300,
+    	title: 'Grid without Headers',
+    	frame: true,
+    	store: Ext.create('Ext.data.Store', {
+            model: 'Employee',
+            proxy: {
+                type: 'memory'
+            },
+            data: data,
+            sorters: [{
+                property: 'start',
+                direction: 'ASC'
+            }]
+        }),
+        columns: [{
+            header: 'Name',
+            dataIndex: 'name',
+            flex: 1
+        }, {
+            header: 'Email',
+            dataIndex: 'email',
+            width: 160
+        }, {
+            xtype: 'datecolumn',
+            header: 'Start Date',
+            dataIndex: 'start',
+            width: 90
+        }, {
+            xtype: 'numbercolumn',
+            header: 'Salary',
+            dataIndex: 'salary',
+            format: '$0,0',
+            width: 90
+        }, {
+            xtype: 'checkcolumn',
+            header: 'Active?',
+            dataIndex: 'active',
+            width: 60
+        }],
+        tbar: ['->', sortmenu2],
+        plugins: [sortmenu2]
+    });
 });
