@@ -36,6 +36,7 @@ h2. Ext.ux.grid.plugin.SortMenu
 !http://harrydeluxe.github.com/ext4/img/sortmenu.jpg!
 
 Demo: "Link":http://harrydeluxe.github.com/ext4/example/grid/sortmenu.html
+Forum: "Link":http://www.sencha.com/forum/showthread.php?175287-Ext.ux.grid.plugin.SortMenu
 
 h2. Ext.ux.window.EachDialog
 
