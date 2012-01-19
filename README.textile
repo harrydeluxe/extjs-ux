@@ -43,6 +43,12 @@ h2. Ext.ux.window.EachDialog
 
 Demo: "Link":http://harrydeluxe.github.com/ext4/example/window/eachdialog.html
 
+h2. Ext.ux.form.field.TinyMCE
+
+!http://harrydeluxe.github.com/ext4/img/tinymce.jpg!
+
+Demo: "Link":http://harrydeluxe.github.com/ext4/example/form/tinymce.html
+
 h2. Ext.ux.form.field.Grid
 
 !http://harrydeluxe.github.com/ext4/img/gridform.jpg!
