@@ -1,0 +1,11 @@
+{
+	"success": true,
+	"data":{
+		'firstName': 'Ed',
+		'lastName': 'Spencer',
+		'company': 'Ext JS',
+		'email': 'info@sencha.com',
+		'bio': 'plays guitar'
+	}
+}
+
