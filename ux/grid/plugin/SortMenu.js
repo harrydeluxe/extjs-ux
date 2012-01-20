@@ -23,6 +23,7 @@ Ext.define('Ext.ux.grid.plugin.SortMenu', {
 	{
 		var me = this;
 		
+		me.groupid = Ext.id(me);		
 		me.sortmenu = Ext.create('Ext.menu.Menu', {items: [{text: ''}]});
 		me.sortmenu.on('beforeshow', me.createMenu, me);
 		
@@ -92,7 +93,7 @@ Ext.define('Ext.ux.grid.plugin.SortMenu', {
 				
 				me.sortmenu.add({
 					text: column.text,
-					group: 'sortproperty',
+					group: 'sortproperty_' + me.groupid,
 					handler: function(){
 						me.sortBtn = column;
 						column.setSortState(me.sortState);
@@ -111,7 +112,7 @@ Ext.define('Ext.ux.grid.plugin.SortMenu', {
 				{
 					text: me.sortAscText || me.grid.view.headerCt.sortAscText,
 					checked: (me.sortState == "ASC") ? true : false,
-					group: 'sortdirection',
+					group: 'sortdirection_' + me.groupid,
 					handler: me.setSortDirection,
 					scope: me,
 					sortDirection: "ASC"
@@ -119,7 +120,7 @@ Ext.define('Ext.ux.grid.plugin.SortMenu', {
 				{
 					text: me.sortDescText || me.grid.view.headerCt.sortDescText,
 					checked: (me.sortState == "DESC") ? true : false,
-					group: 'sortdirection',
+					group: 'sortdirection_' + me.groupid,
 					handler: me.setSortDirection,
 					scope: me,
 					sortDirection: "DESC"
