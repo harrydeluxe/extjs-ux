@@ -14,10 +14,9 @@ Ext.onReady(function()
 	var formPanel = Ext.create('Ext.form.Panel', {
 		renderTo: 'editor-grid',
 		title: 'Multi Column, Nested Layouts, Anchoring and TinyMCE field',
-		frame:true,
+		frame: true,
 		bodyStyle: 'padding:5px 5px 0',
 		width: 600,
-		height: 420,
 
 		items: [ {
 			xtype: 'fieldset',
@@ -66,12 +65,12 @@ Ext.onReady(function()
 				} ]
 			} ]
 		},
-
 		{
 			xtype: 'tinymcefield',
 			name: 'bio',
 			fieldLabel: 'Biography',
-			height: 200,
+			//height: 200,
+			anchor: '100%',
 			tinymceConfig: {
 				theme_advanced_buttons1: 'fullscreen,|,undo,redo,|,bold,italic,strikethrough,|,charmap,|,removeformat,code',
 				theme_advanced_buttons2: '',
@@ -80,7 +79,6 @@ Ext.onReady(function()
 				skin: 'o2k7'
 			}
 		}
-
 		],
 
 		buttons: [ '->', {
