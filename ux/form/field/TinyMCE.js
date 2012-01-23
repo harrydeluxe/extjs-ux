@@ -256,12 +256,13 @@ Ext.define("Ext.ux.form.field.TinyMCE",	{
 	isDirty: function()
 	{
 		var me = this;
-		if (me.disabled || !me.rendered) {
-            return false;
-        }
-        return me.editor && me.editor.initialized && me.editor.isDirty();
-    },
-	
+		if(me.disabled || !me.rendered)
+		{
+			return false;
+		}
+		return me.editor && me.editor.initialized && me.editor.isDirty();
+	},
+
 	getValue: function()
 	{
 		return this.editor.getContent();
@@ -371,24 +372,24 @@ Ext.define("Ext.ux.form.field.TinyMCE",	{
 		});
 	},
     
-    withEd: function(func)
-    {
-        // If editor is not created yet, reschedule this call.
-        if (!this.editor)
-        	this.on("editorcreated", function() {
-        		this.withEd(func);
-        	}, this);
-
-        // Else if editor is created and initialized
-        else if (this.editor.initialized)
-        	func.call(this);
-
-        // Else if editor is created but not initialized yet.
-        else
-        	this.editor.onInit.add(Ext.Function.bind(function() {
-        		Ext.Function.defer(func, 10, this);
-        	}, this));
-    },
+	withEd: function(func)
+	{
+		// If editor is not created yet, reschedule this call.
+		if(!this.editor)
+			this.on("editorcreated", function()
+			{
+				this.withEd(func);
+			}, this);
+		// Else if editor is created and initialized
+		else if(this.editor.initialized)
+			func.call(this);
+		// Else if editor is created but not initialized yet.
+		else
+			this.editor.onInit.add(Ext.Function.bind(function()
+			{
+				Ext.Function.defer(func, 10, this);
+			}, this));
+	},
 					    
     validateValue: function(value)
 	{
