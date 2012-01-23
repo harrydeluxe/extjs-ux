@@ -232,8 +232,8 @@ Ext.define("Ext.ux.form.field.TinyMCE",	{
 		me.editor = new tinymce.Editor(me.inputEl.id, me.tinymceConfig);
 		
 		// Validate value onKeyPress
-        var validateContentTask = Ext.Function.createBuffered(me.validate, 250, this);
-        me.editor.onKeyPress.add(validateContentTask);
+		var validateContentTask = Ext.Function.createBuffered(me.validate, 250, this);
+		me.editor.onKeyPress.add(validateContentTask);
         
 		
 		me.editor.onPostRender.add(Ext.Function.bind(function(editor, controlManager)
@@ -246,8 +246,7 @@ Ext.define("Ext.ux.form.field.TinyMCE",	{
 		}, me));
 
 		window.b = me.editor;
-		me.on('resize', me.onResize, me);
-		
+		me.on('resize', me.onResize, me);	
 		
 		me.editor.render();
 		tinyMCE.add(me.editor);
@@ -337,6 +336,7 @@ Ext.define("Ext.ux.form.field.TinyMCE",	{
 	getRawValue: function()
 	{
 		var me = this;
+		
 		if(!me.editor || !me.editor.initialized)
 		{
 			return Ext.valueFrom(me.value, '');
@@ -391,56 +391,63 @@ Ext.define("Ext.ux.form.field.TinyMCE",	{
 			}, this));
 	},
 					    
-    validateValue: function(value)
+	validateValue: function(value)
 	{
-		if(Ext.isFunction(this.validator))
+		var me = this;
+		
+		if(Ext.isFunction(me.validator))
 		{
-			var msg = this.validator(value);
+			var msg = me.validator(value);
 			if(msg !== true)
 			{
-				this.markInvalid(msg);
+				me.markInvalid(msg);
 				return false;
 			}
 		}
-		if(value.length < 1 || value === this.emptyText)
+		
+		if(value.length < 1 || value === me.emptyText)
 		{ // if it's blank
-			if(this.allowBlank)
+			if(me.allowBlank)
 			{
-				this.clearInvalid();
+				me.clearInvalid();
 				return true;
 			}
 			else
 			{
-				this.markInvalid(this.blankText);
+				me.markInvalid(me.blankText);
 				return false;
 			}
 		}
-		if(value.length < this.minLength)
+		
+		if(value.length < me.minLength)
 		{
-			this.markInvalid(Ext.String.format(this.minLengthText, this.minLength));
+			me.markInvalid(Ext.String.format(me.minLengthText, me.minLength));
 			return false;
 		}
 		else
-			this.clearInvalid();
-		if(value.length > this.maxLength)
+			me.clearInvalid();
+		
+		if(value.length > me.maxLength)
 		{
-			this.markInvalid(Ext.String.format(this.maxLengthText, this.maxLength));
+			me.markInvalid(Ext.String.format(me.maxLengthText, me.maxLength));
 			return false;
 		}
 		else
-			this.clearInvalid();
-		if(this.vtype)
+			me.clearInvalid();
+		
+		if(me.vtype)
 		{
 			var vt = Ext.form.field.VTypes;
-			if(!vt[this.vtype](value, this))
+			if(!vt[me.vtype](value, me))
 			{
-				this.markInvalid(this.vtypeText || vt[this.vtype + 'Text']);
+				me.markInvalid(me.vtypeText || vt[me.vtype + 'Text']);
 				return false;
 			}
 		}
-		if(this.regex && !this.regex.test(value))
+		
+		if(me.regex && !me.regex.test(value))
 		{
-			this.markInvalid(this.regexText);
+			me.markInvalid(me.regexText);
 			return false;
 		}
 		return true;
