@@ -337,11 +337,7 @@ Ext.define("Ext.ux.form.field.TinyMCE",	{
 	{
 		var me = this;
 		
-		if(!me.editor || !me.editor.initialized)
-		{
-			return Ext.valueFrom(me.value, '');
-		}
-		return me.editor.getContent();
+		return (!me.editor || !me.editor.initialized) ? Ext.valueFrom(me.value, '') : me.editor.getContent();
 	},
 	
 	disable: function()

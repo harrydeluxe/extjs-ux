@@ -69,6 +69,7 @@ Ext.onReady(function()
 			xtype: 'tinymcefield',
 			name: 'bio',
 			fieldLabel: 'Biography',
+			labelAlign: 'top',
 			//height: 200,
 			anchor: '100%',
 			tinymceConfig: {
