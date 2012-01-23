@@ -71,6 +71,7 @@ Ext.define("UX.tinymce.WindowManager", {
 				style: 'border-width: 0px;'
 			})]
 		});
+		
 		p.mce_window_id = win.getId();
 		win.show(null, function()
 		{
@@ -81,6 +82,7 @@ Ext.define("UX.tinymce.WindowManager", {
 			s.top = pos[1];
 			this.onOpen.dispatch(this, s, p);
 		}, this);
+		
 		return win;
 	},
 	
@@ -92,7 +94,9 @@ Ext.define("UX.tinymce.WindowManager", {
 			tinymce.WindowManager.prototype.close.call(this, win);
 			return;
 		}
+		
 		var w = Ext.getCmp(win.tinyMCEPopup.id);
+		
 		if(w)
 		{
 			this.onClose.dispatch(this);
@@ -107,7 +111,9 @@ Ext.define("UX.tinymce.WindowManager", {
 			tinymce.WindowManager.prototype.setTitle.call(this, win, ti);
 			return;
 		}
+		
 		var w = Ext.getCmp(win.tinyMCEPopup.id);
+		
 		if(w)
 			w.setTitle(ti);
 	},
@@ -115,6 +121,7 @@ Ext.define("UX.tinymce.WindowManager", {
 	resizeBy: function(dw, dh, id)
 	{
 		var w = Ext.getCmp(id);
+		
 		if(w)
 		{
 			var size = w.getSize();
@@ -130,6 +137,7 @@ Ext.define("UX.tinymce.WindowManager", {
 	}
 });
 
+
 /**
  * @class Ext.ux.form.field.TinyMCE
  * @extends Ext.form.field.TextArea
@@ -141,7 +149,6 @@ Ext.define("UX.tinymce.WindowManager", {
  * @contributor Harald Hanek
  * @license MIT (http://www.opensource.org/licenses/mit-license.php)
  */
-
 Ext.define("Ext.ux.form.field.TinyMCE",	{
 	extend: 'Ext.form.field.TextArea',
 	alias: 'widget.tinymcefield',
@@ -162,9 +169,9 @@ Ext.define("Ext.ux.form.field.TinyMCE",	{
 				disableFormats: true
 			}],
 		*/	
+	
 	statics: {
 		tinyMCEInitialized: false,
-
 		globalSettings: {
 			accessibility_focus: false,
 			language: "en",
@@ -176,11 +183,11 @@ Ext.define("Ext.ux.form.field.TinyMCE",	{
 			theme_advanced_buttons2: 'cut,copy,paste,pastetext,pasteword,|,search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,image,cleanup,help,code,|,insertdate,inserttime,preview,|,forecolor,backcolor',
 			theme_advanced_buttons3: 'tablecontrols,|,hr,removeformat,visualaid,|,sub,sup,|,charmap,emotions,iespell,media,advhr,|,print,|,ltr,rtl,|,fullscreen',
 			theme_advanced_buttons4: 'insertlayer,moveforward,movebackward,absolute,|,styleprops,spellchecker,|,cite,abbr,acronym,del,ins,attribs,|,visualchars,nonbreaking,template,blockquote,pagebreak',
-			
-			//extended_valid_elements: "a[name|href|target|title|onclick],img[class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name],hr[class|width|size|noshade],font[face|size|color|style],span[class|align|style]",
-	        //template_external_list_url: "example_template_list.js"
-			//content_css : "/lib/css/editor.css",				
-				
+			// extended_valid_elements:
+			// "a[name|href|target|title|onclick],img[class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name],hr[class|width|size|noshade],font[face|size|color|style],span[class|align|style]",
+			// template_external_list_url:
+			// "example_template_list.js"
+			// content_css : "/lib/css/editor.css",
 			theme_advanced_toolbar_location: 'top',
 			theme_advanced_toolbar_align: 'left',
 			theme_advanced_statusbar_location: 'bottom',
@@ -195,23 +202,22 @@ Ext.define("Ext.ux.form.field.TinyMCE",	{
 			Ext.apply(this.globalSettings, settings);
 		}
 	},
-
+	
 	constructor: function(config)
 	{
 		var me = this;
-
+		
 		config.height = (config.height && config.height >= me.config.height) ? config.height : me.config.height;
 		
 		Ext.applyIf(config.tinymceConfig, me.statics().globalSettings);
-
+		
 		// Init values we do not want changed
 		config.tinymceConfig.mode = 'none';
 		
-		// Add events
-        me.addEvents({
-            "editorcreated": true
-        });
-        
+		me.addEvents({
+			"editorcreated": true
+		});
+		
 		me.callParent([config]);
 		//return me;
 	},
@@ -260,12 +266,11 @@ Ext.define("Ext.ux.form.field.TinyMCE",	{
 	{
 		return this.editor.getContent();
 	},
-					
+	
 	setValue: function(value)
 	{
 		var me = this;
 		me.value = value;
-		
 		if(me.rendered)
 			me.withEd(function()
 			{
@@ -275,10 +280,10 @@ Ext.define("Ext.ux.form.field.TinyMCE",	{
 					format: 'raw'
 				});
 				me.validate();
-				//me.editor.resizeToContent();
+				// me.editor.resizeToContent();
 			});
 	},
-	    
+	
 	getSubmitData: function()
 	{
 		var ret = {};
@@ -323,50 +328,49 @@ Ext.define("Ext.ux.form.field.TinyMCE",	{
 		}
 	},
 	
-    getEditor: function()
-    {
-        return this.editor;
-    },
+	getEditor: function()
+	{
+		return this.editor;
+	},
 	
 	getRawValue: function()
 	{
-        var me = this;
-        
+		var me = this;
 		if(!me.editor || !me.editor.initialized)
 		{
-            return Ext.valueFrom(me.value, '');
-        }
-		
-        return me.editor.getContent();
-    },
+			return Ext.valueFrom(me.value, '');
+		}
+		return me.editor.getContent();
+	},
+	
+	disable: function()
+	{
+		this.withEd(function()
+		{
+			var bodyEl = this.editor.getBody();
+			bodyEl = Ext.get(bodyEl);
+			if(bodyEl.hasCls('mceContentBody'))
+			{
+				bodyEl.removeCls('mceContentBody');
+				bodyEl.addCls('mceNonEditable');
+			}
+		});
+	},
+	
+	enable: function()
+	{
+		this.withEd(function()
+		{
+			var bodyEl = this.editor.getBody();
+			bodyEl = Ext.get(bodyEl);
+			if(bodyEl.hasCls('mceNonEditable'))
+			{
+				bodyEl.removeCls('mceNonEditable');
+				bodyEl.addCls('mceContentBody');
+			}
+		});
+	},
     
-    disable: function() {
-        this.withEd(function() {
-            var bodyEl = this.editor.getBody();
-            bodyEl = Ext.get(bodyEl);
-
-            if (bodyEl.hasCls('mceContentBody')) {
-                bodyEl.removeCls('mceContentBody');
-                bodyEl.addCls('mceNonEditable');
-            }
-        });
-    },
-    
-    enable: function() {
-        this.withEd(function() {
-            var bodyEl = this.editor.getBody();
-            bodyEl = Ext.get(bodyEl);
-
-            if (bodyEl.hasCls('mceNonEditable')) {
-                bodyEl.removeCls('mceNonEditable');
-                bodyEl.addCls('mceContentBody');
-            }
-        });
-    },
-    
-    /**
-     * siehe http://daandeschepper.nl/tinymce-field/EC.common.tinymce.Editor.js
-     */
     withEd: function(func)
     {
         // If editor is not created yet, reschedule this call.
@@ -385,53 +389,59 @@ Ext.define("Ext.ux.form.field.TinyMCE",	{
         		Ext.Function.defer(func, 10, this);
         	}, this));
     },
-    
-    /**
-     * siehe http://daandeschepper.nl/tinymce-field/EC.common.tinymce.Editor.js
-     */
-	 validateValue: function(value)
-	 {
-		 if (Ext.isFunction(this.validator)) {
-            var msg = this.validator(value);
-            if (msg !== true) {
-                this.markInvalid(msg);
-                return false;
-            }
-        }
-        if (value.length < 1 || value === this.emptyText) { // if it's blank
-            if (this.allowBlank) {
-                this.clearInvalid();
-                return true;
-            } else {
-                this.markInvalid(this.blankText);
-                return false;
-            }
-        }
-        if (value.length < this.minLength) {
-            this.markInvalid(Ext.String.format(this.minLengthText, this.minLength));
-            return false;
-        }
-        else
-        	this.clearInvalid();
-        
-        if (value.length > this.maxLength) {
-            this.markInvalid(Ext.String.format(this.maxLengthText, this.maxLength));
-            return false;
-        }
-        else
-        	this.clearInvalid();
-        
-        if (this.vtype) {
-            var vt = Ext.form.field.VTypes;
-            if (!vt[this.vtype](value, this)) {
-                this.markInvalid(this.vtypeText || vt[this.vtype + 'Text']);
-                return false;
-            }
-        }
-        if (this.regex && !this.regex.test(value)) {
-            this.markInvalid(this.regexText);
-            return false;
-        }
-        return true;
-    }
+					    
+    validateValue: function(value)
+	{
+		if(Ext.isFunction(this.validator))
+		{
+			var msg = this.validator(value);
+			if(msg !== true)
+			{
+				this.markInvalid(msg);
+				return false;
+			}
+		}
+		if(value.length < 1 || value === this.emptyText)
+		{ // if it's blank
+			if(this.allowBlank)
+			{
+				this.clearInvalid();
+				return true;
+			}
+			else
+			{
+				this.markInvalid(this.blankText);
+				return false;
+			}
+		}
+		if(value.length < this.minLength)
+		{
+			this.markInvalid(Ext.String.format(this.minLengthText, this.minLength));
+			return false;
+		}
+		else
+			this.clearInvalid();
+		if(value.length > this.maxLength)
+		{
+			this.markInvalid(Ext.String.format(this.maxLengthText, this.maxLength));
+			return false;
+		}
+		else
+			this.clearInvalid();
+		if(this.vtype)
+		{
+			var vt = Ext.form.field.VTypes;
+			if(!vt[this.vtype](value, this))
+			{
+				this.markInvalid(this.vtypeText || vt[this.vtype + 'Text']);
+				return false;
+			}
+		}
+		if(this.regex && !this.regex.test(value))
+		{
+			this.markInvalid(this.regexText);
+			return false;
+		}
+		return true;
+	}
 });
