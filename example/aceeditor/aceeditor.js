@@ -70,7 +70,7 @@ Ext.onReady(function()
 				xtype: 'AceEditor.WithToolbar',
 				title: 'HTML',
 				fontSize: '14px',
-				theme: 'crimson_editor',
+				theme: 'dreamweaver',
 				url: 'aceeditor.html',
 				parser: 'html',
 				printMargin: true
