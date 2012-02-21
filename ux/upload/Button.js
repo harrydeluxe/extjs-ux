@@ -9,8 +9,8 @@
 Ext.define('Ext.ux.upload.Button', {
 	extend: 'Ext.button.Button',
 	alias: 'widget.uploadbutton',
-
-	require: [ 'Ext.ux.upload.Basic' ],
+	
+	requires: [ 'Ext.ux.upload.Basic' ],
 
 	disabled: true,
 
@@ -36,16 +36,27 @@ Ext.define('Ext.ux.upload.Button', {
 		
 		me.uploader = me.createUploader();
 		
-		me.listeners =
+		if(me.uploader.dropElement)
 		{
-			afterRender: {
-				fn: function(){
-					me.uploader.initialize();
-				},
-				single: true,
-				scope: me
-			}
-		};	
+			var e = Ext.getCmp(me.uploader.dropElement);
+			
+			e.addListener('afterRender', function(){
+				me.uploader.initialize();
+			}, {single: true, scope: me});
+		}
+		else
+		{		
+			me.listeners =
+			{
+				afterRender: {
+					fn: function(){
+						me.uploader.initialize();
+					},
+					single: true,
+					scope: me
+				}
+			};	
+		}
 		
 		me.relayEvents(me.uploader, [
              'beforestart',
@@ -57,6 +68,7 @@ Ext.define('Ext.ux.upload.Button', {
              'beforeupload',
              'fileuploaded',
 			 'updateprogress',
+			 'uploadprogress',
 			 'storeempty'
          ]);
 	},
