@@ -14,15 +14,16 @@ Ext.define('Ext.ux.container.SwitchButtonSegment', {
 
 	constructor: function(config)
 	{
-		var me = this, gId = Ext.id();
+		var me = this;
 
 		me.internalDefaults = {
 			xtype: 'button',
-			toggleGroup: gId,
+			toggleGroup: Ext.id(me),
 			clickEvent: 'mousedown',
 			enableToggle: true,
 			allowDepress: false
-		};
+		};	
+		
 		me.callParent([ config ]);
 	},
 
@@ -30,14 +31,16 @@ Ext.define('Ext.ux.container.SwitchButtonSegment', {
 	{
 		var me = this;
 		me.addEvents('change');
-		me.callParent();
+		
+		me.listeners = Ext.apply({}, {'beforerender': me.beforeRender, scope: me}, me.listeners);
+
+		me.callParent(arguments);
 	},
 
-	onRender: function()
+	beforeRender: function()
 	{
 		var me = this;
 		me.callParent(arguments);
-
 		me.activeItem = (me.activeItem + 1 > me.items.length) ? 0 : me.activeItem;
 
 		me.items.each(function(el, c)
