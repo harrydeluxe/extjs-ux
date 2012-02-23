@@ -12,7 +12,8 @@ Ext.define('Ext.ux.grid.feature.Tileview', {
 	metaTableTplOrig: null, // stores the original template
 	viewMode: null,
 	viewTpls: {},
-
+	
+	
 	metaTableTpl: ['{[this.openTableWrap()]}',
 		              '<table class="' + Ext.baseCSSPrefix + 'grid-table tileview" border="0" cellspacing="0" cellpadding="0" style="width: auto;">',
 		                   '<tbody class="dragselect">',
@@ -26,7 +27,7 @@ Ext.define('Ext.ux.grid.feature.Tileview', {
 		               '</table>',
 		               '{[this.closeTableWrap()]}'
 		               ],
-
+		                          
 	getRowBody: function(values, viewMode)
 	{
 		if(this.viewTpls[viewMode])
@@ -50,11 +51,14 @@ Ext.define('Ext.ux.grid.feature.Tileview', {
 
 		if(this.viewMode && this.viewMode != 'default')
 		{
-			delete metaRowTpl[1];
-			delete metaRowTpl[3];
-
-			metaRowTpl[2] = '{[this.getRowBody(values, this.viewMode)]}';
 			metaRowTpl[0] = metaRowTpl[0].replace(Ext.baseCSSPrefix + 'grid-row', Ext.baseCSSPrefix + 'grid-row tileview');
+			metaRowTpl[1] = null;
+			metaRowTpl[2] = '{[this.getRowBody(values, this.viewMode)]}';
+			metaRowTpl[3] = null;
+			metaRowTpl[4] = null;
+			metaRowTpl[5] = null;
+			metaRowTpl[6] = "</tr>";
+			
 		}
 	},
 
@@ -69,10 +73,12 @@ Ext.define('Ext.ux.grid.feature.Tileview', {
 
 	setView: function(mode)
 	{
-		if(this.viewMode != mode)
+		var me = this;
+		
+		if(me.viewMode != mode)
 		{
-			this.viewMode = mode;
-			this.view.refresh();
+			me.viewMode = mode;
+			me.view.refresh();
 		}
 	}
 });
