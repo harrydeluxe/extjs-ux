@@ -11,8 +11,7 @@ Ext.define('Ext.ux.grid.feature.Tileview', {
 	alias: 'feature.tileview',
 	metaTableTplOrig: null, // stores the original template
 	viewMode: null,
-	viewTpls: {},
-	
+	viewTpls: {},	
 	
 	metaTableTpl: ['{[this.openTableWrap()]}',
 		              '<table class="' + Ext.baseCSSPrefix + 'grid-table tileview" border="0" cellspacing="0" cellpadding="0" style="width: auto;">',
@@ -38,18 +37,21 @@ Ext.define('Ext.ux.grid.feature.Tileview', {
 
 	mutateMetaRowTpl: function(metaRowTpl)
 	{
-		if(this.view.chunker)
-		{
-			if(!this.metaTableTplOrig)
-				this.metaTableTplOrig = this.view.chunker.metaTableTpl;
+		var me = this;
 
-			if(!this.viewMode || this.viewMode == 'default')
-				this.view.chunker.metaTableTpl = this.metaTableTplOrig;
+		if(me.view.chunker)
+		{
+			//console.log('mutateMetaRowTpl');
+			if(!me.metaTableTplOrig)
+				me.metaTableTplOrig = me.view.chunker.metaTableTpl;
+
+			if(!me.viewMode || me.viewMode == 'default')
+				me.view.chunker.metaTableTpl = me.metaTableTplOrig;
 			else
-				this.view.chunker.metaTableTpl = this.metaTableTpl;
+				me.view.chunker.metaTableTpl = me.metaTableTpl;
 		}
 
-		if(this.viewMode && this.viewMode != 'default')
+		if(me.viewMode && me.viewMode != 'default')
 		{
 			metaRowTpl[0] = metaRowTpl[0].replace(Ext.baseCSSPrefix + 'grid-row', Ext.baseCSSPrefix + 'grid-row tileview');
 			metaRowTpl[1] = null;
@@ -57,8 +59,7 @@ Ext.define('Ext.ux.grid.feature.Tileview', {
 			metaRowTpl[3] = null;
 			metaRowTpl[4] = null;
 			metaRowTpl[5] = null;
-			metaRowTpl[6] = "</tr>";
-			
+			metaRowTpl[6] = "</tr>";			
 		}
 	},
 
