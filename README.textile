@@ -9,6 +9,12 @@ Demo: "Link":http://harrydeluxe.github.com/ext4/example/aceeditor/aceeditor.html
 
 Forum: "Link":http://www.sencha.com/forum/showthread.php?154570-Ext.ux.aceeditor.Panel
 
+h2. Ext.ux.grid.feature.Tileview
+
+!http://harrydeluxe.github.com/ext4/img/tileview.jpg!
+
+Demo: "Link":http://harrydeluxe.github.com/ext4/example/grid/tileview.html
+
 h2. Ext.ux.container.ButtonSegment
 
 !http://harrydeluxe.github.com/ext4/img/segmentedbuttons.jpg!

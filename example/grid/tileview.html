@@ -1,0 +1,121 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Grid Tileview</title>    
+	<link rel="stylesheet" type="text/css" href="http://extjs.cachefly.net/ext-4.0.7-gpl/resources/css/ext-all-gray.css" />  
+	<link rel="stylesheet" type="text/css" href="http://extjs.cachefly.net/ext-4.0.7-gpl/examples/shared/example.css" />	
+	<link rel="stylesheet" type="text/css" href="http://extjs.cachefly.net/ext-4.0.7-gpl/examples/ux/css/CheckHeader.css" />
+	<link rel="stylesheet" type="text/css" href="../../ux/container/ButtonSegment.css" />	
+	<link rel="stylesheet" type="text/css" href="../../ux/grid/feature/Tileview.css" />	
+	
+	<style type="text/css"> 
+        
+        .icon-default
+		{
+			background: transparent no-repeat;
+			background-image: url('switch.png');
+			background-position: 0 0 !important;
+		}
+		.icon-tile
+		{
+			background: transparent no-repeat;
+			background-image: url('switch.png');
+			background-position: -16px 0 !important;
+		}
+		.icon-medium
+		{
+			background: transparent no-repeat;
+			background-image: url('switch.png');
+			background-position: -32px 0 !important;
+		}
+        
+		
+		
+		/**
+		 * Medium View
+		 */
+		.ux-explorerview-medium-icon-row
+		{
+			width: 114px;
+			height: 120px;
+			float: left;
+			border: none;
+			padding: 1px;
+		}
+		
+		.x-grid-table.thumbnails .x-grid-row-over .ux-explorerview-medium-icon-row
+		{
+			border: 1px solid #dddddd;
+			padding: 0px;
+			background: #efefef;
+		}
+		
+		.ux-explorerview-medium-icon-row .x-grid-row-table
+		{
+			width: 100%;
+		}
+		
+		.ux-explorerview-medium-icon-row .x-grid-row-table td
+		{
+			text-align: center;
+		}
+		
+		.ux-explorerview-medium-icon-row .x-grid-row-table td.ux-explorerview-icon
+		{
+			height: 100px;
+			text-align: center;
+			vertical-align: bottom;
+		}
+		
+		
+		/**
+		 * Tile View
+		 */
+		.ux-explorerview-detailed-icon-row
+		{
+			width: 200px;
+			height: 53px;
+			float: left;
+			padding: 1px;
+			border: 0px solid #FFF;
+		}
+		
+		.x-grid-table.thumbnails .x-grid-row-over .ux-explorerview-detailed-icon-row
+		{
+			border: 1px solid #dddddd;
+			padding: 0px;
+			background: #efefef;
+		}
+		
+		.ux-explorerview-detailed-icon-row .x-grid-row-table
+		{
+			width: 100%;
+		}
+		
+		.ux-explorerview-detailed-icon-row .x-grid-row-table td
+		{
+			vertical-align: bottom;
+		}
+		
+		.ux-explorerview-detailed-icon-row .x-grid-row-table td.ux-explorerview-icon
+		{
+			width: 56px;
+			height: 50px;
+			text-align: center;
+			vertical-align: middle;
+		}
+		
+		.ux-explorerview-detailed-icon-row .x-grid-row-table td span
+		{
+			color: #aaaaaa;
+		}
+    </style>
+</head>
+<body>
+	<h1>Grid Tileview Example</h1>
+	<p>The js is not minified so it is readable. See <a href="tileview.js">tileview.js</a>.</p> 
+	<div id="editor-grid"></div>	
+	<script type="text/javascript" src="http://extjs.cachefly.net/ext-4.0.7-gpl/bootstrap.js"></script>       
+    <script type="text/javascript" src="tileview.js"></script>	      
+</body>
+</html>

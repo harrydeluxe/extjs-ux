@@ -41,7 +41,6 @@ Ext.define('Ext.ux.grid.feature.Tileview', {
 
 		if(me.view.chunker)
 		{
-			//console.log('mutateMetaRowTpl');
 			if(!me.metaTableTplOrig)
 				me.metaTableTplOrig = me.view.chunker.metaTableTpl;
 
