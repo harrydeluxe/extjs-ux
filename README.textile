@@ -14,6 +14,8 @@ h2. Ext.ux.grid.feature.Tileview
 !http://harrydeluxe.github.com/ext4/img/tileview.jpg!
 
 Demo: "Link":http://harrydeluxe.github.com/ext4/example/grid/tileview.html
+Forum: 
+
 
 h2. Ext.ux.container.ButtonSegment
 
