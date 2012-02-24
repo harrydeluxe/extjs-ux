@@ -2,7 +2,7 @@ h1. Plugins and Extensions for EXT JS 4
 
 h2. Ext.ux.aceeditor.Panel
 
-!http://harrydeluxe.github.com/ext4/img/aceeditor.jpg!
+!http://harrydeluxe.github.com/extjs-ux/img/aceeditor.jpg!
 
 Demo (simple): "Link":http://harrydeluxe.github.com/extjs-ux/example/aceeditor/simple.html
 Demo: "Link":http://harrydeluxe.github.com/extjs-ux/example/aceeditor/aceeditor.html
