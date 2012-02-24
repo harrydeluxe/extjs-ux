@@ -2,10 +2,10 @@ h1. Plugins and Extensions for EXT JS 4
 
 h2. Ext.ux.aceeditor.Panel
 
-!http://harrydeluxe.github.com/ext4/img/aceeditor.jpg!
+!http://harrydeluxe.github.com/extjs-ux/img/aceeditor.jpg!
 
-Demo (simple): "Link":http://harrydeluxe.github.com/ext4/example/aceeditor/simple.html
-Demo: "Link":http://harrydeluxe.github.com/ext4/example/aceeditor/aceeditor.html
+Demo (simple): "Link":http://harrydeluxe.github.com/extjs-ux/example/aceeditor/simple.html
+Demo: "Link":http://harrydeluxe.github.com/extjs-ux/example/aceeditor/aceeditor.html
 
 Forum: "Link":http://www.sencha.com/forum/showthread.php?154570-Ext.ux.aceeditor.Panel
 
@@ -19,49 +19,49 @@ Forum:
 
 h2. Ext.ux.container.ButtonSegment
 
-!http://harrydeluxe.github.com/ext4/img/segmentedbuttons.jpg!
+!http://harrydeluxe.github.com/extjs-ux/img/segmentedbuttons.jpg!
 
-Demo: "Link":http://harrydeluxe.github.com/ext4/example/button/buttonsegment.html
-Demo (switch): "Link":http://harrydeluxe.github.com/ext4/example/button/switchbuttonsegment.html
+Demo: "Link":http://harrydeluxe.github.com/extjs-ux/example/button/buttonsegment.html
+Demo (switch): "Link":http://harrydeluxe.github.com/extjs-ux/example/button/switchbuttonsegment.html
 Forum: "Link":http://www.sencha.com/forum/showthread.php?132048-Ext.ux.container.ButtonSegment
 
 h2. Ext.ux.grid.plugin.RowEditing
 
-!http://harrydeluxe.github.com/ext4/img/rowediting.jpg!
+!http://harrydeluxe.github.com/extjs-ux/img/rowediting.jpg!
 
-Demo: "Link":http://harrydeluxe.github.com/ext4/example/grid/rowediting.html
+Demo: "Link":http://harrydeluxe.github.com/extjs-ux/example/grid/rowediting.html
 Forum: "Link":http://www.sencha.com/forum/showthread.php?131482-Ext.ux.RowEditing-add-some-usefull-features&p=597278&viewfull=1#post597278
 
 h2. Ext.ux.grid.plugin.DragSelector
 
-!http://harrydeluxe.github.com/ext4/img/dragselector.jpg!
+!http://harrydeluxe.github.com/extjs-ux/img/dragselector.jpg!
 
-Demo: "Link":http://harrydeluxe.github.com/ext4/example/grid/dragselector.html
+Demo: "Link":http://harrydeluxe.github.com/extjs-ux/example/grid/dragselector.html
 Forum: "Link":http://www.sencha.com/forum/showthread.php?133150-Ext.ux.grid.plugin.DragSelector
 
 h2. Ext.ux.grid.plugin.SortMenu
 
-!http://harrydeluxe.github.com/ext4/img/sortmenu.jpg!
+!http://harrydeluxe.github.com/extjs-ux/img/sortmenu.jpg!
 
-Demo: "Link":http://harrydeluxe.github.com/ext4/example/grid/sortmenu.html
+Demo: "Link":http://harrydeluxe.github.com/extjs-ux/example/grid/sortmenu.html
 Forum: "Link":http://www.sencha.com/forum/showthread.php?175287-Ext.ux.grid.plugin.SortMenu
 
 h2. Ext.ux.window.EachDialog
 
-!http://harrydeluxe.github.com/ext4/img/eachdialog.jpg!
+!http://harrydeluxe.github.com/extjs-ux/img/eachdialog.jpg!
 
-Demo: "Link":http://harrydeluxe.github.com/ext4/example/window/eachdialog.html
+Demo: "Link":http://harrydeluxe.github.com/extjs-ux/example/window/eachdialog.html
 
 h2. Ext.ux.form.field.TinyMCE
 
-!http://harrydeluxe.github.com/ext4/img/tinymce.jpg!
+!http://harrydeluxe.github.com/extjs-ux/img/tinymce.jpg!
 
-Demo: "Link":http://harrydeluxe.github.com/ext4/example/form/tinymce.html
+Demo: "Link":http://harrydeluxe.github.com/extjs-ux/example/form/tinymce.html
 
 h2. Ext.ux.form.field.Grid
 
-!http://harrydeluxe.github.com/ext4/img/gridform.jpg!
+!http://harrydeluxe.github.com/extjs-ux/img/gridform.jpg!
 
-Demo: "Link":http://harrydeluxe.github.com/ext4/example/form/grid.html
+Demo: "Link":http://harrydeluxe.github.com/extjs-ux/example/form/grid.html
 
 Note: Early Beta!
