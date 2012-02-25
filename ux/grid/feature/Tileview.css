@@ -1,8 +1,9 @@
+/*
 .x-grid-view
 {
 	overflow-y: scroll;
 }
-
+*/
 .x-grid-table.tileview .x-grid-row-alt
 {
 	background-color: transparent;
