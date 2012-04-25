@@ -11,7 +11,7 @@ Forum: "Link":http://www.sencha.com/forum/showthread.php?154570-Ext.ux.aceeditor
 
 h2. Ext.ux.grid.feature.Tileview
 
-!http://harrydeluxe.github.com/extjs-ux/img/tileview.jpg!
+!http://harrydeluxe.github.com/extjs-ux/img/tileview.jpg?v=1!
 
 Demo: "Link":http://harrydeluxe.github.com/extjs-ux/example/grid/tileview.html
 Forum: "Link":http://www.sencha.com/forum/showthread.php?183023-Thumbnails-in-Grid-with-switching-between-views
