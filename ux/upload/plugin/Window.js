@@ -1,8 +1,9 @@
 /**
  * @class Ext.ux.upload.plugin.Window
  * @extends Ext.AbstractPlugin
- * @author Harald Hanek (c) 2012
- * @license MIT (http://www.opensource.org/licenses/mit-license.php)
+ * 
+ * @copyright Copyright (c) 2011-2012 Harald Hanek
+ * @license http://harrydeluxe.mit-license.org
  */
 
 Ext.define('Ext.ux.upload.plugin.Window', {
