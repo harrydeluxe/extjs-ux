@@ -2,8 +2,8 @@
  * @class Ext.ux.window.EachDialog
  * @extends Ext.window.MessageBox
  * 
- * @author Harald Hanek (c) 2011
- * @license MIT (http://www.opensource.org/licenses/mit-license.php)
+ * @author Harald Hanek (c) 2011-2012
+ * @license http://harrydeluxe.mit-license.org
  */
 
 Ext.define('Ext.ux.window.EachDialog', {
@@ -42,6 +42,11 @@ Ext.define('Ext.ux.window.EachDialog', {
 			getWidth: function()
 			{
 				return me.msgtext.getWidth();
+			},
+			
+			setValue: function(v)
+			{
+				me.msgtext.update(v);
 			}
 		});
 		me.promptContainer.add(me.msg);
