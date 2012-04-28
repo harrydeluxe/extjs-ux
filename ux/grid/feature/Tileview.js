@@ -1,9 +1,75 @@
 /**
+ * Small override
+ * @see http://www.sencha.com/forum/showthread.php?183860-Feature-Request-for-Ext.view.TableChunker
+ */
+
+Ext.onReady(function() {
+	
+	Ext.grid.feature.Feature.override(
+	{
+		mutateMetaTableTpl: function(metaTableTplArray)
+		{
+	    }
+	});
+	
+	Ext.view.TableChunker.getTableTpl = function(cfg, textOnly)
+	{
+	    var tpl,
+	        tableTplMemberFns = {
+	            openRows: this.openRows,
+	            closeRows: this.closeRows,
+	            embedFeature: this.embedFeature,
+	            embedFullWidth: this.embedFullWidth,
+	            openTableWrap: this.openTableWrap,
+	            closeTableWrap: this.closeTableWrap
+	        },
+	        tplMemberFns = {},
+	        features = cfg.features || [],
+	        ln = features.length,
+	        i  = 0,
+	        memberFns = {
+	            embedRowCls: this.embedRowCls,
+	            embedRowAttr: this.embedRowAttr,
+	            firstOrLastCls: this.firstOrLastCls
+	        },
+	        metaRowTpl = Array.prototype.slice.call(this.metaRowTpl, 0),
+	        metaTableTpl = Array.prototype.slice.call(this.metaTableTpl, 0);
+	    
+	        
+	    for (; i < ln; i++) {
+	        if (!features[i].disabled) {
+	        	features[i].mutateMetaTableTpl(metaTableTpl); // new
+	        	features[i].mutateMetaRowTpl(metaRowTpl);
+	            Ext.apply(memberFns, features[i].getMetaRowTplFragments());
+	            Ext.apply(tplMemberFns, features[i].getFragmentTpl());
+	            Ext.apply(tableTplMemberFns, features[i].getTableFragments());
+	        }
+	    }
+	    
+	    metaRowTpl = new Ext.XTemplate(metaRowTpl.join(''), memberFns);
+	    cfg.row = metaRowTpl.applyTemplate(cfg);
+	
+	    metaTableTpl = new Ext.XTemplate(metaTableTpl.join(''), tableTplMemberFns);	// new
+	    
+	    tpl = metaTableTpl.applyTemplate(cfg);
+	    
+	    // TODO: Investigate eliminating.
+	    if (!textOnly) {
+	        tpl = new Ext.XTemplate(tpl, tplMemberFns);
+	    }
+	    return tpl;
+        
+    };
+
+});
+
+	
+/**
  * @class Ext.ux.grid.feature.Tileview
  * @extends Ext.grid.feature.Feature
  * 
- * @author Harald Hanek (c) 2011
- * @license MIT (http://www.opensource.org/licenses/mit-license.php)
+ * @author Harald Hanek (c) 2011-2012
+ * @license http://harrydeluxe.mit-license.org
  */
 
 Ext.define('Ext.ux.grid.feature.Tileview', {
@@ -27,6 +93,7 @@ Ext.define('Ext.ux.grid.feature.Tileview', {
 		               '{[this.closeTableWrap()]}'
 		               ],
 		                          
+		                          
 	getRowBody: function(values, viewMode)
 	{
 		if(this.viewTpls[viewMode])
@@ -34,25 +101,31 @@ Ext.define('Ext.ux.grid.feature.Tileview', {
 			return this.viewTpls[viewMode];
 		}
 	},
-
+	
+    
+    mutateMetaTableTpl: function(metaTableTpl)
+    {
+    	var me = this;
+    	
+    	if(me.viewMode && me.viewMode != 'default')
+		{
+    		metaTableTpl[1] = '<table class="' + Ext.baseCSSPrefix + 'grid-table tileview" border="0" cellspacing="0" cellpadding="0" style="width: auto;">';
+    		metaTableTpl[2] = '<tbody class="dragselect">';
+    		metaTableTpl[3] = null;
+    		metaTableTpl[4] = null;		
+    		metaTableTpl[5] = null;		
+    		metaTableTpl[6] = null;	
+    		metaTableTpl[7] = null;	
+		}
+    },
+    
 	mutateMetaRowTpl: function(metaRowTpl)
 	{
 		var me = this;
-
-		if(me.view.chunker)
-		{
-			if(!me.metaTableTplOrig)
-				me.metaTableTplOrig = me.view.chunker.metaTableTpl;
-
-			if(!me.viewMode || me.viewMode == 'default')
-				me.view.chunker.metaTableTpl = me.metaTableTplOrig;
-			else
-				me.view.chunker.metaTableTpl = me.metaTableTpl;
-		}
-
+		
 		if(me.viewMode && me.viewMode != 'default')
 		{
-			metaRowTpl[0] = metaRowTpl[0].replace(Ext.baseCSSPrefix + 'grid-row', Ext.baseCSSPrefix + 'grid-row tileview');
+			metaRowTpl[0] = '<tr class="' + Ext.baseCSSPrefix + 'grid-row tileview {[this.embedRowCls()]}" {[this.embedRowAttr()]}>';
 			metaRowTpl[1] = null;
 			metaRowTpl[2] = '{[this.getRowBody(values, this.viewMode)]}';
 			metaRowTpl[3] = null;

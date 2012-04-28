@@ -1,7 +1,7 @@
 Ext.Loader.setConfig({
     enabled: true,
 	paths: {
-		'Ext.ux': 'http://extjs.cachefly.net/ext-4.0.7-gpl/examples/ux/',
+		'Ext.ux': 'http://extjs.cachefly.net/ext-4.1.0-gpl/examples/ux/',
 		'Ext.ux.grid': 	'../../ux/grid',
 		'Ext.ux.grid.plugin': '../../ux/grid/plugin',
 		'Ext.ux.grid.feature': '../../ux/grid/feature',
@@ -249,8 +249,7 @@ Ext.onReady(function(){
             chunker: Ext.view.TableChunker
         },
 		
-        features: [{
-            ftype: 'tileview',
+        features: [Ext.create('Ext.ux.grid.feature.Tileview', {
             viewMode: 'tileIcons',
 			getAdditionalData: function(data, index, record, orig)
 			{
@@ -276,49 +275,46 @@ Ext.onReady(function(){
 			},
 			viewTpls:
 			{
+					mediumIcons: [
+						'<td class="{cls} ux-explorerview-medium-icon-row">',
+						'<table class="x-grid-row-table">',
+							'<tbody>',
+								'<tr>',
+									'<td class="x-grid-col x-grid-cell ux-explorerview-icon" style="background: url(&quot;thumbnails/medium_{thumbnails}&quot;) no-repeat scroll 50% 100% transparent;">',
+									'</td>',
+								'</tr>',
+								'<tr>',
+									'<td class="x-grid-col x-grid-cell">',
+										'<div class="x-grid-cell-inner" unselectable="on">{name}</div>',
+									'</td>',
+								'</tr>',
+							'</tbody>',
+						'</table>',
+						'</td>'].join(''),
+				  
+		  			tileIcons: [
+						'<td class="{cls} ux-explorerview-detailed-icon-row">',
+						'<table class="x-grid-row-table">',
+							'<tbody>',
+								'<tr>',
+									'<td class="x-grid-col x-grid-cell ux-explorerview-icon" style="background: url(&quot;thumbnails/tile_{thumbnails}&quot;) no-repeat scroll 50% 50% transparent;">',
+									'</td>',
+								
+									'<td class="x-grid-col x-grid-cell">',
+										'<div class="x-grid-cell-inner" unselectable="on">{name}<br><span>{rating}<br>{cuisine}</span></div>',
+									'</td>',
+								'</tr>',
+							'</tbody>',
+						'</table>',
+						'</td>'].join('')
 		
-				mediumIcons: [
-					'<td class="{cls} ux-explorerview-medium-icon-row">',
-					'<table class="x-grid-row-table">',
-						'<tbody>',
-							'<tr>',
-								'<td class="x-grid-col x-grid-cell ux-explorerview-icon" style="background: url(&quot;thumbnails/medium_{thumbnails}&quot;) no-repeat scroll 50% 100% transparent;">',
-								'</td>',
-							'</tr>',
-							'<tr>',
-								'<td class="x-grid-col x-grid-cell">',
-									'<div class="x-grid-cell-inner" unselectable="on">{name}</div>',
-								'</td>',
-							'</tr>',
-						'</tbody>',
-					'</table>',
-					'</td>'].join(''),
-					
-	  			tileIcons: [
-					'<td class="{cls} ux-explorerview-detailed-icon-row">',
-					'<table class="x-grid-row-table">',
-						'<tbody>',
-							'<tr>',
-								'<td class="x-grid-col x-grid-cell ux-explorerview-icon" style="background: url(&quot;thumbnails/tile_{thumbnails}&quot;) no-repeat scroll 50% 50% transparent;">',
-								'</td>',
-							
-								'<td class="x-grid-col x-grid-cell">',
-									'<div class="x-grid-cell-inner" unselectable="on">{name}<br><span>{rating}<br>{cuisine}</span></div>',
-								'</td>',
-							'</tr>',
-						'</tbody>',
-					'</table>',
-					'</td>'].join('')
     		}
-        },
+        }),
 		{
             ftype: 'grouping',
             groupHeaderTpl: 'Cuisine: {name} ({rows.length} Item{[values.rows.length > 1 ? "s" : ""]})',
             disabled: false
         }],
-        plugins: [Ext.create('Ext.ux.grid.plugin.DragSelector', {
-            dragSafe: true
-        })],
         columns: [{
             text: 'Name',
             id: 'name',
@@ -350,7 +346,7 @@ Ext.onReady(function(){
             listeners: {
                 change: function(btn, item)
                 {
-                    grid.features[0].setView(btn.viewMode, false);		
+					grid.features[0].setView(btn.viewMode);		
                 },
                 scope: this
             }
