@@ -3,7 +3,6 @@ Ext.Loader.setConfig({
 	paths: {
 		'Ext.ux': 'http://extjs.cachefly.net/ext-4.1.0-gpl/examples/ux/',
 		'Ext.ux.grid': 	'../../ux/grid',
-		'Ext.ux.grid.plugin': '../../ux/grid/plugin',
 		'Ext.ux.grid.feature': '../../ux/grid/feature',
 		'Ext.ux.container': '../../ux/container'
 	}
@@ -12,7 +11,6 @@ Ext.Loader.setConfig({
 Ext.require([
 	'Ext.data.*',
 	'Ext.grid.*',
-	'Ext.ux.grid.plugin.DragSelector',
 	'Ext.ux.grid.feature.Tileview',
 	'Ext.ux.container.SwitchButtonSegment'
 ]);
