@@ -1,7 +1,7 @@
 Ext.Loader.setConfig({
     enabled: true,
 	paths: {
-		'Ext.ux': 'http://extjs.cachefly.net/ext-4.0.7-gpl/examples/ux/',
+		'Ext.ux': 'http://extjs.cachefly.net/ext-4.1.0-gpl/examples/ux/',
 		'Ext.ux.grid': '../../ux/grid',
 		'Ext.ux.grid.plugin': '../../ux/grid/plugin'
 	}
@@ -14,8 +14,7 @@ Ext.require([
     'Ext.state.*',
     'Ext.form.*',
     'Ext.ux.CheckColumn',
-    'Ext.ux.grid.plugin.RowEditing',
-    'Ext.ux.grid.plugin.DragSelector'
+    'Ext.ux.grid.plugin.RowEditing'
 ]);
 
 Ext.onReady(function(){
@@ -194,7 +193,7 @@ Ext.onReady(function(){
         },
         '->',
         sortmenu],
-        plugins: [sortmenu, rowEditing, Ext.create('Ext.ux.grid.plugin.DragSelector', {})],
+        plugins: [sortmenu, rowEditing],
         listeners: {
             'selectionchange': function(view, records) {
                 grid.down('#removeEmployee').setDisabled(!records.length);
