@@ -2,8 +2,8 @@
  * @class Ext.ux.grid.plugin.SortMenu
  * @extends Ext.button.Button
  * 
- * @author Harald Hanek (c) 2012
- * @license MIT (http://www.opensource.org/licenses/mit-license.php)
+ * @author Harald Hanek (c) 2011-2012
+ * @license http://harrydeluxe.mit-license.org
  */
 
 Ext.define('Ext.ux.grid.plugin.SortMenu', {

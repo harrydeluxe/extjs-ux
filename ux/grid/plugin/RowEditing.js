@@ -5,8 +5,8 @@
  * The Initial Developer of the Original Code is tz (atian25@qq.com)
  * @see http://www.sencha.com/forum/showthread.php?131482-Ext.ux.RowEditing-add-some-usefull-features
  * 
- * @author Harald Hanek (c) 2011
- * @license MIT (http://www.opensource.org/licenses/mit-license.php)
+ * @author Harald Hanek (c) 2011-2012
+ * @license http://harrydeluxe.mit-license.org
  */
 
 Ext.define('Ext.ux.grid.plugin.RowEditing', {
@@ -23,9 +23,9 @@ Ext.define('Ext.ux.grid.plugin.RowEditing', {
 		grid.addEvents('canceledit');
 		grid.relayEvents(me, [ 'canceledit' ]);
 
-		me.on('edit', function(editor)
+		me.on('edit', function(editor, context)
 		{
-			delete editor.record._blank;
+			delete context.record._blank;
 		});
 	},
 
@@ -42,7 +42,7 @@ Ext.define('Ext.ux.grid.plugin.RowEditing', {
 
 		var record = me.grid.store.model.create(data);
 		record._blank = true;
-
+		
 		position = (position && position != -1 && parseInt(position + 1) <= parseInt(me.grid.store.getCount())) ? position
 				: (position == -1) ? parseInt(me.grid.store.getCount()) : 0;
 
@@ -51,6 +51,11 @@ Ext.define('Ext.ux.grid.plugin.RowEditing', {
 		me.grid.store.insert(position, record);
 		me.grid.store.autoSync = autoSync;
 		me.startEdit(position, 0);
+		
+        if (me.editor.floatingButtons && me.editor.form.isValid())
+		{
+            me.editor.floatingButtons.child('#update').setDisabled(false);
+        }
 	},
 
 	startEditByClick: function()
@@ -75,7 +80,7 @@ Ext.define('Ext.ux.grid.plugin.RowEditing', {
         		me.cancelEdit();
 
         	me.editing = false;
-        	me.superclass.startEditByClick.apply(me, arguments);
+			me.superclass.onCellClick.apply(me, arguments);
         }
     },
 
