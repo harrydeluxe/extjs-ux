@@ -14,7 +14,6 @@ Ext.require([
     'Ext.state.*',
     'Ext.form.*',
     'Ext.ux.CheckColumn',
-    'Ext.ux.grid.plugin.RowEditing',
     'Ext.ux.grid.plugin.DragSelector'
 ]);
 
@@ -88,11 +87,6 @@ Ext.onReady(function(){
         }]
     });
 
-    var rowEditing = Ext.create('Ext.ux.grid.plugin.RowEditing', {
-        clicksToMoveEditor: 1,
-        autoCancel: false
-    });
-
     // create the grid and specify what field you want
     // to use for the editor at each column.
     var grid = Ext.create('Ext.grid.Panel', {
@@ -155,24 +149,6 @@ Ext.onReady(function(){
         frame: true,
         multiSelect: true,
         tbar: [{
-            text: 'Add Employee',
-            iconCls: 'employee-add',
-            handler : function() {
-            	           	
-            	if(rowEditing.editing)
-					return false;
-			
-            	var r = {
-                    name: 'Harry Deluxe',
-                    email: 'new@sencha-test.com',
-                    start: new Date(),
-                    salary: 80000,
-                    active: true
-                };
-										
-            	rowEditing.startAdd(r, 0);
-            }
-        }, {
             itemId: 'removeEmployee',
             text: 'Remove Employee',
             iconCls: 'employee-remove',
@@ -188,7 +164,7 @@ Ext.onReady(function(){
             },
             disabled: true
         }],
-        plugins: [rowEditing, Ext.create('Ext.ux.grid.plugin.DragSelector', {})],
+        plugins: [Ext.create('Ext.ux.grid.plugin.DragSelector', {})],
         listeners: {
             'selectionchange': function(view, records) {
                 grid.down('#removeEmployee').setDisabled(!records.length);
