@@ -3,7 +3,7 @@ Ext.Loader.setConfig({
 	paths: {
 		'Ext.ux': 'http://extjs.cachefly.net/ext-4.1.0-gpl/examples/ux/',
 		'Ext.ux.grid': 	'../../ux/grid',
-		'Ext.ux.grid.feature': '../../ux/grid/feature',
+		//'Ext.ux.grid.feature': '../../ux/grid/feature',
 		'Ext.ux.container': '../../ux/container'
 	}
 });
@@ -12,6 +12,7 @@ Ext.require([
 	'Ext.data.*',
 	'Ext.grid.*',
 	'Ext.ux.grid.feature.Tileview',
+	'Ext.ux.grid.plugin.DragSelector',
 	'Ext.ux.container.SwitchButtonSegment'
 ]);
 
@@ -246,7 +247,9 @@ Ext.onReady(function(){
             stripeRows: true,
             chunker: Ext.view.TableChunker
         },
-		
+        
+        plugins: [Ext.create('Ext.ux.grid.plugin.DragSelector')],
+        
         features: [Ext.create('Ext.ux.grid.feature.Tileview', {
             viewMode: 'tileIcons',
 			getAdditionalData: function(data, index, record, orig)

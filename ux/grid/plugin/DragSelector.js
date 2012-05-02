@@ -2,8 +2,7 @@
  * @class Ext.ux.grid.plugin DragSelector
  * @extends Ext.util.Observable
  * 
- * @author Harald Hanek
- * @copyright 2011, DELACAP, all rights reserved.
+ * @author Harald Hanek (c) 2011-2012
  * 
  * The Initial Developer of the Original Code is: Claudio Walser aka Foggy
  * cwa[at]uwd.ch
@@ -15,13 +14,23 @@
 
 Ext.define('Ext.ux.grid.plugin.DragSelector', {
 	extend: 'Ext.util.Observable',
-	requires: [ 'Ext.dd.DragTracker', 'Ext.util.Region', 'Ext.grid.Scroller' ],
+	
+	requires: ['Ext.dd.DragTracker',
+	            'Ext.util.Region'],
+	            
 	alias: 'plugin.ux.dragselector',
 
 	isDragging: false,
+	
 	scrollTopStart: 0,
+	
 	scrollTop: 0,
+	
 	targetDragSelector: '.dragselect',
+	
+	dragSafe: false,
+	
+	scrollSpeed: 10,
 
 	constructor: function(config)
 	{
@@ -55,16 +64,6 @@ Ext.define('Ext.ux.grid.plugin.DragSelector', {
 
 		me.mon(me.view, 'render', me.onRender, me);
 		me.mon(me.view, 'bodyscroll', me.syncScroll, me);
-
-		if(!me.grid.verticalScroller)
-		{
-			Ext.apply(me.grid, {
-				verticalScroller: {
-					xtype: 'gridscroller',
-					activePrefetch: false
-				}
-			});
-		}
 	},
 
 	onRender: function(view)
@@ -96,19 +95,20 @@ Ext.define('Ext.ux.grid.plugin.DragSelector', {
 
 	fillAllRegions: function()
 	{
-		this.mainRegion = this.scroller.getRegion();
-		this.bodyRegion = this.scroller.getRegion();
+		var me = this,
+			objectsSelected = me.objectsSelected = [];
+		
+		me.mainRegion = me.scroller.getRegion();
+		me.bodyRegion = me.scroller.getRegion();
 
-		var objectsSelected = this.objectsSelected = [];
-
-		this.view.all.each(function(el)
+		me.view.all.each(function(el)
 		{
-			objectsSelected.push(this.selModel.isSelected(objectsSelected.length));
+			objectsSelected.push(me.selModel.isSelected(objectsSelected.length));
 
-		}, this);
+		}, me);
 
-		this.fillRegions();
-		this.syncScroll();
+		me.fillRegions();
+		me.syncScroll();
 	},
 
 	fillRegions: function()
@@ -121,20 +121,18 @@ Ext.define('Ext.ux.grid.plugin.DragSelector', {
 		});
 	},
 
-	/*
-	 * syncRegions: function() { this.fillRegions(); },
-	 */
-
 	cancelClick: function(e)
 	{
-		this.ctrlState = e.ctrlKey;
-		this.shiftState = e.shiftKey;
+		var me = this,
+			target = e.getTarget();
+		
+		me.ctrlState = e.ctrlKey;
+		me.shiftState = e.shiftKey;
 		// grid.stopEditing();
-		var target = e.getTarget();
 
-		if(!this.ctrlState && !this.shiftState && target.className === 'x-grid-view')
+		if(!me.ctrlState && !me.shiftState && target.className === 'x-grid-view')
 		{
-			this.selModel.clearSelections();
+			me.selModel.clearSelections();
 		}
 		return true;
 	},
@@ -188,7 +186,9 @@ Ext.define('Ext.ux.grid.plugin.DragSelector', {
 
 	onDrag: function(e, scaleSelector)
 	{
-		var me = this, startXY = me.tracker.startXY, xy = me.tracker.getXY();
+		var me = this,
+			startXY = me.tracker.startXY,
+			xy = me.tracker.getXY();
 
 		if(xy[0] < startXY[0] && !scaleSelector)
 		{
@@ -199,29 +199,31 @@ Ext.define('Ext.ux.grid.plugin.DragSelector', {
 		{
 			if((startXY[1] - me.scrollTop) <= xy[1])
 			{
-				var y = startXY[1] - me.scrollTop;
-				var h = Math.abs(y - xy[1]);
+				var y = startXY[1] - me.scrollTop,
+					h = Math.abs(y - xy[1]);
 			}
 			else
 			{
-				var y = xy[1];
-				var h = Math.abs(startXY[1] - xy[1]) - me.scrollTop;
+				var y = xy[1],
+					h = Math.abs(startXY[1] - xy[1]) - me.scrollTop;
 			}
-			var x = Math.min(startXY[0], xy[0]);
-			var w = Math.abs(startXY[0] - xy[0]);
+			
+			var x = Math.min(startXY[0], xy[0]),
+				w = Math.abs(startXY[0] - xy[0]);
+			
 			me.bodyRegion.top -= me.scrollTop;
 		}
 		else
 		{
 			if((startXY[1] - me.scrollTop) < xy[1])
 			{
-				var y = startXY[1] - me.scrollTop;
-				var h = Math.abs(y - xy[1]);
+				var y = startXY[1] - me.scrollTop,
+					h = Math.abs(y - xy[1]);
 			}
 			else
 			{
-				var y = xy[1];
-				var h = Math.abs((startXY[1] - me.scrollTop) - xy[1]);
+				var y = xy[1],
+					h = Math.abs((startXY[1] - me.scrollTop) - xy[1]);
 			}
 
 			var x = Math.min(startXY[0], xy[0]);
@@ -238,14 +240,18 @@ Ext.define('Ext.ux.grid.plugin.DragSelector', {
 
 		me.proxy.setRegion(dragRegion);
 
-		var view = me.view, s = me.scroller;
+		var view = me.view,
+			s = me.scroller;
 
 		for( var i = 0; i < me.rs.length; i++)
 		{
-			var r = me.rs[i], sel = dragRegion.intersect(r), selected = me.selModel.isSelected(i), selectedBefore = me.objectsSelected[i];
-
-			if(this.ctrlState)
-			{
+			var r = me.rs[i],
+				sel = dragRegion.intersect(r),
+				selected = me.selModel.isSelected(i),
+				selectedBefore = me.objectsSelected[i];
+			
+			if(me.ctrlState)
+			{				
 				if(selectedBefore)
 				{
 					if(sel && selected)
@@ -270,7 +276,7 @@ Ext.define('Ext.ux.grid.plugin.DragSelector', {
 				}
 			}
 			else
-			{
+			{				
 				if(sel && !selected)
 				{
 					view.getSelectionModel().select(i, true);
@@ -294,7 +300,7 @@ Ext.define('Ext.ux.grid.plugin.DragSelector', {
 			}
 			else
 			{
-				me.grid.verticalScroller.setScrollTop(s.getScroll().top + 40);
+				me.setScrollTop(s.getScroll().top + me.scrollSpeed);
 			}
 		}
 
@@ -310,11 +316,22 @@ Ext.define('Ext.ux.grid.plugin.DragSelector', {
 			}
 			else
 			{
-				me.grid.verticalScroller.setScrollTop(s.getScroll().top - 40);
+				me.setScrollTop(s.getScroll().top - me.scrollSpeed);
 			}
 		}
 	},
 
+	setScrollTop: function(scrollTop)
+	{
+		var el = this.scroller,
+            elDom = el && el.dom;
+
+        if(elDom)
+        {
+            return elDom.scrollTop = Ext.Number.constrain(scrollTop, 0, elDom.scrollHeight - elDom.clientHeight);
+        }
+    },
+    
 	onEnd: function(e)
 	{
 		var me = this;
