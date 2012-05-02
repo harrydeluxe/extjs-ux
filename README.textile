@@ -5,6 +5,7 @@ h2. Ext.ux.aceeditor.Panel
 !http://harrydeluxe.github.com/extjs-ux/img/aceeditor.jpg!
 
 Demo (simple): "Link":http://harrydeluxe.github.com/extjs-ux/example/aceeditor/simple.html
+Demo (liquid Syntax): "Link":http://harrydeluxe.github.com/extjs-ux/example/aceeditor/simple_2.html
 Demo: "Link":http://harrydeluxe.github.com/extjs-ux/example/aceeditor/aceeditor.html
 
 Forum: "Link":http://www.sencha.com/forum/showthread.php?154570-Ext.ux.aceeditor.Panel
