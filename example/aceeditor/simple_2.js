@@ -14,9 +14,11 @@ Ext.onReady(function()
 		items: [ {
 			region: 'center',
 			xtype: 'AceEditor',
-			// sourceCode: 'huhu',
-			url: 'simple.js',
-			parser: 'javascript'
+			unstyled: true,
+			theme: 'twilight',
+			fontSize: '13px',
+			contentEl: 'pre_1',
+			parser: 'liquid'
 		} ]
 	});
 });
