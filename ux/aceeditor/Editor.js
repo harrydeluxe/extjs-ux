@@ -2,13 +2,11 @@
  * @class Ext.ux.aceeditor.Editor
  * @extends Ext.AbstractComponent
  * 
- * @author Harald Hanek (c) 2011
- * @license MIT (http://www.opensource.org/licenses/mit-license.php)
+ * @author Harald Hanek (c) 2011-2012
+ * @license http://harrydeluxe.mit-license.org
  */
 
 Ext.define('Ext.ux.aceeditor.Editor', {
-	// extend: 'Ext.AbstractComponent',
-
 	path: '',
 	sourceCode: '',
 	fontSize: '12px',
@@ -37,7 +35,6 @@ Ext.define('Ext.ux.aceeditor.Editor', {
 		me.setValue(me.sourceCode);
 		me.editor.getSession().on('change', function()
 		{
-			//console.log('change', me);
 			me.fireEvent('change', me);
 		}, me);
 
@@ -61,14 +58,12 @@ Ext.define('Ext.ux.aceeditor.Editor', {
 
 	setTheme: function(name)
 	{
-		// require("theme-" + name + ".js");
 		this.editor.setTheme("ace/theme/" + name);
 	},
 
 	setMode: function(mode)
 	{
-		var Mode = require("ace/mode/" + mode).Mode;
-		this.getSession().setMode(new Mode());
+		this.getSession().setMode("ace/mode/" + mode);
 	},
 
 	getValue: function()

@@ -1,13 +1,13 @@
 /**
  * @class Ext.ux.aceeditor.Panel
- * @extends Ext.Panel Converts a panel into a ACE editor
+ * @extends Ext.panel.Panel Converts a panel into a ACE editor
  * 
- * @author Harald Hanek (c) 2011
- * @license MIT (http://www.opensource.org/licenses/mit-license.php)
+ * @author Harald Hanek (c) 2011-2012
+ * @license http://harrydeluxe.mit-license.org
  */
 
 Ext.define('Ext.ux.aceeditor.Panel', {
-	extend: 'Ext.Panel',
+	extend: 'Ext.panel.Panel',
 	alias: 'widget.AceEditor',
 
 	mixins: {
@@ -15,6 +15,9 @@ Ext.define('Ext.ux.aceeditor.Panel', {
 	},
 
 	layout: 'fit',
+	
+	
+	
 	border: false,
 
 	listeners: {
@@ -69,7 +72,8 @@ Ext.define('Ext.ux.aceeditor.Panel', {
 
 		if(me.contentEl != null)
 		{
-			me.sourceCode = Ext.get(me.contentEl).dom.innerHTML;
+			//console.log(Ext.get(me.contentEl));
+			me.sourceCode = Ext.get(me.contentEl).dom.innerText;
 		}
 
 		me.editorId = me.items.keys[0];
@@ -79,7 +83,6 @@ Ext.define('Ext.ux.aceeditor.Panel', {
 		// init editor on afterlayout
 		me.on('afterlayout', function()
 		{
-
 			if(me.url)
 			{
 				Ext.Ajax.request({
