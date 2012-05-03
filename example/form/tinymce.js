@@ -1,7 +1,7 @@
 Ext.Loader.setConfig({
 	'enabled': true,
 	'paths': {
-		'Ext.ux': 'http://extjs.cachefly.net/ext-4.0.7-gpl/examples/ux/',
+		'Ext.ux': 'http://extjs.cachefly.net/ext-4.1.0-gpl/examples/ux/',
 		'Ext.ux.form.field': '../../ux/form/field'
 	}
 });
@@ -79,8 +79,7 @@ Ext.onReady(function()
 				theme_advanced_buttons4: '',
 				skin: 'o2k7'
 			}
-		}
-		],
+		}],
 
 		buttons: [ '->', {
 			text: 'Load',
