@@ -305,7 +305,7 @@ Ext.define("Ext.ux.form.field.TinyMCE",	{
 	{
 		var me = this;
 		
-		me.editor.remove();
+		//me.editor.remove();
 		me.editor.destroy();
 		me.callParent(arguments);
 	},
