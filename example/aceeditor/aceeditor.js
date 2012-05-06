@@ -199,6 +199,10 @@ Ext.onReady(function()
                                 fields: ['name',
                                         'value'],
                                 data: [{
+                                    value: 'ambiance',
+                                    name: 'Ambiance'
+                                },
+                                {
                                     value: 'chrome',
                                     name: 'Chrome'
                                 },

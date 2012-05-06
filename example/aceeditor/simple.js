@@ -14,7 +14,9 @@ Ext.onReady(function()
 		items: [ {
 			region: 'center',
 			xtype: 'AceEditor',
-			// sourceCode: 'huhu',
+			theme: 'ambiance',
+			printMargin: true,
+			fontSize: '13px',
 			url: 'simple.js',
 			parser: 'javascript'
 		} ]
