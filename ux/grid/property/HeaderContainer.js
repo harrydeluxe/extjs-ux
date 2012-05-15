@@ -36,7 +36,7 @@ Ext.define('Ext.ux.grid.property.HeaderContainer', {
                 renderer: Ext.Function.bind(me.renderProp, me),
                 itemId: grid.nameField,
                 menuDisabled: true,
-                tdCls: me.nameColumnCls
+                groupField: true
             },
             {
                 header: me.valueText,
@@ -50,10 +50,11 @@ Ext.define('Ext.ux.grid.property.HeaderContainer', {
                 menuDisabled: true
             },
             {
-                header: 'group',
+                header: grid.groupField,
                 hidden: true,
-                dataIndex: 'group',
-                id: 'group'
+                sortable: grid.sortableColumns,
+                dataIndex: grid.groupField,
+                itemId: grid.groupField
             }];
         
         if(grid.columns)
@@ -88,13 +89,26 @@ Ext.define('Ext.ux.grid.property.HeaderContainer', {
      */
     renderCell: function(val, meta, rec)
     {
-        var me = this, renderer = me.grid.customRenderers[rec.get(me.grid.nameField)], result = val, c = rec.data.renderer != '' ? rec.data.renderer
-                : null;
+        var me = this,
+            renderer = me.grid.customRenderers[rec.get(me.grid.nameField)],
+            result = val,
+            c = rec.data.renderer != '' ? rec.data.renderer : null;
+        
         renderer = me.grid.customRenderers[c] || c || me.grid.customRenderers[rec.get(me.grid.nameField)]; // harry
+        
+        var v = me.grid.customEditors[rec.get('editor')];
+        if(!rec.get('renderer') && v)
+        {
+            var t = v.field || v;
+            if(t.rendered && t.rawValue)
+                return t.rawValue;
+        }
+        
         if(renderer)
         {
             return renderer.apply(me, arguments);
         }
+        
         if(Ext.isDate(val))
         {
             result = me.renderDate(val);

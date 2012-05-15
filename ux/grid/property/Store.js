@@ -24,20 +24,22 @@ Ext.define('Ext.ux.grid.property.Store', {
         var me = this;
         me.grid = grid;
         me.source = source;
-        
+
         delete me.superclass.constructor;
         
         me.callParent([{
-            data: source,
+            data: source || [],
             model: Ext.ux.grid.property.Property,
             proxy: me.getProxy(),
-            groupField: 'group'
+            groupField: grid.groupField
         }]);
     },
     
     setValue: function(prop, value, create)
     {
-        var me = this, rec = me.getRec(prop);
+        var me = this,
+            rec = me.getRec(prop);
+        
         if(rec)
         {
             rec.set('value', value);

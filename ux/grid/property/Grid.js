@@ -14,26 +14,49 @@ Ext.define('Ext.ux.grid.property.Grid', {
         forceFit: true,
         getRowClass: function(record)
         {
-            return (record.data['disabled'] == true) ? "x-item-disabled x-grid-row-disabled" : "";
+            return (record.data['disabled'] == true) ? "x-item-disabled" : "";
         }
     },
+    
+    /**
+     * @cfg {String} groupField
+     * The name of the field from the property store to use as the grouping field.
+     */
+    groupField: 'group',
+    
+    /**
+     * @cfg {String} groupingConfig
+     * 
+     */
+    groupingConfig: {},
+    
     
     /**
      * @private
      */
     initComponent: function()
     {
+        if(!Ext.get('Ext.ux.grid.property.Grid'))
+            Ext.getBody().createChild({
+                tag: 'style',
+                type: 'text/css',
+                id: 'Ext.ux.grid.property.Grid',
+                html: '.x-item-disabled div.x-grid-cell-inner {color: gray !important;}'
+            });
+        
         var me = this;
         me.addCls(Ext.baseCSSPrefix + 'property-grid');
         me.plugins = me.plugins || [];
+        
         // Enable cell editing. Inject a custom startEdit which always edits
-        // column 1 regardless of which column was clicked.
+        // column 1 regardless of which column was clicked.        
         me.plugins.push(new Ext.grid.plugin.CellEditing({
             clicksToEdit: me.clicksToEdit,
             // Inject a startEdit which always edits the value column
             startEdit: function(record, column, e)
             {
-                if(record.data['disabled'] == true)
+                //console.log(record, column);
+                if(record.data && record.data['disabled'] == true)
                     return false;
                 
                 // Maintainer: Do not change this 'this' to 'me'! It is the
@@ -41,6 +64,19 @@ Ext.define('Ext.ux.grid.property.Grid', {
                 return this.self.prototype.startEdit.call(this, record, me.headerCt.child('#' + me.valueField));
             }
         }));
+        
+
+        me.features = me.features || [];
+
+        me.groupingFeature = new Ext.grid.feature.Grouping(Ext.apply({
+            groupHeaderTpl: '{name}',
+            enableGroupingMenu: true,
+            groupField: me.groupField
+        }, me.groupingConfig));
+        
+        me.features.push(me.groupingFeature);
+        
+        
         me.selModel = {
             selType: 'cellmodel',
             onCellSelect: function(position)
@@ -48,13 +84,14 @@ Ext.define('Ext.ux.grid.property.Grid', {
                 var record = me.store.getAt(position.row);
                 if(record && record.data['disabled'] == true)
                     return false;
+                
                 if(position.column != 1)
-                {
                     position.column = 1;
-                }
+                
                 return this.self.prototype.onCellSelect.call(this, position);
             }
         };
+        
         me.customRenderers = me.customRenderers || {};
         me.customEditors = me.customEditors || {};
         
@@ -73,10 +110,8 @@ Ext.define('Ext.ux.grid.property.Grid', {
         if(!me.propStore)
             me.propStore = me.store;
         
-        // me.store.groupField = 'group'; // harry
-        me.store.sort('name', 'ASC');
-        // me.columns = Ext.create('Ext.ux.grid.property.HeaderContainer', me,
-        // me.store); // harry
+        //me.store.sort('name', 'ASC');
+
         me.columns = new Ext.ux.grid.property.HeaderContainer(me, me.store); // harry
         
         me.addEvents(
@@ -148,8 +183,13 @@ Ext.define('Ext.ux.grid.property.Grid', {
      */
     getCellEditor: function(record, column)
     {
-        var me = this, propName = record.get(me.nameField), val = record.get(me.valueField), editor = me.customEditors[propName];
+        var me = this,
+            propName = record.get(me.nameField),
+            val = record.get(me.valueField),
+            editor = me.customEditors[propName];
+
         editor = me.customEditors[record.data.editor] || record.data.editor || me.customEditors[propName]; // harry
+        
         // A custom editor was found. If not already wrapped with a CellEditor,
         // wrap it, and stash it back
         // If it's not even a Field, just a config object, instantiate it before
