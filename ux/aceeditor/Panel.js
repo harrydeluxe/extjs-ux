@@ -34,17 +34,11 @@ Ext.define('Ext.ux.aceeditor.Panel', {
     
     initComponent: function()
     {
-        var me = this, items = {
-            xtype: 'component',
-            autoEl: 'pre'
-        };
-        
-        me.addEvents(
-        /**
-         * @event change Fires after a change.
-         * @param {Ext.ux.aceeditor.Editor} this
-         */
-        'change');
+        var me = this,
+            items = {
+                xtype: 'component',
+                autoEl: 'pre'
+            };
         
         if(me.contentEl != null)
         {
