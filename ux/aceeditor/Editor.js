@@ -6,6 +6,7 @@
  * @license http://harrydeluxe.mit-license.org
  */
 Ext.define('Ext.ux.aceeditor.Editor', {
+    extend: 'Ext.util.Observable',
     path: '',
     sourceCode: '',
     autofocus: true,
@@ -24,9 +25,24 @@ Ext.define('Ext.ux.aceeditor.Editor', {
     useWrapMode: false,
     codeFolding: true,
     
+    constructor: function(owner, config)
+    {
+        var me = this;
+        me.owner = owner;      
+        
+        me.addEvents({
+            'editorcreated': true
+             },
+            'change');      
+
+        me.callParent();
+    },
+    
     initEditor: function()
     {
         var me = this;
+        
+        
         me.editor = ace.edit(me.editorId);
         me.setMode(me.parser);
         me.setTheme(me.theme);
@@ -46,12 +62,19 @@ Ext.define('Ext.ux.aceeditor.Editor', {
         me.editor.getSession().on('change', function()
         {
             me.fireEvent('change', me);
+            
         }, me);
         
         if(me.autofocus)
             me.editor.focus();
         else
+        {
+            me.editor.renderer.hideCursor();
             me.editor.blur();
+        }
+        
+        me.editor.initialized = true;
+        me.fireEvent('editorcreated', me);
     },
     
     getEditor: function()
@@ -66,7 +89,7 @@ Ext.define('Ext.ux.aceeditor.Editor', {
     
     getTheme: function()
     {
-        this.editor.getTheme();
+        return this.editor.getTheme();
     },
     
     setTheme: function(name)
@@ -81,7 +104,7 @@ Ext.define('Ext.ux.aceeditor.Editor', {
     
     getValue: function()
     {
-        this.editor.getSession().getValue();
+        return this.editor.getSession().getValue();
     },
     
     setValue: function(value)
