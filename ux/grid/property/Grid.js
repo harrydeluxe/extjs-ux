@@ -7,8 +7,10 @@
  */
 Ext.define('Ext.ux.grid.property.Grid', {
     extend: 'Ext.grid.property.Grid',
-    uses: ['Ext.ux.grid.property.Store',
-            'Ext.ux.grid.property.HeaderContainer'],
+    
+    uses: [ 'Ext.ux.grid.property.Store',
+            'Ext.ux.grid.property.HeaderContainer',
+            'Ext.grid.feature.Grouping'],
             
     viewConfig: {
         forceFit: true,
@@ -231,5 +233,32 @@ Ext.define('Ext.ux.grid.property.Grid', {
         // Give the editor a unique ID because the CellEditing plugin caches them
         editor.editorId = propName;
         return editor;
+    },
+    
+ // Custom implementation of walkCells which only goes up and down.
+    walkCells: function(pos, direction, e, preventWrap, verifierFn, scope) {
+        if (direction == 'left') {
+            direction = 'up';
+        } else if (direction == 'right') {
+            direction = 'down';
+        }
+        
+        // skip diabled records
+        if(direction == 'up' && pos.record.index != 0 || direction == 'down' && pos.record.index < pos.record.store.totalCount-1)
+        {       
+            var ind = (direction == 'down') ? + 1 : - 1,
+                f = pos.record.store.getAt(pos.record.index + ind);
+            
+            if(f.data && f.data.disabled)
+            {
+                pos.row = pos.row + ind;
+            }
+        }
+        
+        pos = Ext.view.Table.prototype.walkCells.call(this, pos, direction, e, preventWrap, verifierFn, scope);
+        if (!pos.column) {
+            pos.column = 1;
+        }
+        return pos;
     }
 });
