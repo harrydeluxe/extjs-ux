@@ -23,16 +23,14 @@ Ext.define('Ext.ux.upload.Button', {
     
     initComponent: function()
     {
-        var me = this;
+        var me = this,
+            e;
         me.callParent();
         me.uploader = me.createUploader();
-        if(me.uploader.dropElement)
+        
+        if(me.uploader.dropElement && (e = Ext.getCmp(me.uploader.dropElement)))
         {
-            var e = Ext.getCmp(me.uploader.dropElement);
-            
-            if(e)
-            {
-                e.addListener('afterRender', function()
+            e.addListener('afterRender', function()
                 {
                        me.uploader.initialize();
                 },
@@ -40,10 +38,6 @@ Ext.define('Ext.ux.upload.Button', {
                     single: true,
                     scope: me
                 });
-                
-            }
-            else
-                me.uploader.initialize();
         }
         else
         {
@@ -58,6 +52,7 @@ Ext.define('Ext.ux.upload.Button', {
                 }
             };
         }
+        
         me.relayEvents(me.uploader, ['beforestart',
                 'uploadready',
                 'uploadstarted',

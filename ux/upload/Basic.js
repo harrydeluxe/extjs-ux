@@ -121,8 +121,11 @@ Ext.define('Ext.ux.upload.Basic', {
     initialize: function()
     {
         var me = this;
-        me.initialized = true;
-        me.initializeUploader();
+        if(!me.initialized)
+        {
+            me.initialized = true;
+            me.initializeUploader();
+        }
     },
     
     /**

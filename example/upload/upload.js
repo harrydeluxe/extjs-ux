@@ -43,7 +43,7 @@ Ext.onReady(function()
 	Ext.create('Ext.ux.upload.Button', {
 		renderTo: Ext.getBody(),
 		text: 'Select files',
-		singleFile: true,
+		//singleFile: true,
 		plugins: [{
                       ptype: 'ux.upload.window',
                       title: 'Upload',
