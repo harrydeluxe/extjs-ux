@@ -52,6 +52,12 @@ h2. Ext.ux.window.EachDialog
 
 Demo: "Link":http://harrydeluxe.github.com/extjs-ux/example/window/eachdialog.html
 
+h2. Ext.ux.grid.property.Grid
+
+!http://harrydeluxe.github.com/extjs-ux/img/groupingproperty.jpg!
+
+Demo: "Link":http://harrydeluxe.github.com/extjs-ux/example/grid/propertygrid.html
+
 h2. Ext.ux.form.field.TinyMCE
 
 !http://harrydeluxe.github.com/extjs-ux/img/tinymce.jpg!
@@ -65,3 +71,4 @@ h2. Ext.ux.form.field.Grid
 Demo: "Link":http://harrydeluxe.github.com/extjs-ux/example/form/grid.html
 
 Note: Early Beta!
+
