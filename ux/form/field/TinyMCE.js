@@ -219,7 +219,6 @@ Ext.define("Ext.ux.form.field.TinyMCE",	{
 		});
 		
 		me.callParent([config]);
-		//return me;
 	},
 	
 	afterRender: function()
