@@ -14,8 +14,7 @@ Ext.require(['Ext.grid.*',
         'Ext.form.*',
         'Ext.ux.CheckColumn',
         'Ext.ux.grid.property.Grid',
-        'Ext.ux.grid.property.Property',
-        'Ext.ux.form.field.Color']);
+        'Ext.ux.grid.property.Property']);
 
 Ext.onReady(function()
 {
