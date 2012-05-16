@@ -66,7 +66,7 @@ Ext.onReady(function()
 			statusDoneText: '<span style="color: green">Complete</span>',
 
 			statusInvalidSizeText: 'File too large',
-			statusInvalidExtensionText: 'Invalid file type',
+			statusInvalidExtensionText: 'Invalid file type'
 		},
 		listeners: 
 		{
