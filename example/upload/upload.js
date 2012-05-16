@@ -1,24 +1,64 @@
+window.ondragenter = function(e)
+{
+    e.dataTransfer.dropEffect = 'none';
+    e.preventDefault();
+    return false;
+};
+
+window.ondragover = function(e)
+{
+    e.preventDefault();
+    return false;
+};
+
+window.ondrop = function(e)
+{
+    return false;
+};
+
+window.ondragleave = function(e)
+{
+    return false;
+};
+
 Ext.Loader.setConfig({
-	enabled: true,
-	paths: {
-		'Ext.ux.upload': '../../ux/upload'
-	}
+    enabled: true,
+    paths: {
+        'Ext.ux': 'http://extjs.cachefly.net/ext-4.1.0-gpl/examples/ux/',
+        'Ext.ux.upload': '../../ux/upload'
+    }
 });
 
-Ext.require([ 'Ext.ux.upload.Button' ]);
+Ext.require(['Ext.grid.*',
+        'Ext.data.*',
+        'Ext.util.*',
+        'Ext.state.*',
+        'Ext.ux.upload.Button',
+        'Ext.ux.upload.plugin.Window']);
+
+
 
 Ext.onReady(function()
 {	
 	Ext.create('Ext.ux.upload.Button', {
 		renderTo: Ext.getBody(),
-		text: 'Upload',
-		singleFile: true,
+		text: 'Select files',
+		//singleFile: true,
+		plugins: [{
+                      ptype: 'ux.upload.window',
+                      title: 'Upload',
+                      width: 520,
+                      height: 350
+                  }
+        ],
 		uploader: 
 		{
-			url: 'upload.php',
+			url: 'upload.json',
 			uploadpath: '/Root/files',
-			autoStart: true,
+			autoStart: false,
 			maxFileSize: '2020mb',
+			
+			dropElement: 'dragload',
 			
 			statusQueuedText: 'Ready to upload',
 			statusUploadingText: 'Uploading ({0}%)',
@@ -26,7 +66,7 @@ Ext.onReady(function()
 			statusDoneText: '<span style="color: green">Complete</span>',
 
 			statusInvalidSizeText: 'File too large',
-			statusInvalidExtensionText: 'Invalid file type'
+			statusInvalidExtensionText: 'Invalid file type',
 		},
 		listeners: 
 		{
