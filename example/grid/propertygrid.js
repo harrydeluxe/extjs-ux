@@ -132,6 +132,15 @@ Ext.onReady(function()
             editor: {
                 xtype: 'checkbox',
                 cls: 'x-grid-checkheader-editor'
+            },
+            listeners:
+            {
+                beforecheckchange: function(checkColumn, rowIndex, checked)
+                {
+                    var record = checkColumn.ownerCt.view.panel.store.getAt(rowIndex);
+                    if(record && record.data.disabled)
+                        return false;
+                }
             }
         }],
         source: data,

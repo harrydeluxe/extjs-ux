@@ -17,6 +17,14 @@ Ext.define('Ext.ux.grid.property.Grid', {
         getRowClass: function(record)
         {
             return (record.data['disabled'] == true) ? "x-item-disabled" : "";
+        },
+        listeners:
+        {
+            beforeitemmousedown: function(view, record)
+            {
+                if(record && record.data.disabled)
+                    return false;
+            }
         }
     },
     
@@ -47,6 +55,7 @@ Ext.define('Ext.ux.grid.property.Grid', {
             });
         
         var me = this;
+        
         me.addCls(Ext.baseCSSPrefix + 'property-grid');
         me.plugins = me.plugins || [];
         
@@ -57,7 +66,6 @@ Ext.define('Ext.ux.grid.property.Grid', {
             // Inject a startEdit which always edits the value column
             startEdit: function(record, column, e)
             {
-                //console.log(record, column);
                 if(record.data && record.data['disabled'] == true)
                     return false;
                 
@@ -66,7 +74,6 @@ Ext.define('Ext.ux.grid.property.Grid', {
                 return this.self.prototype.startEdit.call(this, record, me.headerCt.child('#' + me.valueField));
             }
         }));
-        
 
         me.features = me.features || [];
 
