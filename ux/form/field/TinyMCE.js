@@ -219,7 +219,6 @@ Ext.define("Ext.ux.form.field.TinyMCE",	{
 		});
 		
 		me.callParent([config]);
-		//return me;
 	},
 	
 	afterRender: function()
@@ -264,7 +263,10 @@ Ext.define("Ext.ux.form.field.TinyMCE",	{
 
 	getValue: function()
 	{
-		return this.editor.getContent();
+	    if(this.editor)
+	        return this.editor.getContent();
+	    
+	    return this.value;
 	},
 	
 	setValue: function(value)
@@ -305,8 +307,10 @@ Ext.define("Ext.ux.form.field.TinyMCE",	{
 	{
 		var me = this;
 		
-		//me.editor.remove();
-		me.editor.destroy();
+		if(me.editor)
+		{
+            me.editor.destroy();
+        }
 		me.callParent(arguments);
 	},
 	
