@@ -72,23 +72,23 @@ Ext.onReady(function()
 		{
 			filesadded: function(uploader, files)								
 			{
-				console.log('filesadded');
+				//console.log('filesadded');
 				return true;
 			},
 			
 			beforeupload: function(uploader, file)								
 			{
-				console.log('beforeupload');			
+				//console.log('beforeupload');			
 			},
 
 			fileuploaded: function(uploader, file)								
 			{
-				console.log('fileuploaded');
+				//console.log('fileuploaded');
 			},
 			
 			uploadcomplete: function(uploader, success, failed)								
 			{
-				console.log('uploadcomplete');				
+				//console.log('uploadcomplete');				
 			},
 			scope: this
 		}
