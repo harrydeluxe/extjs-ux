@@ -17,6 +17,12 @@ h2. Ext.ux.grid.feature.Tileview
 Demo: "Link":http://harrydeluxe.github.com/extjs-ux/example/grid/tileview.html
 Forum: "Link":http://www.sencha.com/forum/showthread.php?183023-Thumbnails-in-Grid-with-switching-between-views
 
+h2. Ext.ux.upload.Button
+
+!http://harrydeluxe.github.com/extjs-ux/img/upload.jpg!
+
+Demo: "Link":http://harrydeluxe.github.com/extjs-ux/example/upload/upload.html
+
 h2. Ext.ux.container.ButtonSegment
 
 !http://harrydeluxe.github.com/extjs-ux/img/segmentedbuttons.jpg!
