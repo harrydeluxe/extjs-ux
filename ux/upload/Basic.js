@@ -1,8 +1,9 @@
 /**
  * @class Ext.ux.upload.Basic
  * @extends Ext.util.Observable
- * @author Harald Hanek (c) 2011
- * @license MIT (http://www.opensource.org/licenses/mit-license.php)
+ * 
+ * @author Harald Hanek (c) 2011-2012
+ * @license http://harrydeluxe.mit-license.org
  */
 Ext.define('Ext.ux.upload.Basic', {
 	extend: 'Ext.util.Observable',
@@ -19,7 +20,8 @@ Ext.define('Ext.ux.upload.Basic', {
 			flash_swf_url: '',
 			silverlight_xap_url: '',
 			filters: [],
-			chunk_size: '2mb',
+            //chunk_size: '1mb', // @see http://www.plupload.com/punbb/viewtopic.php?id=1259
+            chunk_size: null,
 			unique_names: true,
 			multipart: true,
 			multipart_params: {},
