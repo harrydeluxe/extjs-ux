@@ -103,7 +103,6 @@ Ext.onReady(function()
     var grid = Ext.create('Ext.ux.grid.property.Grid', {
         title: 'Page',
         renderTo: 'editor-grid',
-        frame: true,
         width: 400,
         height: 460,
         renderTo: Ext.getBody(),
