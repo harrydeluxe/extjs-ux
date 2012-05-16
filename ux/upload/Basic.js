@@ -398,8 +398,8 @@ Ext.define('Ext.ux.upload.Basic', {
         if(response.success == true)
         {
             file.server_error = 0;
-            this.success.push(file);
-            this.fireEvent('fileuploaded', this, file);
+            me.success.push(file);
+            me.fireEvent('fileuploaded', me, file);
         }
         else
         {
@@ -408,8 +408,8 @@ Ext.define('Ext.ux.upload.Basic', {
                 file.msg = '<span style="color: red">' + response.message + '</span>';
             }
             file.server_error = 1;
-            this.failed.push(file);
-            this.fireEvent('uploaderror', this, Ext.apply(status, {
+            me.failed.push(file);
+            me.fireEvent('uploaderror', me, Ext.apply(status, {
                 file: file
             }));
         }
