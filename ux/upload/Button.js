@@ -1,6 +1,7 @@
 /**
  * @class Ext.ux.upload.Button
  * @extends Ext.button.Button
+ * 
  * @author Harald Hanek (c) 2011-2012
  * @license http://harrydeluxe.mit-license.org
  */
@@ -28,13 +29,21 @@ Ext.define('Ext.ux.upload.Button', {
         if(me.uploader.dropElement)
         {
             var e = Ext.getCmp(me.uploader.dropElement);
-            e.addListener('afterRender', function()
+            
+            if(e)
             {
+                e.addListener('afterRender', function()
+                {
+                       me.uploader.initialize();
+                },
+                {
+                    single: true,
+                    scope: me
+                });
+                
+            }
+            else
                 me.uploader.initialize();
-            }, {
-                single: true,
-                scope: me
-            });
         }
         else
         {
