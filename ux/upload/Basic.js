@@ -90,7 +90,7 @@ Ext.define('Ext.ux.upload.Basic', {
 				scope: me
 			}),
 			cancel: Ext.create('Ext.Action', {
-				text: config.cancelButtonText || 'Abbrechen',
+				text: config.cancelButtonText || 'Cancel',
 				disabled: true,
 				iconCls: config.cancelButtonCls,
 				handler: me.cancel,
