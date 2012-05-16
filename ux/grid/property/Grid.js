@@ -112,8 +112,6 @@ Ext.define('Ext.ux.grid.property.Grid', {
         if(!me.propStore)
             me.propStore = me.store;
         
-        //me.store.sort('name', 'ASC');
-
         me.columns = new Ext.ux.grid.property.HeaderContainer(me, me.store); // harry
         
         me.addEvents(
@@ -142,7 +140,7 @@ Ext.define('Ext.ux.grid.property.Grid', {
              */
             'propertychange');
         
-        this.superclass.superclass.initComponent.call(this, arguments); // harry
+        this.superclass.superclass.superclass.initComponent.call(this, arguments); // harry
         // Inject a custom implementation of walkCells which only goes up or
         // down
         me.getView().walkCells = this.walkCells;
@@ -236,24 +234,67 @@ Ext.define('Ext.ux.grid.property.Grid', {
     },
     
  // Custom implementation of walkCells which only goes up and down.
-    walkCells: function(pos, direction, e, preventWrap, verifierFn, scope) {
-        if (direction == 'left') {
+    walkCells: function(pos, direction, e, preventWrap, verifierFn, scope)
+    {
+        if (direction == 'left')
+        {
             direction = 'up';
-        } else if (direction == 'right') {
+        } 
+        else if (direction == 'right')
+        {
             direction = 'down';
         }
         
-        // skip diabled records
-        if(direction == 'up' && pos.record.index != 0 || direction == 'down' && pos.record.index < pos.record.store.totalCount-1)
-        {       
-            var ind = (direction == 'down') ? + 1 : - 1,
-                f = pos.record.store.getAt(pos.record.index + ind);
+        // skip diabled records  
+        if(direction == 'down' && pos.row < pos.record.store.data.length - 1)
+        {
+            var i = pos.row,
+                position = null;
             
-            if(f.data && f.data.disabled)
+            for(i; i < pos.record.store.data.length  - 1; i++)
             {
-                pos.row = pos.row + ind;
+                f = pos.record.store.getAt(i + 1);
+                if(f.data.disabled)
+                {
+                    continue;
+                }
+                else
+                {
+                    position = i + 1;
+                    break;
+                }
             }
+            if(!position)
+                return false;
+            else if(position > pos.row)
+                pos.row = position - 1;
         }
+        
+        if(direction == 'up' && pos.row != 0)
+        {
+            var i = pos.row,
+                position = null;
+
+            for(i; i > 0; i--)
+            {
+                f = pos.record.store.getAt(i - 1);
+                if(f.data.disabled)
+                {
+                    continue;
+                }
+                else
+                {
+                    position = i - 1;
+                    break;
+                }
+            }
+
+            if(position == null)
+                return false;
+            else if(position < pos.row)
+                pos.row = position + 1;  
+        }
+
         
         pos = Ext.view.Table.prototype.walkCells.call(this, pos, direction, e, preventWrap, verifierFn, scope);
         if (!pos.column) {
