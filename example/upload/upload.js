@@ -1,3 +1,26 @@
+window.ondragenter = function(e)
+{
+    e.dataTransfer.dropEffect = 'none';
+    e.preventDefault();
+    return false;
+};
+
+window.ondragover = function(e)
+{
+    e.preventDefault();
+    return false;
+};
+
+window.ondrop = function(e)
+{
+    return false;
+};
+
+window.ondragleave = function(e)
+{
+    return false;
+};
+
 Ext.Loader.setConfig({
     enabled: true,
     paths: {
