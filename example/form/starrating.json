@@ -1,0 +1,14 @@
+{
+	"success": true,
+	"data":{
+		'firstName': 'Ed',
+		'lastName': 'Spencer',
+		'facilidade': 3,
+		'ratingfield2': 1,
+		'ratingfield3': 4,
+		'ratingfield4': 1,
+		'ratingfield5': 2,
+		'ratingfield6': 3
+	}
+}
+
