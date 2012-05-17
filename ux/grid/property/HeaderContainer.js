@@ -56,6 +56,7 @@ Ext.define('Ext.ux.grid.property.HeaderContainer', {
                 dataIndex: grid.groupField,
                 itemId: grid.groupField
             }];
+        
         if(grid.columns)
             columns = columns.concat(Ext.isArray(grid.columns) ? grid.columns : [grid.columns]);
         

@@ -46,7 +46,7 @@ Ext.define('Ext.ux.grid.property.Grid', {
             }
         }
     },
-    
+
     
     /**
      * @private

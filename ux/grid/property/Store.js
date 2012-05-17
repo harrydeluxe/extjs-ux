@@ -46,7 +46,7 @@ Ext.define('Ext.ux.grid.property.Store', {
     {
         var me = this,
             rec = me.getRec(prop);
-        
+
         if(rec)
         {
             rec.set('value', value);
