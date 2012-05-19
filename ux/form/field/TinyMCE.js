@@ -49,6 +49,7 @@ Ext.define("UX.tinymce.WindowManager", {
 		p.mce_inline = true;
 		this.features = s;
 		this.params = p;
+		
 		var win = Ext.create("Ext.window.Window", {
 			title: s.name,
 			width: s.width,
@@ -66,6 +67,8 @@ Ext.define("UX.tinymce.WindowManager", {
 			items: [Ext.create("Ext.Component", {
 				autoEl: {
 					tag: 'iframe',
+					border: '0',
+					frameborder: '0',
 					src: s.url || s.file
 				},
 				style: 'border-width: 0px;'
@@ -157,25 +160,13 @@ Ext.define("Ext.ux.form.field.TinyMCE",	{
 	{
 		height: 170
 	},
-	
-	/*
-	fieldSubTpl: ['<textarea id="{id}" ',
-			'<tpl if="name">name="{name}" </tpl>',
-			'tabIndex="-1" ',
-			'class="{fieldCls}" autocomplete="off" />',
-			'</textarea>',
-			{
-				compiled: true,
-				disableFormats: true
-			}],
-		*/	
-	
+
 	statics: {
 		tinyMCEInitialized: false,
 		globalSettings: {
 			accessibility_focus: false,
 			language: "en",
-			mode: "none",
+			mode: "exact",
 			skin: "o2k7",
 			theme: "advanced",
 			plugins: 'autolink,lists,spellchecker,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template',
@@ -211,9 +202,6 @@ Ext.define("Ext.ux.form.field.TinyMCE",	{
 		
 		Ext.applyIf(config.tinymceConfig, me.statics().globalSettings);
 		
-		// Init values we do not want changed
-		config.tinymceConfig.mode = 'none';
-		
 		me.addEvents({
 			"editorcreated": true
 		});
@@ -221,36 +209,51 @@ Ext.define("Ext.ux.form.field.TinyMCE",	{
 		me.callParent([config]);
 	},
 	
+	initEditor: function()
+    {
+	    var me = this;
+	    
+	 // Init values we do not want changed
+	    me.tinymceConfig.elements = me.getInputId();
+	    me.tinymceConfig.mode = 'exact';
+	    
+        me.tinymceConfig.setup = function(editor)
+        {
+            editor.onKeyPress.add(Ext.Function.createBuffered(me.validate, 250, me));
+
+            editor.onPostRender.add(function(editor)
+            {
+                me.editor = editor;
+                window.b = me.editor;
+                //me.on('resize', me.onResize, me);
+                //tinymce.add(me.editor);
+
+                editor.windowManager = Ext.create("UX.tinymce.WindowManager", {
+                    editor: me.editor
+                });
+                
+                me.tableEl = Ext.get(me.editor.id + "_tbl");
+                me.iframeEl = Ext.get(me.editor.id + "_ifr");
+                
+                me.fireEvent('editorcreated', me.editor, me);
+            });
+        };
+        
+        tinymce.init(me.tinymceConfig);
+    },
+    
 	afterRender: function()
 	{
 		var me = this;
+		
 		me.callParent(arguments);
+		
 		me.tinymceConfig.height = me.height - 25;
-		//me.tinymceConfig.height = me.height - 51;
-		//console.log(me.tinymceConfig.height);
-		me.editor = new tinymce.Editor(me.inputEl.id, me.tinymceConfig);
 		
-		// Validate value onKeyPress
-		var validateContentTask = Ext.Function.createBuffered(me.validate, 250, this);
-		me.editor.onKeyPress.add(validateContentTask);
-        
-		
-		me.editor.onPostRender.add(Ext.Function.bind(function(editor, controlManager)
-		{
-			editor.windowManager = Ext.create("UX.tinymce.WindowManager", {
-				editor: me.editor
-			});
-			me.tableEl = Ext.get(me.editor.id + "_tbl");
-			me.iframeEl = Ext.get(me.editor.id + "_ifr");
-		}, me));
-
-		window.b = me.editor;
-		me.on('resize', me.onResize, me);	
-		
-		me.editor.render();
-		tinyMCE.add(me.editor);
+		me.initEditor();
 	},
 	
+
 	isDirty: function()
 	{
 		var me = this;
@@ -374,21 +377,23 @@ Ext.define("Ext.ux.form.field.TinyMCE",	{
     
 	withEd: function(func)
 	{
+	    var me = this;
+	    
 		// If editor is not created yet, reschedule this call.
-		if(!this.editor)
-			this.on("editorcreated", function()
+		if(!me.editor)
+		    me.on("editorcreated", function()
 			{
-				this.withEd(func);
-			}, this);
+		        me.withEd(func);
+			}, me);
 		// Else if editor is created and initialized
-		else if(this.editor.initialized)
-			func.call(this);
+		else if(me.editor.initialized)
+			func.call(me);
 		// Else if editor is created but not initialized yet.
 		else
-			this.editor.onInit.add(Ext.Function.bind(function()
+		    me.editor.onInit.add(Ext.Function.bind(function()
 			{
-				Ext.Function.defer(func, 10, this);
-			}, this));
+				Ext.Function.defer(func, 10, me);
+			}, me));
 	},
 					    
 	validateValue: function(value)
