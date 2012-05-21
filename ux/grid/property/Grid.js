@@ -55,7 +55,7 @@ Ext.define('Ext.ux.grid.property.Grid', {
     {
         var me = this,
             editableField = me.editableField;
-        
+
         if(!Ext.get('Ext.ux.grid.property.Grid'))
             Ext.getBody().createChild({
                 tag: 'style',
@@ -156,8 +156,9 @@ Ext.define('Ext.ux.grid.property.Grid', {
              * @param {Mixed} oldValue The original property value prior to editing
              */
             'propertychange');
-        
-        me.superclass.superclass.superclass.initComponent.call(me, arguments); // harry
+
+        //me.superclass.superclass.superclass.initComponent.call(me, arguments); // harry
+        Ext.grid.Panel.superclass.initComponent.call(me, arguments); // harry
         
         // Inject a custom implementation of walkCells which only goes up or
         // down
