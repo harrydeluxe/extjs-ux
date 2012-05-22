@@ -12,6 +12,8 @@ Ext.define('Ext.ux.grid.property.Grid', {
             'Ext.ux.grid.property.HeaderContainer',
             'Ext.grid.feature.Grouping'],
     
+    alias: 'widget.ux.propertygrid',
+    
     /**
      * @cfg {String} groupField
      * The name of the field from the property store to use as the grouping field.
@@ -22,7 +24,7 @@ Ext.define('Ext.ux.grid.property.Grid', {
      * @cfg {String} editableField
      * 
      */
-    editableField: 'disabled',
+    editableField: 'editable',
     
     /**
      * @cfg {String} groupingConfig
@@ -35,7 +37,7 @@ Ext.define('Ext.ux.grid.property.Grid', {
         forceFit: true,
         getRowClass: function(record)
         {
-            return (record.data[this.ownerCt.editableField] == true) ? "x-item-disabled" : "";
+            return (record.data[this.ownerCt.editableField] == false) ? "x-item-disabled" : "";
         },
         listeners:
         {
@@ -63,8 +65,7 @@ Ext.define('Ext.ux.grid.property.Grid', {
                 id: 'Ext.ux.grid.property.Grid',
                 html: '.x-item-disabled div.x-grid-cell-inner {color: gray !important;}'
             });
-        
-        
+
         me.addCls(Ext.baseCSSPrefix + 'property-grid');
         
         me.plugins = me.plugins || [];
@@ -76,7 +77,7 @@ Ext.define('Ext.ux.grid.property.Grid', {
             // Inject a startEdit which always edits the value column
             startEdit: function(record, column, e)
             {
-                if(record.data && record.data[editableField] == true)
+                if(record.data && record.data[editableField] == false)
                     return false;
                 
                 // Maintainer: Do not change this 'this' to 'me'! It is the
@@ -93,15 +94,14 @@ Ext.define('Ext.ux.grid.property.Grid', {
             groupField: me.groupField
         }, me.groupingConfig));
         
-        me.features.push(me.groupingFeature);
-        
+        me.features.push(me.groupingFeature);       
         
         me.selModel = {
             selType: 'cellmodel',
             onCellSelect: function(position)
             {
                 var record = me.store.getAt(position.row);
-                if(record && record.data[editableField] == true)
+                if(record && record.data[editableField] == false)
                     return false;
                 
                 if(position.column != 1)
@@ -157,7 +157,6 @@ Ext.define('Ext.ux.grid.property.Grid', {
              */
             'propertychange');
 
-        //me.superclass.superclass.superclass.initComponent.call(me, arguments); // harry
         Ext.grid.Panel.superclass.initComponent.call(me, arguments); // harry
         
         // Inject a custom implementation of walkCells which only goes up or
@@ -274,7 +273,7 @@ Ext.define('Ext.ux.grid.property.Grid', {
             {
                 f = pos.record.store.getAt(i + 1);
 
-                if(f.data[editableField])
+                if(f.data[editableField] == false)
                 {
                     continue;
                 }
@@ -298,7 +297,7 @@ Ext.define('Ext.ux.grid.property.Grid', {
             for(i; i > 0; i--)
             {
                 f = pos.record.store.getAt(i - 1);
-                if(f.data[editableField])
+                if(f.data[editableField] == false)
                 {
                     continue;
                 }
