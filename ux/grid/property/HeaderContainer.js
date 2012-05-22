@@ -36,7 +36,8 @@ Ext.define('Ext.ux.grid.property.HeaderContainer', {
                 renderer: Ext.Function.bind(me.renderProp, me),
                 itemId: grid.nameField,
                 menuDisabled: true,
-                groupField: true
+                groupField: true,
+                tdCls: me.nameColumnCls
             },
             {
                 header: me.valueText,
