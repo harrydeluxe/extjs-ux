@@ -34,7 +34,7 @@ Ext.define('Ext.ux.upload.Basic', {
             unique_names: true,
             multipart: true,
             multipart_params: {},
-            multiple_selection: true,
+            multi_selection: true,
             drop_element: null,
             required_features: null
         }
@@ -357,7 +357,17 @@ Ext.define('Ext.ux.upload.Basic', {
     _FilesAdded: function(uploader, files)
     {
         var me = this;
-        // console.log('_FilesAdded');
+        
+        if(me.uploaderConfig.multi_selection != true) 
+        {
+            if(me.store.data.length == 1)
+            //if(uploader.files.length == 1)
+                return false;
+            
+            files = [files[0]];
+            uploader.files = [files[0]];  
+        }   
+         
         me.actions.removeUploaded.setDisabled(false);
         me.actions.removeAll.setDisabled(false);
         me.actions.start.setDisabled(uploader.state == 2);
@@ -366,7 +376,7 @@ Ext.define('Ext.ux.upload.Basic', {
             me.updateStore(v);
             
         }, me);
-        
+
         if(me.fireEvent('filesadded', me, files) !== false)
         {
             if(me.autoStart && uploader.state != 2)
