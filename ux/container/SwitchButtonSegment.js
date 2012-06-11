@@ -31,8 +31,8 @@ Ext.define('Ext.ux.container.SwitchButtonSegment', {
 	{
 		var me = this;
 		me.addEvents('change');
-		
-		me.listeners = Ext.apply({}, {'beforerender': me.beforeRender, scope: me}, me.listeners);
+
+		me.on('beforerender', me.beforeRender, me);
 
 		me.callParent(arguments);
 	},
