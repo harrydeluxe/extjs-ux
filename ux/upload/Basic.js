@@ -14,8 +14,8 @@ Ext.define('Ext.ux.upload.Basic', {
     statusUploadingText: 'Uploading ({0}%)',
     statusFailedText: 'Error',
     statusDoneText: 'Complete',
-    statusInvalidSizeText: "File too large",
-    statusInvalidExtensionText: "Invalid type",
+    statusInvalidSizeText: 'File too large',
+    statusInvalidExtensionText: 'Invalid file type',
     
 
     configs: {
@@ -35,7 +35,7 @@ Ext.define('Ext.ux.upload.Basic', {
             multipart: true,
             multipart_params: {},
             multiple_selection: true,
-            dropElement: null,
+            drop_element: null,
             required_features: null
         }
     },

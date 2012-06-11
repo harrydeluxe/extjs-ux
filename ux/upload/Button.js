@@ -28,7 +28,7 @@ Ext.define('Ext.ux.upload.Button', {
         me.callParent();
         me.uploader = me.createUploader();
         
-        if(me.uploader.dropElement && (e = Ext.getCmp(me.uploader.dropElement)))
+        if(me.uploader.drop_element && (e = Ext.getCmp(me.uploader.drop_element)))
         {
             e.addListener('afterRender', function()
                 {

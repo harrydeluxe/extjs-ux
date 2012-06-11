@@ -56,9 +56,10 @@ Ext.onReady(function()
 			url: 'upload.json',
 			uploadpath: '/Root/files',
 			autoStart: false,
-			maxFileSize: '2020mb',
+			max_file_size: '2020mb',
 			
-			dropElement: 'dragload',
+			drop_element: 'dragload',
+			multiple_selection: false,
 			
 			statusQueuedText: 'Ready to upload',
 			statusUploadingText: 'Uploading ({0}%)',
