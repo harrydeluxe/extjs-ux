@@ -2,8 +2,8 @@
  * @class Ext.ux.container.ButtonSegment
  * @extends Ext.container.ButtonGroup
  * 
- * @author Harald Hanek (c) 2011
- * @license MIT (http://www.opensource.org/licenses/mit-license.php)
+ * @author Harald Hanek (c) 2011-2012
+ * @license http://harrydeluxe.mit-license.org
  */
 
 Ext.define('Ext.ux.container.ButtonSegment', {
