@@ -27,7 +27,8 @@ Ext.define('Ext.ux.grid.property.Property', {
         },
         {
             name: 'status',
-            type: 'boolean'
+            type: 'boolean',
+            defaultValue: true
         },
         {
             name: 'renderer',    // custom renderer
