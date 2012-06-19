@@ -43,6 +43,7 @@ Ext.onReady(function()
 	Ext.create('Ext.ux.upload.Button', {
 		renderTo: Ext.getBody(),
 		text: 'Select files',
+		//singleFile: true,
 		plugins: [{
                       ptype: 'ux.upload.window',
                       title: 'Upload',
@@ -55,10 +56,8 @@ Ext.onReady(function()
 			url: 'upload.json',
 			uploadpath: '/Root/files',
 			autoStart: false,
-			maxFileSize: '2020mb',
-			
-			dropElement: 'dragload',
-			
+			max_file_size: '2020mb',			
+			drop_element: 'dragload',
 			statusQueuedText: 'Ready to upload',
 			statusUploadingText: 'Uploading ({0}%)',
 			statusFailedText: '<span style="color: red">Error</span>',
