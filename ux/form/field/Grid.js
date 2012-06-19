@@ -55,7 +55,7 @@ Ext.define('Ext.ux.form.field.Grid', {
     setValue: function(value)
     {
         var me = this;
-
+        
         if(value === null || value === undefined)
         {
             value = [];

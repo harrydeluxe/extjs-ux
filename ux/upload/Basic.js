@@ -9,13 +9,22 @@ Ext.define('Ext.ux.upload.Basic', {
     extend: 'Ext.util.Observable',
     autoStart: true,
     autoRemoveUploaded: true,
+    
+    statusQueuedText: 'Ready to upload',
+    statusUploadingText: 'Uploading ({0}%)',
+    statusFailedText: 'Error',
+    statusDoneText: 'Complete',
+    statusInvalidSizeText: 'File too large',
+    statusInvalidExtensionText: 'Invalid file type',
+    
+
     configs: {
         uploader: {
             runtimes: '',
             url: '',
             browse_button: null,
             container: null,
-            maxFileSize: '10mb',
+            max_file_size: '128mb',
             resize: '',
             flash_swf_url: '',
             silverlight_xap_url: '',
@@ -25,7 +34,8 @@ Ext.define('Ext.ux.upload.Basic', {
             unique_names: true,
             multipart: true,
             multipart_params: {},
-            dropElement: null,
+            multi_selection: true,
+            drop_element: null,
             required_features: null
         }
     },
@@ -34,12 +44,10 @@ Ext.define('Ext.ux.upload.Basic', {
     {
         var me = this;
         me.owner = owner;
-        me.uploadurl = config.url || '';
-        me.uploadpath = null;
         me.success = [];
         me.failed = [];
         Ext.apply(me, config.listeners);
-        Ext.apply(me, config.uploader, me.configs.uploader);        
+        me.uploaderConfig = Ext.apply(me, config.uploader, me.configs.uploader);
         
         me.addEvents('beforestart',
                 'uploadready',
@@ -194,36 +202,20 @@ Ext.define('Ext.ux.upload.Basic', {
     
     initializeUploader: function()
     {
-        var me = this,
-            runtimes = ['html5'];
-        
-        if(me.flash_swf_url)
-            runtimes.push('flash');
-        
-        if(me.silverlight_xap_url)
-            runtimes.push('silverlight');
-        
-        runtimes.push('html4');
-        runtimes = runtimes.join(',');
+        var me = this;
 
-        me.uploader = Ext.create('plupload.Uploader', {
-            url: me.url,
-            runtimes: me.runtimes || runtimes,
-            browse_button: me.browse_button || null,
-            // container: this.getTopToolbar().getEl().dom.id,
-            max_file_size: me.maxFileSize || '10mb',
-            resize: me.resize || '',
-            flash_swf_url: me.flash_swf_url || '',
-            silverlight_xap_url: me.silverlight_xap_url || '',
-            java_applet_url: me.java_applet_url || '',
-            filters: me.filters || [],
-            chunk_size: me.chunk_size,
-            unique_names: me.unique_names || true,
-            multipart: me.multipart || true,
-            multipart_params: me.multipart_params || {},
-            drop_element: me.dropElement || null,
-            required_features: me.required_features
-        });
+        if (!me.uploaderConfig.runtimes) {
+            var runtimes = ['html5'];
+            
+            me.uploaderConfig.flash_swf_url && runtimes.push('flash');
+            me.uploaderConfig.silverlight_xap_url && runtimes.push('silverlight');
+
+            runtimes.push('html4');
+
+            me.uploaderConfig.runtimes = runtimes.join(',');
+        }
+
+        me.uploader = Ext.create('plupload.Uploader', me.uploaderConfig);
         
         Ext.each(['Init',
                 'ChunkUploaded',
@@ -365,7 +357,17 @@ Ext.define('Ext.ux.upload.Basic', {
     _FilesAdded: function(uploader, files)
     {
         var me = this;
-        // console.log('_FilesAdded');
+        
+        if(me.uploaderConfig.multi_selection != true) 
+        {
+            if(me.store.data.length == 1)
+            //if(uploader.files.length == 1)
+                return false;
+            
+            files = [files[0]];
+            uploader.files = [files[0]];  
+        }   
+         
         me.actions.removeUploaded.setDisabled(false);
         me.actions.removeAll.setDisabled(false);
         me.actions.start.setDisabled(uploader.state == 2);
@@ -374,7 +376,7 @@ Ext.define('Ext.ux.upload.Basic', {
             me.updateStore(v);
             
         }, me);
-        
+
         if(me.fireEvent('filesadded', me, files) !== false)
         {
             if(me.autoStart && uploader.state != 2)
@@ -479,12 +481,11 @@ Ext.define('Ext.ux.upload.Basic', {
             data.file.status = 4;
             if(data.code == -600)
             {
-                data.file.msg = Ext.String.format('<span style="color: red">{0}</span>', this.statusInvalidSizeText || 'Too big');
+                data.file.msg = Ext.String.format('<span style="color: red">{0}</span>', this.statusInvalidSizeText);
             }
             else if(data.code == -700)
             {
-                data.file.msg = Ext.String.format('<span style="color: red">{0}</span>', this.statusInvalidExtensionText
-                        || 'Invalid file type');
+                data.file.msg = Ext.String.format('<span style="color: red">{0}</span>', this.statusInvalidExtensionText);
             }
             else
             {

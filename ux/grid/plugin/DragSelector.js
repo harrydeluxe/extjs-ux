@@ -70,7 +70,7 @@ Ext.define('Ext.ux.grid.plugin.DragSelector', {
 	{
 		var me = this;
 
-		me.tracker = Ext.create('Ext.dd.DragTracker', {
+		me.tracker = new Ext.dd.DragTracker({
 			onBeforeStart: Ext.Function.bind(me.onBeforeStart, me),
 			onStart: Ext.Function.bind(me.onStart, me),
 			onDrag: Ext.Function.bind(me.onDrag, me),
@@ -144,11 +144,11 @@ Ext.define('Ext.ux.grid.plugin.DragSelector', {
 		{
 			return false;
 		}
-
+//console.log(this.grid.editingPlugin);
 		// return false if any grid editor is active
 		if(this.grid.editingPlugin && this.grid.editingPlugin.editing)
 		{
-			return false;
+			//return false;
 		}
 
 		// scrollbar fix from digitalbucket.net :)

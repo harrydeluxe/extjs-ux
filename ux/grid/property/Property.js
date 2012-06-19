@@ -21,12 +21,14 @@ Ext.define('Ext.ux.grid.property.Property', {
             type: 'string'
         },
         {
-            name: 'disabled',
-            type: 'boolean'
+            name: 'editable',
+            type: 'boolean',
+            defaultValue: true
         },
         {
             name: 'status',
-            type: 'boolean'
+            type: 'boolean',
+            defaultValue: true
         },
         {
             name: 'renderer',    // custom renderer

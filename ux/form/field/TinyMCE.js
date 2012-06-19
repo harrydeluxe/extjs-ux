@@ -74,10 +74,13 @@ Ext.define("UX.tinymce.WindowManager", {
 				style: 'border-width: 0px;'
 			})]
 		});
-		
 		p.mce_window_id = win.getId();
+		
 		win.show(null, function()
 		{
+		    if(this.editor.id == 'mce_fullscreen')
+		        win.zIndexManager.setBase(200000);
+		    
 			if(s.left && s.top)
 				win.setPagePosition(s.left, s.top);
 			var pos = win.getPosition();

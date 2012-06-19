@@ -7,6 +7,9 @@
  */
 Ext.define('Ext.ux.grid.property.Store', {
     extend: 'Ext.grid.property.Store',
+    
+    uses: ['Ext.ux.grid.property.Property'],
+    
     proxy: {
         type: 'memory',
         reader: {
@@ -21,7 +24,9 @@ Ext.define('Ext.ux.grid.property.Store', {
      */
     constructor: function(grid, source)
     {
-        var me = this;
+        var me = this,
+            tmp = me.superclass.constructor; // stores temporary the parent constructor
+        
         me.grid = grid;
         me.source = source;
 
@@ -33,13 +38,15 @@ Ext.define('Ext.ux.grid.property.Store', {
             proxy: me.getProxy(),
             groupField: grid.groupField
         }]);
+        
+        me.superclass.constructor = tmp;
     },
     
     setValue: function(prop, value, create)
     {
         var me = this,
             rec = me.getRec(prop);
-        
+
         if(rec)
         {
             rec.set('value', value);

@@ -2,8 +2,8 @@
  * @class Ext.ux.container.SwitchButtonSegment
  * @extends Ext.ux.container.ButtonSegment
  * 
- * @author Harald Hanek (c) 2011
- * @license MIT (http://www.opensource.org/licenses/mit-license.php)
+ * @author Harald Hanek (c) 2011-2012
+ * @license http://harrydeluxe.mit-license.org
  */
 
 Ext.define('Ext.ux.container.SwitchButtonSegment', {
@@ -26,13 +26,28 @@ Ext.define('Ext.ux.container.SwitchButtonSegment', {
 		
 		me.callParent([ config ]);
 	},
-
+	
+	applyDefaults: function(c)
+	{
+        if (!Ext.isString(c)) {
+            c = this.callParent(arguments);
+            var d = this.internalDefaults;
+            if (c.events) {
+                Ext.applyIf(c.initialConfig, d);
+                Ext.apply(c, d);
+            } else {
+                Ext.applyIf(c, d);
+            }
+        }
+        return c;
+    },
+    
 	initComponent: function()
 	{
 		var me = this;
 		me.addEvents('change');
-		
-		me.listeners = Ext.apply({}, {'beforerender': me.beforeRender, scope: me}, me.listeners);
+
+		me.on('beforerender', me.beforeRender, me);
 
 		me.callParent(arguments);
 	},

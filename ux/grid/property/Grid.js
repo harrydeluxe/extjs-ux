@@ -11,12 +11,33 @@ Ext.define('Ext.ux.grid.property.Grid', {
     uses: [ 'Ext.ux.grid.property.Store',
             'Ext.ux.grid.property.HeaderContainer',
             'Ext.grid.feature.Grouping'],
-            
+    
+    alias: 'widget.ux.propertygrid',
+    
+    /**
+     * @cfg {String} groupField
+     * The name of the field from the property store to use as the grouping field.
+     */
+    groupField: 'group',
+    
+    /**
+     * @cfg {String} editableField
+     * 
+     */
+    editableField: 'editable',
+    
+    /**
+     * @cfg {String} groupingConfig
+     * 
+     */
+    groupingConfig: {},
+
+    
     viewConfig: {
         forceFit: true,
         getRowClass: function(record)
         {
-            return (record.data['disabled'] == true) ? "x-item-disabled" : "";
+            return (record.data[this.ownerCt.editableField] == false) ? "x-item-disabled" : "";
         },
         listeners:
         {
@@ -27,25 +48,16 @@ Ext.define('Ext.ux.grid.property.Grid', {
             }
         }
     },
-    
-    /**
-     * @cfg {String} groupField
-     * The name of the field from the property store to use as the grouping field.
-     */
-    groupField: 'group',
-    
-    /**
-     * @cfg {String} groupingConfig
-     * 
-     */
-    groupingConfig: {},
-    
+
     
     /**
      * @private
      */
     initComponent: function()
     {
+        var me = this,
+            editableField = me.editableField;
+
         if(!Ext.get('Ext.ux.grid.property.Grid'))
             Ext.getBody().createChild({
                 tag: 'style',
@@ -53,10 +65,9 @@ Ext.define('Ext.ux.grid.property.Grid', {
                 id: 'Ext.ux.grid.property.Grid',
                 html: '.x-item-disabled div.x-grid-cell-inner {color: gray !important;}'
             });
-        
-        var me = this;
-        
+
         me.addCls(Ext.baseCSSPrefix + 'property-grid');
+        
         me.plugins = me.plugins || [];
         
         // Enable cell editing. Inject a custom startEdit which always edits
@@ -66,7 +77,7 @@ Ext.define('Ext.ux.grid.property.Grid', {
             // Inject a startEdit which always edits the value column
             startEdit: function(record, column, e)
             {
-                if(record.data && record.data['disabled'] == true)
+                if(record.data && record.data[editableField] == false)
                     return false;
                 
                 // Maintainer: Do not change this 'this' to 'me'! It is the
@@ -83,15 +94,14 @@ Ext.define('Ext.ux.grid.property.Grid', {
             groupField: me.groupField
         }, me.groupingConfig));
         
-        me.features.push(me.groupingFeature);
-        
+        me.features.push(me.groupingFeature);       
         
         me.selModel = {
             selType: 'cellmodel',
             onCellSelect: function(position)
             {
                 var record = me.store.getAt(position.row);
-                if(record && record.data['disabled'] == true)
+                if(record && record.data[editableField] == false)
                     return false;
                 
                 if(position.column != 1)
@@ -146,8 +156,9 @@ Ext.define('Ext.ux.grid.property.Grid', {
              * @param {Mixed} oldValue The original property value prior to editing
              */
             'propertychange');
+
+        Ext.grid.Panel.superclass.initComponent.call(me, arguments); // harry
         
-        this.superclass.superclass.superclass.initComponent.call(this, arguments); // harry
         // Inject a custom implementation of walkCells which only goes up or
         // down
         me.getView().walkCells = this.walkCells;
@@ -171,10 +182,8 @@ Ext.define('Ext.ux.grid.property.Grid', {
             'boolean': new Ext.grid.CellEditor({
                 field: new Ext.form.field.ComboBox({
                     editable: false,
-                    store: [[true,
-                            me.headerCt.trueText],
-                            [false,
-                                    me.headerCt.falseText]]
+                    store: [[true, me.headerCt.trueText],
+                            [false, me.headerCt.falseText]]
                 })
             })
         };
@@ -243,6 +252,8 @@ Ext.define('Ext.ux.grid.property.Grid', {
  // Custom implementation of walkCells which only goes up and down.
     walkCells: function(pos, direction, e, preventWrap, verifierFn, scope)
     {
+        var editableField = this.ownerCt.editableField;
+        
         if (direction == 'left')
         {
             direction = 'up';
@@ -261,7 +272,8 @@ Ext.define('Ext.ux.grid.property.Grid', {
             for(i; i < pos.record.store.data.length  - 1; i++)
             {
                 f = pos.record.store.getAt(i + 1);
-                if(f.data.disabled)
+
+                if(f.data[editableField] == false)
                 {
                     continue;
                 }
@@ -285,7 +297,7 @@ Ext.define('Ext.ux.grid.property.Grid', {
             for(i; i > 0; i--)
             {
                 f = pos.record.store.getAt(i - 1);
-                if(f.data.disabled)
+                if(f.data[editableField] == false)
                 {
                     continue;
                 }
