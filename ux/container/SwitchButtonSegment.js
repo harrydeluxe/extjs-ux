@@ -26,7 +26,22 @@ Ext.define('Ext.ux.container.SwitchButtonSegment', {
 		
 		me.callParent([ config ]);
 	},
-
+	
+	applyDefaults: function(c)
+	{
+        if (!Ext.isString(c)) {
+            c = this.callParent(arguments);
+            var d = this.internalDefaults;
+            if (c.events) {
+                Ext.applyIf(c.initialConfig, d);
+                Ext.apply(c, d);
+            } else {
+                Ext.applyIf(c, d);
+            }
+        }
+        return c;
+    },
+    
 	initComponent: function()
 	{
 		var me = this;
