@@ -1,0 +1,31 @@
+.x-form-rating-field {
+}
+.x-form-rating-field .x-rating-item {
+	float: left;
+	height: 21px;
+	width: 21px;
+	background-repeat: no-repeat;
+	background-position: center center;
+	cursor: pointer;
+	background-image: url(../images/star_un.png);
+}
+.x-form-rating-field .x-rating-item.x-rating-selected {
+	background-image: url(../images/star.png);
+}
+.x-form-rating-field .x-rating-item:hover {
+	background-image: url(../images/star_over.png);
+}
+.x-form-rating-field .x-rating-container {
+	float: left;
+}
+.x-form-rating-field .x-rating-text {
+	float: left;
+	padding: 0 5px;
+	margin-top: 3px;
+}
+.x-form-rating-field .x-rating-tip {
+	float: left;
+	margin-top: 2px;
+	padding-left: 10px;
+}
+
