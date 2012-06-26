@@ -25,7 +25,7 @@ Ext.onReady(function()
             "value": "www.delacap.com",
             "editor": "",
             "group": "Domain",
-            "disabled": false,
+            "editable": true,
             "status": true,
             "renderer": ""
         },
@@ -35,7 +35,7 @@ Ext.onReady(function()
             "value": true,
             "editor": "",
             "group": "Domain",
-            "disabled": false,
+            "editable": true,
             "status": true,
             "renderer": ""
         },
@@ -45,7 +45,7 @@ Ext.onReady(function()
             "value": "/var/www/",
             "editor": "",
             "group": "Domain",
-            "disabled": false,
+            "editable": true,
             "status": true,
             "renderer": ""
         },
@@ -55,7 +55,7 @@ Ext.onReady(function()
             "value": true,
             "editor": "",
             "group": "Page",
-            "disabled": false,
+            "editable": true,
             "status": false,
             "renderer": ""
         },
@@ -65,7 +65,7 @@ Ext.onReady(function()
             "value": new Date(),
             "editor": "date",
             "group": "Page",
-            "disabled": true,
+            "editable": false,
             "status": true,
             "renderer": ""
         },
@@ -75,7 +75,7 @@ Ext.onReady(function()
             "value": '10:00',
             "editor": "evtStart",
             "group": "Page",
-            "disabled": true,
+            "editable": false,
             "status": true,
             "renderer": null
         },
@@ -85,7 +85,7 @@ Ext.onReady(function()
             "value": true,
             "editor": "",
             "group": "Page",
-            "disabled": true,
+            "editable": false,
             "status": true,
             "renderer": ""
         },
@@ -95,7 +95,7 @@ Ext.onReady(function()
             "value": true,
             "editor": "",
             "group": "Page",
-            "disabled": false,
+            "editable": true,
             "status": false,
             "renderer": ""
         }];
@@ -136,7 +136,7 @@ Ext.onReady(function()
                 beforecheckchange: function(checkColumn, rowIndex, checked)
                 {
                     var record = checkColumn.ownerCt.view.panel.store.getAt(rowIndex);
-                    if(record && record.data.disabled)
+                    if(record && record.data.editable == false)
                         return false;
                 }
             }
@@ -160,7 +160,7 @@ Ext.onReady(function()
                 {
                     var store = grid.getStore(),
                         rec = store.getById('updateAllowed');
-                    rec.set('disabled', !rec.get('disabled'));
+                    rec.set('editable', !rec.get('editable'));
                 }
             }]
     });
