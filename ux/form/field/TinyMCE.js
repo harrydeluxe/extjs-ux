@@ -89,6 +89,7 @@ Ext.define("UX.tinymce.WindowManager", {
 			this.onOpen.dispatch(this, s, p);
 		}, this);
 		
+		win.toFront(true);
 		return win;
 	},
 	
@@ -138,8 +139,9 @@ Ext.define("UX.tinymce.WindowManager", {
 	focus: function(id)
 	{
 		var w = Ext.getCmp(id);
-		if(w)
-			w.setActive(true);
+
+		//if(w)
+			//w.setActive(true);
 	}
 });
 
