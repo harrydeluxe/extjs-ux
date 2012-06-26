@@ -1,7 +1,7 @@
 Ext.Loader.setConfig({
 	'enabled': true,
 	'paths': {
-		'Ext.ux': 'http://extjs.cachefly.net/ext-4.0.7-gpl/examples/ux/',
+		'Ext.ux': 'http://extjs.cachefly.net/ext-4.1.0-gpl/examples/ux/',
 		'Ext.ux.grid.plugin': '../../ux/grid/plugin',
 		'Ext.ux.form.field': '../../ux/form/field'
 	}
@@ -182,6 +182,7 @@ Ext.onReady(function()
 				}, {
 					name: 'email',
 					fieldLabel: 'Email',
+					vtype: 'email',
 					flex: 3,
 					margins: '0 0 0 6'
 				} ]
