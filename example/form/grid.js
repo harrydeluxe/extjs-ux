@@ -48,7 +48,7 @@ Ext.onReady(function()
 		title: 'Phone Number',
 		name: 'phonenumbers',
 		layout: 'fit',
-		height: 200,
+		height: 190,
 		store: Ext.create('Ext.data.Store', {
 			model: 'Numbers',
 			proxy: {
