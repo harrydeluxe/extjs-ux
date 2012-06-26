@@ -41,6 +41,57 @@
 	border-left: none;
 }
 
+
+.x-sbtn .x-sbtn-item td.x-frame-tl,
+.x-sbtn .x-sbtn-item td.x-frame-ml,
+.x-sbtn .x-sbtn-item td.x-frame-bl,
+.x-sbtn .x-sbtn-item td.x-frame-tr,
+.x-sbtn .x-sbtn-item td.x-frame-mr,
+.x-sbtn .x-sbtn-item td.x-frame-br
+{
+	display: none;
+}
+.x-sbtn .x-sbtn-item td.x-frame-tc,
+.x-sbtn .x-sbtn-item td.x-frame-mc,
+.x-sbtn .x-sbtn-item td.x-frame-bc
+{
+	padding-right: 3px;
+	padding-left: 3px;
+	border-right: 1px solid #D1D1D1;
+}
+
+
+.x-sbtn .x-sbtn-last td.x-frame-tl,
+.x-sbtn .x-sbtn-last td.x-frame-ml,
+.x-sbtn .x-sbtn-last td.x-frame-bl
+{
+	display: none;
+	
+}
+.x-sbtn .x-sbtn-last td.x-frame-tc,
+.x-sbtn .x-sbtn-last td.x-frame-mc,
+.x-sbtn .x-sbtn-last td.x-frame-bc
+{
+	padding-left: 3px;
+}
+
+
+
+.x-sbtn .x-sbtn-first td.x-frame-tr,
+.x-sbtn .x-sbtn-first td.x-frame-mr,
+.x-sbtn .x-sbtn-first td.x-frame-br
+{
+	display: none;
+}
+.x-sbtn .x-sbtn-first td.x-frame-tc,
+.x-sbtn .x-sbtn-first td.x-frame-mc,
+.x-sbtn .x-sbtn-first td.x-frame-bc
+{
+	padding-right: 3px;
+	border-right: 1px solid #D1D1D1;
+}
+
+
 .x-sbtn .x-sbtn-single
 {
 	
