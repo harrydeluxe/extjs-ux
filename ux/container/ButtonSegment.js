@@ -18,31 +18,29 @@ Ext.define('Ext.ux.container.ButtonSegment', {
     
     frame: false,
     
-    onRender: function()
-	{
-		var me = this;
+    initComponent: function()
+    {
+        var me = this;
+        
+        me.callParent(arguments);
+        
+        me.activeItem = (me.activeItem + 1 > me.items.length) ? 0 : me.activeItem;
+        
+        me.items.each(function(el, c)
+        {
+            if(me.items.length === 1)
+                el.addCls(me.buttonCls +'-single');
+            else
+            {
+                var cls = c == 0 ? me.buttonCls +'-first' : (c == me.items.length - 1 ? me.buttonCls +'-last' : me.buttonCls +'-item');
+                el.addCls(cls);
+            }
+        });
 
-		me.callParent(arguments);
-
-		me.activeItem = (me.activeItem + 1 > me.items.length) ? 0 : me.activeItem;
-
-		me.items.each(function(el, c)
-		{
-			if(me.items.length === 1)
-				el.addCls(me.buttonCls +'-single');
-			else
-			{
-				var cls = c == 0 ? me.buttonCls +'-first' : (c == me.items.length - 1 ? me.buttonCls +'-last' : me.buttonCls +'-item');
-				el.addCls(cls);
-			}
-		});
-	},
-
-	beforeRender: function()
-	{
-	},
+    },
     
-	onBeforeAdd: function(component)
-	{
-	}
+    onBeforeAdd: function(component)
+    {
+        
+    }
 });
