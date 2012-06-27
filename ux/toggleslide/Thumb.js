@@ -71,8 +71,6 @@ Ext.define('Ext.ux.toggleslide.Thumb', {
         };
     },
 
-    
-
     /**
      * @private
      * Bring thumb dom element to front.
@@ -93,28 +91,8 @@ Ext.define('Ext.ux.toggleslide.Thumb', {
         });
         
     },
-
-    /**
-     * Enables the thumb if it is currently disabled
-     */
-    enable: function() {
-        var me = this;
-
-        me.disabled = false;
-        if (me.el) {
-            me.el.removeCls(me.slider.disabledCls);
-        }
-    },
-
-    /**
-     * Disables the thumb if it is currently enabled
-     */
+    
     disable: function() {
-        var me = this;
 
-        me.disabled = true;
-        if (me.el) {
-            me.el.addCls(me.slider.disabledCls);
-        }
     }
 });

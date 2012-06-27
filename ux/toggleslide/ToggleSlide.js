@@ -64,6 +64,8 @@ Ext.define('Ext.ux.toggleslide.ToggleSlide', {
      */
     handleCls: 'x-toggle-slide-thumb',
     
+    disabledCls: 'x-toggle-slide-disabled',
+    
     /**
      * @cfg {Boolean} state The initial state of the Toggle (defaults to false)
      */
@@ -162,7 +164,7 @@ Ext.define('Ext.ux.toggleslide.ToggleSlide', {
         me.callParent(arguments);
         
         
-        var thumb = new Ext.ux.toggleslide.Thumb({
+        me.thumb = new Ext.ux.toggleslide.Thumb({
             ownerCt: me,
             slider: me,
             disabled    : !!me.disabled
@@ -177,14 +179,14 @@ Ext.define('Ext.ux.toggleslide.ToggleSlide', {
         me.offSpan = me.offLabel.first();
 
         if (me.rendered) {
-            thumb.render();
+            me.thumb.render();
         }
-        me.handle = thumb.el;
+        me.handle = me.thumb.el;
         
         if(me.resizeHandle)
-            thumb.bringToFront();
+            me.thumb.bringToFront();
         else
-            thumb.sendToBack();
+            me.thumb.sendToBack();
         
         me.resize();
         me.disableTextSelection();
@@ -209,9 +211,7 @@ Ext.define('Ext.ux.toggleslide.ToggleSlide', {
         var me = this,
             container = me.el,
             offlabel = me.offLabel,
-            //offspan = me.offSpan,
             onlabel = me.onLabel,
-            //onspan = me.onSpan,
             handle = me.handle;
         
         if(me.resizeHandle)
@@ -420,6 +420,24 @@ Ext.define('Ext.ux.toggleslide.ToggleSlide', {
         {
             Ext.ux.toggleslide.ToggleSlide.superclass.enable.call(this);
             this.registerToggleListeners();
+            //this.thumb.enable();
+        }
+        return this;
+    },
+    
+    /**
+     * If currently enabled, disable this component and fire the 'disable'
+     * event.
+     * 
+     * @return {Ext.Component} this
+     */
+    disable: function()
+    {
+        if(!this.disabled)
+        {
+            Ext.ux.toggleslide.ToggleSlide.superclass.disable.call(this);
+            this.unregisterToggleListeners();
+            //this.thumb.disable();
         }
         return this;
     },
@@ -450,22 +468,6 @@ Ext.define('Ext.ux.toggleslide.ToggleSlide', {
     {
         Ext.destroy(this.dd);
         this.el.un('mouseup', this.onMouseUp, this);
-    },
-    
-    /**
-     * If currently enabled, disable this component and fire the 'disable'
-     * event.
-     * 
-     * @return {Ext.Component} this
-     */
-    disable: function()
-    {
-        if(!this.disabled)
-        {
-            Ext.ux.toggleslide.ToggleSlide.superclass.disable.call(this);
-            this.unregisterToggleListeners();
-        }
-        return this;
     },
     
     /**
