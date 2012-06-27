@@ -24,6 +24,12 @@ h2. Ext.ux.upload.Button
 Demo: "Link":http://harrydeluxe.github.com/extjs-ux/example/upload/upload.html
 Forum: "Link":http://www.sencha.com/forum/showthread.php?205576-File-upload-with-drag-amp-drop-support
 
+h2. Ext.ux.toggleslide.ToggleSlide
+
+!http://harrydeluxe.github.com/extjs-ux/img/toggleslide.jpg!
+
+Demo: "Link":http://harrydeluxe.github.com/extjs-ux/example/form/toggleslide.html
+
 h2. Ext.ux.container.ButtonSegment
 
 !http://harrydeluxe.github.com/extjs-ux/img/segmentedbuttons.jpg!
