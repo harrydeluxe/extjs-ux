@@ -42,8 +42,6 @@ Ext.define('Ext.ux.form.field.ToggleSlide', {
             'onLabelCls',
             'offLabelCls',
             'handleCls',
-            'handleCenterCls',
-            'handleRightCls',
             'state',
             'booleanMode'
         ]);

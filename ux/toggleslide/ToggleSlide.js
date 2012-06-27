@@ -65,18 +65,6 @@ Ext.define('Ext.ux.toggleslide.ToggleSlide', {
     handleCls: 'x-toggle-slide-thumb',
     
     /**
-     * @cfg {String} handleCenterCls The CSS class for the drag handle's center
-     *      el (defaults to 'x-toggle-slide-handle-center')
-     */
-    handleCenterCls: 'x-toggle-slide-thumb-center',
-    
-    /**
-     * @cfg {String} handleCenterCls The CSS class for the drag handle's right
-     *      el (defaults to 'x-toggle-slide-handle-right')
-     */
-    handleRightCls: 'x-toggle-slide-thumb-right',
-    
-    /**
      * @cfg {Boolean} state The initial state of the Toggle (defaults to false)
      */
     state: false,
@@ -147,9 +135,7 @@ Ext.define('Ext.ux.toggleslide.ToggleSlide', {
             offText: me.offText,
             onLabelCls: me.onLabelCls,
             onText: me.onText,
-            handleCls: me.handleCls,
-            handleRightCls: me.handleRightCls,
-            handleCenterCls: me.handleCenterCls
+            handleCls: me.handleCls
         });
     },
     
