@@ -29,6 +29,10 @@ h2. Ext.ux.toggleslide.ToggleSlide
 !http://harrydeluxe.github.com/extjs-ux/img/toggleslide.jpg!
 
 Demo: "Link":http://harrydeluxe.github.com/extjs-ux/example/form/toggleslide.html
+Forum: "Link":http://www.sencha.com/forum/showthread.php?226679-iPhone-Style-Toggle-Slide-for-ExtJS
+
+
+Note: This extension is Beta and CSS not working in IE
 
 h2. Ext.ux.container.ButtonSegment
 
