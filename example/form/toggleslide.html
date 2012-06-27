@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>ToggleSlide Example</title>    
+	<link rel="stylesheet" type="text/css" href="http://extjs.cachefly.net/ext-4.1.0-gpl/resources/css/ext-all.css" />  
+		
+	<link rel="stylesheet" type="text/css" href="../../ux/toggleslide/css/style.css" />
+<style type="text/css">
+        body {
+          padding: 20px; 
+          font: normal normal normal 14px/normal arial, tahoma, verdana, helvetica;
+        }
+        th {
+          text-align: right;
+          padding: 8px;
+          padding-right: 15px;
+          vertical-align: top; 
+          width: 225px;
+        }
+        .css_sized_container .x-toggle-slide-container {
+            width: 250px; 
+        }
+        
+        .custom-color label.x-toggle-slide-label-on {
+			background: #83B264;
+			color: #F9FBF7;
+			text-shadow: 0px 0px 2px #346817;
+		}
+
+		.custom-color label.x-toggle-slide-label-off {
+			background: #C56333;
+			color: #7F1F06;
+			text-shadow: 1px 0px 1px #DD9A78;
+			text-shadow: 1px 1px -1px #D7875F;
+			text-align: right;
+		}
+
+
+    </style>
+</head>
+<body>
+	
+	<table>
+    <tr class="disabled">
+      <th><label for="disabled">Disabled</label></th>
+      <td>
+        <div id="disabled"/>
+        <div style="float:right; margin-right:95px; margin-top:3px" id="button"/>
+      </td>
+    </tr>
+    <tr class="on_off">
+      <th><label for="on_off">Default</label></th>
+      <td>
+        <div id="default"/>
+      </td>
+    </tr>
+    <tr class="on_off">
+      <th><label for="custom-color">Custom Color</label></th>
+      <td>
+        <div id="custom-color"/>
+      </td>
+    </tr>
+    <tr class="on_off">
+      <th><label for="on_off">Don't resize handle</label></th>
+      <td>
+        <div id="default-resize-handle"/>
+      </td>
+    </tr>
+    <tr class="on_off">
+      <th><label for="on_off_on">Single char labels</label></th>
+      <td>
+        <div id="default-on"/>
+      </td>
+    </tr>
+    <tr class="css_sized_container">
+      <th><label for="css_sized_container">CSS Sized Container and Handle</label></th>
+      <td>
+        <div id="css-sized-container"/>
+      </td>
+    </tr>
+    <tr class="long_tiny">
+      <th><label class="left" for="long_tiny">Long and short labels</label></th>
+      <td>
+        <div id="long-tiny"/>
+      </td>
+    </tr>
+    <tr class="onchange">
+      <th>Event tracking - Before Change</th>
+      <td>
+        <div id="beforechange"></div>
+      </td>
+    </tr>
+    <tr class="onchange">
+      <th>Event tracking - Change</th>
+      <td>
+        <div id="onchange"/>
+        <div style="float:right; margin-top:8px; width:140px">Current value: <strong><span id="status">...</span></strong></div>
+      </td>
+    </tr>
+    <tr class="onchange">
+      <th>Event tracking - Boolean Mode Off</th>
+      <td>
+        <div id="onchange-bool-false"/>
+        <div style="float:right; margin-top:8px; width:140px;">Current value: <strong><span id="status-bool-false">...</span></strong></div>
+      </td>
+    </tr>
+  </table>
+  
+  <table>
+    <tr class="onchange">
+      <th>Toolbar Toggles</th>
+      <td>
+          <div id="panel"></div>
+      </td>
+    </tr>
+    <tr class="onchange">
+      <th>Form Field Toggles</th>
+      <td>
+        <div id="form"></div>
+      </td>
+    </tr>
+  </table>
+  
+	<script type="text/javascript" src="http://extjs.cachefly.net/ext-4.1.0-gpl/ext-all-debug.js"></script>       
+    <script type="text/javascript" src="toggleslide.js"></script>	      
+</body>
+</html>
