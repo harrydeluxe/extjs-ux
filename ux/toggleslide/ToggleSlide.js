@@ -139,6 +139,8 @@ Ext.define('Ext.ux.toggleslide.ToggleSlide', {
             onText: me.onText,
             handleCls: me.handleCls
         });
+        
+        
     },
     
     /**
@@ -163,6 +165,9 @@ Ext.define('Ext.ux.toggleslide.ToggleSlide', {
         
         me.callParent(arguments);
         
+        if (me.cls) {
+            me.el.addCls(me.cls);
+        }
         
         me.thumb = new Ext.ux.toggleslide.Thumb({
             ownerCt: me,

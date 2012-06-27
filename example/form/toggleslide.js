@@ -35,10 +35,18 @@ Ext.onReady(function()
     });
     
     new Ext.ux.toggleslide.ToggleSlide({
+        renderTo: 'custom-color', 
+        onText: 'online', 
+        offText: 'offline',
+        cls: 'custom-color',
+        state: true
+    });
+    
+    new Ext.ux.toggleslide.ToggleSlide({
         renderTo: 'default-resize-handle', 
         onText: 'online', 
         offText: 'offline',
-        //resizeHandle: false,
+        resizeHandle: false,
         state: true
     });
     
@@ -85,6 +93,23 @@ Ext.onReady(function()
         }
     });
     
+    
+    var toggle = new Ext.ux.toggleslide.ToggleSlide({
+        renderTo: 'onchange', 
+        listeners: {
+            change: function(toggle, state) {
+                Ext.get('status').dom.innerHTML = '<b>' + state + '</b>';
+            },
+            afterrender: function(toggle) {
+                Ext.get('status').dom.innerHTML = '<b>' + toggle.getValue() + '</b>';
+            }
+        }
+    });
+
+    Ext.TaskManager.start({
+        run: function() {toggle.toggle();},
+        interval: 3000
+    });
     
     
     var tbar = {

@@ -21,6 +21,22 @@
         .css_sized_container .x-toggle-slide-container {
             width: 250px; 
         }
+        
+        .custom-color label.x-toggle-slide-label-on {
+			background: #83B264;
+			color: #F9FBF7;
+			text-shadow: 0px 0px 2px #346817;
+		}
+
+		.custom-color label.x-toggle-slide-label-off {
+			background: #C56333;
+			color: #7F1F06;
+			text-shadow: 1px 0px 1px #DD9A78;
+			text-shadow: 1px 1px -1px #D7875F;
+			text-align: right;
+		}
+
+
     </style>
 </head>
 <body>
@@ -37,6 +53,12 @@
       <th><label for="on_off">Default</label></th>
       <td>
         <div id="default"/>
+      </td>
+    </tr>
+    <tr class="on_off">
+      <th><label for="custom-color">Custom Color</label></th>
+      <td>
+        <div id="custom-color"/>
       </td>
     </tr>
     <tr class="on_off">
