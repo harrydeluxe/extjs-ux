@@ -65,17 +65,17 @@ Ext.define('Ext.ux.grid.plugin.DragSelector', {
         });
         
         me.dragRegion = new Ext.util.Region();
-
         me.scroller = me.view.getEl();
     },
     
     syncScroll: function(e)
-    {
+    {        
         var top = this.scroller.getScroll().top;
         
-        this.fillRegions();
         this.scrollTop = top - this.scrollTopStart;
         
+        this.fillRegions();
+
         if(this.dragging)
         {
             this.onDrag(e, true);
@@ -95,7 +95,6 @@ Ext.define('Ext.ux.grid.plugin.DragSelector', {
             objectsSelected.push(me.selModel.isSelected(objectsSelected.length));
         }, me);
         
-        me.fillRegions();
         me.syncScroll();
     },
     
@@ -152,8 +151,7 @@ Ext.define('Ext.ux.grid.plugin.DragSelector', {
         
         me.scrollTopStart = me.scroller.getScroll().top;
         me.fillAllRegions();
-        
-        
+
         me.getProxy().show();
         me.dragging = true;
         me.fireEvent('dragselectorstart', me);
@@ -181,6 +179,7 @@ Ext.define('Ext.ux.grid.plugin.DragSelector', {
         var me = this,
             selModel = me.view.getSelectionModel(), // new
             proxy = me.getProxy(), // new
+            bodyRegion = me.bodyRegion,
             startXY = me.tracker.startXY,
             dragRegion = me.dragRegion, // new
             currentXY = me.tracker.getXY(),
@@ -203,7 +202,7 @@ Ext.define('Ext.ux.grid.plugin.DragSelector', {
                 height = Math.abs(startXY[1] - currentXY[1]) - me.scrollTop;
             }
             
-            me.bodyRegion.top -= me.scrollTop;           
+            bodyRegion.top -= me.scrollTop; 
         }
         else
         {
@@ -213,8 +212,8 @@ Ext.define('Ext.ux.grid.plugin.DragSelector', {
                 height = Math.abs((startXY[1] - me.scrollTop) - currentXY[1]);
             }
             
-            me.bodyRegion.bottom -= me.scrollTop;
-        }
+            bodyRegion.bottom -= me.scrollTop;   
+        }       
         
         Ext.apply(dragRegion, {
             top: minY,
@@ -222,18 +221,17 @@ Ext.define('Ext.ux.grid.plugin.DragSelector', {
             right: minX + width,
             bottom: minY + height
         });
-        
-        dragRegion.constrainTo(me.bodyRegion);
+
+        dragRegion.constrainTo(bodyRegion);
         proxy.setRegion(dragRegion);
-        
-        
+
         var s = me.scroller;
 
         for( var i = 0; i < me.rs.length; i++)
         {
             var r = me.rs[i],
                 sel = dragRegion.intersect(r),
-                selected = me.selModel.isSelected(i),
+                selected = selModel.isSelected(i),
                 selectedBefore = me.objectsSelected[i];
             
             if(me.ctrlState)
