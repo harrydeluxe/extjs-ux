@@ -216,6 +216,15 @@ Ext.onReady(function()
     
                 Ext.Msg.alert('Post fields', fieldValues.join('<br>'));
             }
+        },
+        {
+            text: 'Reset',
+            formBind: true,
+            handler: function()
+            {
+                var form = Ext.getCmp('form-demo');
+                form.getForm().reset();
+            }
         }]
     });
 

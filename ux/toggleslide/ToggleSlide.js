@@ -14,7 +14,7 @@ Ext.define('Ext.ux.toggleslide.ToggleSlide', {
     extend: 'Ext.Component',
     alias: 'widget.toggleslide',
     
-    requires: ['Ext.fx.Anim'],
+    requires: ['Ext.ux.toggleslide.Thumb', 'Ext.fx.Anim'],
 
     /**
      * @cfg {Number} duration The duration for the slide animation (defaults to

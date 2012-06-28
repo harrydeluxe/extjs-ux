@@ -31,8 +31,9 @@ Ext.define('Ext.ux.form.field.ToggleSlide', {
     initComponent : function()
     {
         var me = this,
-            cfg = {id: me.id + '-toggle-slide'};
-        
+            cfg = {id: me.id + '-toggle-slide'},
+            t = null;
+
         cfg = Ext.copyTo(cfg, me.initialConfig, [
             'onText',
             'offText', 
@@ -46,6 +47,17 @@ Ext.define('Ext.ux.form.field.ToggleSlide', {
             'booleanMode'
         ]);
 
+        if(me.initialConfig.value)
+            cfg.state = me.initialConfig.value;
+        
+        if(me.initialConfig.booleanMode === false)
+            t = me.initialConfig.state ? me.initialConfig.onText || 'ON' : me.initialConfig.offText || 'OFF';
+        else
+            t = me.initialConfig.value || me.initialConfig.state || false;
+
+        me.initialConfig.value = t;
+        me.value = t;       
+        
         me.toggle = new Ext.ux.toggleslide.ToggleSlide(cfg);
         
         me.callParent(arguments);
@@ -56,11 +68,10 @@ Ext.define('Ext.ux.form.field.ToggleSlide', {
     onRender: function(ct, position)
     {
         var me = this;
-        
-        me.callParent(arguments);
 
+        me.callParent(arguments);
         me.toggle.render(me.inputEl);
-        me.setValue(me.toggle.getValue());
+        me.setRawValue(me.toggle.getValue());
     },
     
  
@@ -70,9 +81,9 @@ Ext.define('Ext.ux.form.field.ToggleSlide', {
      */
     initEvents: function()
     {
-        this.callParent();
-        //Ext.ux.form.field.ToggleSlide.superclass.initEvents.call(this);
-        this.toggle.on('change', this.onToggleChange, this);   
+        var me = this;
+        me.callParent();
+        me.toggle.on('change', me.onToggleChange, me);   
     },
 
     /**
@@ -83,9 +94,27 @@ Ext.define('Ext.ux.form.field.ToggleSlide', {
      */
     onToggleChange: function(toggle, state)
     {
-        //console.log('onToggleChange', toggle, state);
         return this.setValue(state);
     },
+    
+    setValue: function(value)
+    {
+        var me = this,
+            toggle = me.toggle;
+        
+        if(value === me.value || value === undefined)
+        {
+            return;
+        } 
+        
+        me.callParent(arguments);
+        
+        if(toggle.getValue() != value)
+            toggle.toggle();
+        
+        return me;
+    },    
+    
     
     /**
      * Utility method to set the value of the field when the toggle changes.
@@ -95,7 +124,6 @@ Ext.define('Ext.ux.form.field.ToggleSlide', {
      */
     onChange: function(toggle, state)
     {
-        //console.log('onChange', toggle, state);
         //return this.setValue(state);
     },
 
