@@ -78,7 +78,7 @@ Ext.define("UX.tinymce.WindowManager", {
 		
 		win.show(null, function()
 		{
-		    if(this.editor.id == 'mce_fullscreen')
+		    if(this.editor.fullscreen_is_enabled)
 		        win.zIndexManager.setBase(200000);
 		    
 			if(s.left && s.top)
