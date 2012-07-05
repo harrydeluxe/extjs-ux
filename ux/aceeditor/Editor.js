@@ -40,10 +40,10 @@ Ext.define('Ext.ux.aceeditor.Editor', {
     
     initEditor: function()
     {
-        var me = this;
-        
+        var me = this;       
         
         me.editor = ace.edit(me.editorId);
+        me.editor.ownerCt = me;
         me.setMode(me.parser);
         me.setTheme(me.theme);
         me.editor.getSession().setUseWrapMode(me.useWrapMode);
@@ -59,6 +59,7 @@ Ext.define('Ext.ux.aceeditor.Editor', {
         me.getSession().setTabSize(me.tabSize);
         me.getSession().setUseSoftTabs(me.useSoftTabs);
         me.setValue(me.sourceCode);
+
         me.editor.getSession().on('change', function()
         {
             me.fireEvent('change', me);
