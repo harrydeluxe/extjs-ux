@@ -39,12 +39,7 @@ Ext.define('Ext.ux.aceeditor.Panel', {
                 xtype: 'component',
                 autoEl: 'pre'
             };
-        
-        if(me.contentEl != null)
-        {
-            me.sourceCode = Ext.get(me.contentEl).dom.innerHTML;
-        }
-        
+
         Ext.apply(me, {
             items: items
         });
@@ -55,13 +50,17 @@ Ext.define('Ext.ux.aceeditor.Panel', {
     onRender: function()
     {
         var me = this;
-        if(me.contentEl != null)
+
+        if(me.sourceEl != null)
         {
-            me.sourceCode = Ext.get(me.contentEl).dom.innerText;
+            me.sourceCode = Ext.get(me.sourceEl).getHTML();
         }
+        
         me.editorId = me.items.keys[0];
         me.oldSourceCode = me.sourceCode;
+        
         me.callParent(arguments);
+
         // init editor on afterlayout
         me.on('afterlayout', function()
         {
@@ -73,6 +72,10 @@ Ext.define('Ext.ux.aceeditor.Panel', {
                     {
                         me.sourceCode = response.responseText;
                         me.initEditor();
+                        
+
+                        
+                        
                     }
                 });
             }
@@ -80,6 +83,7 @@ Ext.define('Ext.ux.aceeditor.Panel', {
             {
                 me.initEditor();
             }
+            
         }, me, {
             single: true
         });
