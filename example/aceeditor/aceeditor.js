@@ -1,11 +1,12 @@
 Ext.Loader.setConfig({
     enabled: true,
     paths: {
+        'Ext.ux': 'http://extjs.cachefly.net/ext-4.1.0-gpl/examples/ux/statusbar',
         'Ext.ux.aceeditor': '../../ux/aceeditor'
     }
 });
 
-Ext.require(['Ext.ux.aceeditor.Panel']);
+Ext.require(['Ext.ux.aceeditor.Panel', 'Ext.ux.StatusBar']);
 
 Ext.onReady(function()
 {
@@ -31,7 +32,34 @@ Ext.onReady(function()
                 text: 'Redo',
                 handler: me.redo,
                 scope: me
-            },
+            }/*,
+            {
+                text: 'Fullscreen',
+                enableToggle: true,
+                toggleHandler: function(button, state)
+                {
+                    var root = document.documentElement;
+                    if(state)
+                    {                  
+                        if (root.webkitRequestFullScreen) {
+                            root.webkitRequestFullScreen(
+                                window.Element.ALLOW_KEYBOARD_INPUT
+                            );
+                        } else if (root.mozRequestFullScreen) {
+                            root.mozRequestFullScreen();
+                        }
+                    }
+                    else
+                    {
+                        if (document.webkitCancelFullScreen)
+                            document.webkitCancelFullScreen();
+                        else if (document.mozCancelFullScreen)
+                            document.mozCancelFullScreen();
+                        //(document.webkitCancelFullScreen || document.mozCancelFullScreen);  
+                    }  
+                },
+                scope: me
+            }*/,
             '->',
             {
                 text: 'Settings',
@@ -80,7 +108,7 @@ Ext.onReady(function()
                         scope: me
                     },
                     {
-                        text: 'Show Gutter',
+                        text: 'Show Line Numbers',
                         handler: function()
                         {
                             me.showGutter = (me.showGutter) ? false : true;
@@ -314,9 +342,32 @@ Ext.onReady(function()
                     }]
                 }
             }];
+            
+            var wordCount = Ext.create('Ext.toolbar.TextItem', {text: 'Position: 0'}),
+                lineCount = Ext.create('Ext.toolbar.TextItem', {text: 'Line: 0'});
+            
+            
             Ext.apply(me, {
-                tbar: toolbar
+                tbar: toolbar,
+                bbar: Ext.create('Ext.ux.StatusBar', {
+                    //defaultText: 'Default status',
+                    //statusAlign: 'right', // the magic config
+                    items: [lineCount, wordCount]
+                })
             });
+            
+            me.on('editorcreated', function()
+                    {
+                        me.editor.selection.on("changeCursor", function(e)
+                                {
+                                    var c = me.editor.selection.getCursor(),
+                                        l = c.row + 1;
+                                    
+                                    wordCount.update('Position: ' + c.column);
+                                    lineCount.update('Line: ' + l);
+                                }, me);
+                    });
+            
             me.callParent(arguments);
         }
     });
@@ -335,7 +386,7 @@ Ext.onReady(function()
             items: [{
                 xtype: 'AceEditor.WithToolbar',
                 title: 'Javascript',
-                contentEl: 'pre_1',
+                sourceEl: 'pre_1',
                 theme: 'twilight',
                 parser: 'javascript',
                 showInvisible: true,
