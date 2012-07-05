@@ -53,7 +53,10 @@ Ext.define('Ext.ux.aceeditor.Panel', {
 
         if(me.sourceEl != null)
         {
-            me.sourceCode = Ext.get(me.sourceEl).getHTML();
+            //me.sourceCode = Ext.get(me.sourceEl).getHTML();
+            //me.sourceCode = Ext.get(me.sourceEl).dom.innerHTML; 
+            me.sourceCode = Ext.get(me.sourceEl).dom.outerText; 
+            //me.sourceCode = Ext.get(me.sourceEl).dom.value;
         }
         
         me.editorId = me.items.keys[0];
@@ -72,10 +75,6 @@ Ext.define('Ext.ux.aceeditor.Panel', {
                     {
                         me.sourceCode = response.responseText;
                         me.initEditor();
-                        
-
-                        
-                        
                     }
                 });
             }
