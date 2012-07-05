@@ -17,7 +17,7 @@ Ext.onReady(function()
 			unstyled: true,
 			theme: 'twilight',
 			fontSize: '13px',
-			contentEl: 'pre_1',
+			sourceEl: 'pre_1',
 			parser: 'liquid'
 		} ]
 	});
