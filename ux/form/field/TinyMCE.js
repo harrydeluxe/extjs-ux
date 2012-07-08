@@ -34,7 +34,7 @@ Ext.define("Ext.ux.form.field.TinyMCE",	{
 			accessibility_focus: false,
 			language: "en",
 			mode: "exact",
-			skin: "o2k7",
+			skin: "extjs",
 			theme: "advanced",
 			plugins: 'autolink,lists,spellchecker,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template',
 			theme_advanced_buttons1: 'newdocument,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,styleselect,formatselect,fontselect,fontsizeselect',
@@ -51,8 +51,7 @@ Ext.define("Ext.ux.form.field.TinyMCE",	{
 			theme_advanced_statusbar_location: 'bottom',
 			theme_advanced_resize_horizontal: false,
 			theme_advanced_resizing: false,
-			width: '100%',
-			height: '100%'
+			width: '100%'
 		},
 		
 		setGlobalSettings: function(settings)
@@ -81,14 +80,15 @@ Ext.define("Ext.ux.form.field.TinyMCE",	{
         var me = this;
         
         me.callParent(arguments);
-        
+
         me.on('resize', function(elm, width, height){
-  
+            
             if(!width || !height)
                 return;
-            
+
             me.lastWidth = width;
-            me.lastHeight = height;
+            me.lastHeight = (!me.editor) ? me.inputEl.getHeight() : height;
+            //me.lastHeight = height;
             
             if(!me.editor)
                 me.initEditor();
@@ -106,14 +106,17 @@ Ext.define("Ext.ux.form.field.TinyMCE",	{
 	        return;
 	    
 	    me.inProgress = true;	    
-	    
+
 	 // Init values we do not want changed
 	    me.tinymceConfig.elements = me.getInputId();
 	    me.tinymceConfig.mode = 'exact';
 	   
 	    //me.tinymceConfig.width = me.lastWidth;
-	    me.tinymceConfig.height = me.inputEl.getHeight() - 6;
-	    
+	    //me.tinymceConfig.height = me.inputEl.getHeight() - 2;
+	    //console.log(me.inputEl, me.inputEl.getComputedHeight(), me.lastHeight);
+	    me.tinymceConfig.height = me.lastHeight - 5;
+	    //me.tinymceConfig.height = me.inputEl.getHeight() - 5;
+
         me.tinymceConfig.setup = function(editor)
         { 
             editor.onInit.add(function(editor)
@@ -135,13 +138,20 @@ Ext.define("Ext.ux.form.field.TinyMCE",	{
                 me.tableEl = Ext.get(me.editor.id + "_tbl");
                 me.iframeEl = Ext.get(me.editor.id + "_ifr");
 
-                if(!me.hideBorder)
-                    me.tableEl.setStyle('border', '1px solid #ABC6DD');
+                me.edToolbar = me.tableEl.down(".mceToolbar");
+                me.edStatusbar = me.tableEl.down(".mceStatusbar");
                 
+                if(me.hideBorder)
+                    me.tableEl.setStyle('border', '0px');
+                    
                 Ext.Function.defer(function(){
-                    me.setEditorSize(me.lastWidth, me.lastHeight);
-                }, 20, me);
                 
+                    if(me.tableEl.getHeight() != me.lastHeight - 5)
+                        me.setEditorSize(me.lastWidth, me.lastHeight);
+
+                    //me.setEditorSize(me.lastWidth, (me.tableEl.getHeight() != me.lastHeight - 2) ? me.tableEl.getHeight() : me.lastHeight);
+                }, 10, me);
+ 
                 me.fireEvent('editorcreated', me.editor, me);
             });
         };
@@ -151,19 +161,19 @@ Ext.define("Ext.ux.form.field.TinyMCE",	{
     
     setEditorSize: function(width, height)
     {
-        var me = this;
+        var me = this,
+            frameHeight = height - 2;
         
         if(!me.editor || !me.rendered)
             return;
-  
-        var edToolbar = me.tableEl.down(".mceToolbar");
-        var edStatusbar = me.tableEl.down(".mceStatusbar");
         
-        var frameHeight = height - 2;
+        if(me.edToolbar)
+            frameHeight -= me.edToolbar.getHeight();
         
-        if(edToolbar) frameHeight -= edToolbar.getHeight();
-        if(edStatusbar) frameHeight -= edStatusbar.getHeight();
+        if(me.edStatusbar)
+            frameHeight -= me.edStatusbar.getHeight();
         
+        //console.log(me.edToolbar);
         me.iframeEl.setHeight(frameHeight);
         
         //me.tableEl.setWidth(width);
