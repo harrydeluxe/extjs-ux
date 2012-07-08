@@ -1,151 +1,3 @@
-Ext.define("UX.tinymce.WindowManager", {
-	extend: tinymce.WindowManager,
-	
-	constructor: function(config)
-	{
-		tinymce.WindowManager.call(this, config.editor);
-	},
-	
-	alert: function(txt, cb, s)
-	{
-		Ext.MessageBox.alert("", txt, function()
-		{
-			if(!Ext.isEmpty(cb))
-			{
-				cb.call(this);
-			}
-		}, s);
-	},
-	
-	confirm: function(txt, cb, s)
-	{
-		Ext.MessageBox.confirm("", txt, function(btn)
-		{
-			if(!Ext.isEmpty(cb))
-			{
-				cb.call(this, btn == "yes");
-			}
-		}, s);
-	},
-	
-	open: function(s, p)
-	{
-		s = s || {};
-		p = p || {};
-		if(!s.type)
-		{
-			this.bookmark = this.editor.selection.getBookmark('simple');
-		}
-		s.width = parseInt(s.width || 320);
-		s.height = parseInt(s.height || 240) + (tinymce.isIE ? 8 : 0);
-		s.min_width = parseInt(s.min_width || 150);
-		s.min_height = parseInt(s.min_height || 100);
-		s.max_width = parseInt(s.max_width || 2000);
-		s.max_height = parseInt(s.max_height || 2000);
-		s.movable = true;
-		s.resizable = true;
-		p.mce_width = s.width;
-		p.mce_height = s.height;
-		p.mce_inline = true;
-		this.features = s;
-		this.params = p;
-		
-		var win = Ext.create("Ext.window.Window", {
-			title: s.name,
-			width: s.width,
-			height: s.height,
-			minWidth: s.min_width,
-			minHeight: s.min_height,
-			resizable: true,
-			maximizable: s.maximizable,
-			minimizable: s.minimizable,
-			modal: true,
-			stateful: false,
-			constrain: true,
-			//border: false,
-			layout: "fit",
-			items: [Ext.create("Ext.Component", {
-				autoEl: {
-					tag: 'iframe',
-					border: '0',
-					frameborder: '0',
-					src: s.url || s.file
-				},
-				style: 'border-width: 0px;'
-			})]
-		});
-		p.mce_window_id = win.getId();
-		
-		win.show(null, function()
-		{
-		    if(this.editor.fullscreen_is_enabled)
-		        win.zIndexManager.setBase(200000);
-		    
-			if(s.left && s.top)
-				win.setPagePosition(s.left, s.top);
-			var pos = win.getPosition();
-			s.left = pos[0];
-			s.top = pos[1];
-			this.onOpen.dispatch(this, s, p);
-		}, this);
-		
-		win.toFront(true);
-		return win;
-	},
-	
-	close: function(win)
-	{
-		// Probably not inline
-		if(!win.tinyMCEPopup || !win.tinyMCEPopup.id)
-		{
-			tinymce.WindowManager.prototype.close.call(this, win);
-			return;
-		}
-		
-		var w = Ext.getCmp(win.tinyMCEPopup.id);
-		
-		if(w)
-		{
-			this.onClose.dispatch(this);
-			w.close();
-		}
-	},
-	
-	setTitle: function(win, ti)
-	{
-		if(!win.tinyMCEPopup || !win.tinyMCEPopup.id)
-		{
-			tinymce.WindowManager.prototype.setTitle.call(this, win, ti);
-			return;
-		}
-		
-		var w = Ext.getCmp(win.tinyMCEPopup.id);
-		
-		if(w)
-			w.setTitle(ti);
-	},
-	
-	resizeBy: function(dw, dh, id)
-	{
-		var w = Ext.getCmp(id);
-		
-		if(w)
-		{
-			var size = w.getSize();
-			w.setSize(size.width + dw, size.height + dh);
-		}
-	},
-	
-	focus: function(id)
-	{
-		var w = Ext.getCmp(id);
-
-		//if(w)
-			//w.setActive(true);
-	}
-});
-
-
 /**
  * @class Ext.ux.form.field.TinyMCE
  * @extends Ext.form.field.TextArea
@@ -160,12 +12,22 @@ Ext.define("UX.tinymce.WindowManager", {
 Ext.define("Ext.ux.form.field.TinyMCE",	{
 	extend: 'Ext.form.field.TextArea',
 	alias: 'widget.tinymcefield',
-		
+	
+	requires:['Ext.ux.form.field.TinyMCEWindowManager'],
+	
 	config:
 	{
 		height: 170
 	},
+	
+	hideBorder: false,
 
+	inProgress: false,
+	
+	lastWidth: 0,
+	
+	lastHeight: 0,
+	
 	statics: {
 		tinyMCEInitialized: false,
 		globalSettings: {
@@ -210,35 +72,75 @@ Ext.define("Ext.ux.form.field.TinyMCE",	{
 		me.addEvents({
 			"editorcreated": true
 		});
-		
+
 		me.callParent([config]);
 	},
-	
+
+	initComponent: function()
+    {
+        var me = this;
+        
+        me.callParent(arguments);
+        
+        me.on('resize', function(elm, width, height){
+  
+            if(!width || !height)
+                return;
+            
+            me.lastWidth = width;
+            me.lastHeight = height;
+            
+            if(!me.editor)
+                me.initEditor();
+            else
+                me.setEditorSize(me.lastWidth, me.lastHeight);
+
+          }, me);
+    },
+    
 	initEditor: function()
     {
 	    var me = this;
 	    
+	    if(me.inProgress)
+	        return;
+	    
+	    me.inProgress = true;	    
+	    
 	 // Init values we do not want changed
 	    me.tinymceConfig.elements = me.getInputId();
 	    me.tinymceConfig.mode = 'exact';
+	   
+	    //me.tinymceConfig.width = me.lastWidth;
+	    me.tinymceConfig.height = me.inputEl.getHeight() - 6;
 	    
         me.tinymceConfig.setup = function(editor)
-        {
+        { 
+            editor.onInit.add(function(editor)
+            {
+                me.inProgress = false;
+            });
+            
             editor.onKeyPress.add(Ext.Function.createBuffered(me.validate, 250, me));
 
             editor.onPostRender.add(function(editor)
             {
                 me.editor = editor;
                 window.b = me.editor;
-                //me.on('resize', me.onResize, me);
-                //tinymce.add(me.editor);
 
-                editor.windowManager = Ext.create("UX.tinymce.WindowManager", {
+                editor.windowManager = new Ext.ux.form.field.TinyMCEWindowManager({
                     editor: me.editor
                 });
                 
                 me.tableEl = Ext.get(me.editor.id + "_tbl");
                 me.iframeEl = Ext.get(me.editor.id + "_ifr");
+
+                if(!me.hideBorder)
+                    me.tableEl.setStyle('border', '1px solid #ABC6DD');
+                
+                Ext.Function.defer(function(){
+                    me.setEditorSize(me.lastWidth, me.lastHeight);
+                }, 20, me);
                 
                 me.fireEvent('editorcreated', me.editor, me);
             });
@@ -247,21 +149,32 @@ Ext.define("Ext.ux.form.field.TinyMCE",	{
         tinymce.init(me.tinymceConfig);
     },
     
-	afterRender: function()
+    setEditorSize: function(width, height)
+    {
+        var me = this;
+        
+        if(!me.editor || !me.rendered)
+            return;
+  
+        var edToolbar = me.tableEl.down(".mceToolbar");
+        var edStatusbar = me.tableEl.down(".mceStatusbar");
+        
+        var frameHeight = height - 2;
+        
+        if(edToolbar) frameHeight -= edToolbar.getHeight();
+        if(edStatusbar) frameHeight -= edStatusbar.getHeight();
+        
+        me.iframeEl.setHeight(frameHeight);
+        
+        //me.tableEl.setWidth(width);
+        me.tableEl.setHeight(height);
+        me.inputEl.setHeight(height);
+    },
+    
+    isDirty: function()
 	{
 		var me = this;
 		
-		me.callParent(arguments);
-		
-		me.tinymceConfig.height = me.height - 25;
-		
-		me.initEditor();
-	},
-	
-
-	isDirty: function()
-	{
-		var me = this;
 		if(me.disabled || !me.rendered)
 		{
 			return false;
@@ -290,7 +203,6 @@ Ext.define("Ext.ux.form.field.TinyMCE",	{
 					format: 'raw'
 				});
 				me.validate();
-				// me.editor.resizeToContent();
 			});
 	},
 	
@@ -320,24 +232,6 @@ Ext.define("Ext.ux.form.field.TinyMCE",	{
             me.editor.destroy();
         }
 		me.callParent(arguments);
-	},
-	
-	onResize: function(component, adjWidth, adjHeight)
-	{
-		var width,
-			bodyWidth = component.bodyEl.getWidth();
-		
-		if(component.iframeEl)
-		{
-			width = bodyWidth - component.iframeEl.getBorderWidth('lr') - 2;
-			component.iframeEl.setWidth(width);
-		}
-		
-		if(component.tableEl)
-		{
-			width = bodyWidth - component.tableEl.getBorderWidth('lr') - 2;
-			component.tableEl.setWidth(width);
-		}
 	},
 	
 	getEditor: function()
