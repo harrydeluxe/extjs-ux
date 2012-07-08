@@ -81,6 +81,7 @@ h2. Ext.ux.form.field.TinyMCE
 !http://harrydeluxe.github.com/extjs-ux/img/tinymce.jpg!
 
 Demo: "Link":http://harrydeluxe.github.com/extjs-ux/example/form/tinymce.html
+Demo with tab: "Link":http://harrydeluxe.github.com/extjs-ux/example/form/tinymce_tab.html
 Forum: "Link":http://www.sencha.com/forum/showthread.php?170566-Tinymce-with-Ext-4.0.7
 
 h2. Ext.ux.form.field.Grid
