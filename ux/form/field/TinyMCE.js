@@ -111,9 +111,6 @@ Ext.define("Ext.ux.form.field.TinyMCE",	{
 	    me.tinymceConfig.elements = me.getInputId();
 	    me.tinymceConfig.mode = 'exact';
 	   
-	    //me.tinymceConfig.width = me.lastWidth;
-	    //me.tinymceConfig.height = me.inputEl.getHeight() - 2;
-	    //console.log(me.inputEl, me.inputEl.getComputedHeight(), me.lastHeight);
 	    me.tinymceConfig.height = me.lastHeight - 5;
 	    //me.tinymceConfig.height = me.inputEl.getHeight() - 5;
 
