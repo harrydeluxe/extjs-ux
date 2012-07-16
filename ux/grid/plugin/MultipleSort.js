@@ -15,23 +15,35 @@ Ext.define('Ext.ux.grid.plugin.MultipleSort', {
               'Ext.ux.ToolbarDroppable',
               'Ext.menu.Menu'],
     
-    clone: function()
-    {
-        return {
-            init: Ext.emptyFn
-        };
-    },
-    
+    /**
+     * @cfg {String/Object} layout
+     */
     layout: {
         overflowHandler: 'Menu'
     },
     
+    /**
+     * @cfg {Number} minHeight
+     * fix
+     */
     minHeight: 29,
     
+    /**
+     * @cfg {Boolean} [autoHide=false]
+     * If there is no sort button in the toolbar, it will be automatically hide.
+     */
     autoHide: false,
     
+    /**
+     * @cfg {String} removeText
+     * Text displayed in the sortbutton context menu for remove a button from the toolbar.
+     */
     removeText: 'remove',
     
+    /**
+     * @cfg {String} removeAllText
+     * Text displayed in the sortbutton context menu for remove all buttons from the toolbar.
+     */
     removeAllText: 'remove all',
     
     initComponent: function()
@@ -135,6 +147,17 @@ Ext.define('Ext.ux.grid.plugin.MultipleSort', {
         me.grid.on('render', me.onGridRender, me, {
             single: true
         });
+    },
+    
+    /**
+     * avoid clone of this class.
+     * @returns emptyFn
+     */
+    clone: function()
+    {
+        return {
+            init: Ext.emptyFn
+        };
     },
     
     onGridRender: function(grid)
