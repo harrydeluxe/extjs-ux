@@ -7,6 +7,35 @@
  * 
  * This plugin is based on Senchas multiple grid sorting example.
  * @see http://dev.sencha.com/deploy/ext-4.1.0-gpl/examples/grid/multiple-sorting.html
+ *
+ *
+ *
+ * @example
+ * var multiplesort = Ext.create('Ext.ux.grid.plugin.MultipleSort', {
+ *     autoHide: true,
+ *     removeText: 'entfernen',
+ *     removeAllText: 'alle entfernen',
+ *     items: [
+ *     {
+ *         xtype: 'tbtext',
+ *         text: 'Sortierfolge:',
+ *         reorderable: false
+ *     },
+ *     {
+ *         text: 'Nationalität',
+ *         sortData: {
+ *             property: 'nationalitaet'
+ *             //direction: 'ASC' // default "ASC"
+ *         }
+ *     }]
+ * });
+ *
+ * var grid = Ext.create('Ext.grid.Panel', {
+ *     ...
+ *     dockedItems: [multiplesort],
+ *     plugins: [multiplesort],
+ *     ...
+ *
  */
 Ext.define('Ext.ux.grid.plugin.MultipleSort', {
     extend: 'Ext.toolbar.Toolbar',
@@ -193,7 +222,7 @@ Ext.define('Ext.ux.grid.plugin.MultipleSort', {
                     }, me);
                 }
             },
-            onEndDrag: function(data, e)
+            onEndDrag: function()
             {
                 if(me.autoHide && me.getSorters().length == 0)
                 {
@@ -287,7 +316,7 @@ Ext.define('Ext.ux.grid.plugin.MultipleSort', {
         
         Ext.applyIf(config, {
             listeners: {
-                click: function(button, event)
+                click: function(button)
                 {
                     me.changeSortDirection(button, true);
                 },
