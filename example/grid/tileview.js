@@ -1,7 +1,7 @@
 Ext.Loader.setConfig({
     enabled: true,
 	paths: {
-		'Ext.ux': 'http://extjs.cachefly.net/ext-4.1.0-gpl/examples/ux/',
+		'Ext.ux': 'http://extjs.cachefly.net/extjs-4.1.1-gpl/examples/ux/',
 		'Ext.ux.grid': 	'../../ux/grid',
 		//'Ext.ux.grid.feature': '../../ux/grid/feature',
 		'Ext.ux.container': '../../ux/container'
