@@ -324,9 +324,7 @@ Ext.define('Ext.ux.grid.plugin.MultipleSort', {
                         el = button.getEl();
 
                     el.on('contextmenu', function(event) {
-                        var sorters = me.getSorters();
-
-                        removeAllItem.setVisible(sorters.length > 1);
+                        removeAllItem.setVisible(me.getSorters().length > 1);
                         event.stopEvent();
                         contextMenu.showAt(event.getXY());
                     });
