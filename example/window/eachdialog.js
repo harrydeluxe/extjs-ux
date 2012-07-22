@@ -34,19 +34,21 @@ Ext.onReady(function()
 						Ext.each(tmp_files, function(tfile)									
 						{							
 							// do something like: uploader.uploader.removeFile(tfile);
-							console.log('uploader.removeFile');
+							//alert('uploader.removeFile');
 						});	
 																	
 						tmp_files = [];
 					}
 					else
+					{  
 						// do something like: uploader.uploader.removeFile(tmp_files[0]);
-						console.log('uploader.removeFile');
+					    //alert('uploader.removeFile');
+					}
 				}												
 				else if(btn == 'cancel')												
 				{
 					// do something like: uploader.removeAll();
-					console.log('uploader.removeAll');
+				    //alert('uploader.removeAll');
 					tmp_files = [];
 				}
 				else												
@@ -64,8 +66,11 @@ Ext.onReady(function()
 					mb.show(conf);
 				}
 				else
-					// do something like: uploader.start();
-					console.log('uploader.start');
+				{  
+				    // do something like: uploader.start();
+                    //alert('uploader.start');
+                }
+					
 			}
 		}
 		));
