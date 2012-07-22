@@ -68,6 +68,7 @@ h2. Ext.ux.grid.plugin.MultipleSort
 !http://harrydeluxe.github.com/extjs-ux/img/multisort.jpg!
 
 Demo: "Link":http://harrydeluxe.github.com/extjs-ux/example/grid/multiplesort.html
+Forum: "Link":http://www.sencha.com/forum/showthread.php?231972-Multiple-grid-sorting
 
 h2. Ext.ux.window.EachDialog
 
