@@ -40,7 +40,7 @@
 Ext.define('Ext.ux.grid.plugin.MultipleSort', {
     extend: 'Ext.toolbar.Toolbar',
     alias: 'plugin.ux.multiplesort',
-    require: ['Ext.ux.BoxReorderer',
+    requires: ['Ext.ux.BoxReorderer',
         'Ext.ux.ToolbarDroppable',
         'Ext.menu.Menu'],
 
@@ -188,7 +188,7 @@ Ext.define('Ext.ux.grid.plugin.MultipleSort', {
 
     onGridAfterLayout: function(grid) {
         var me = this,
-            headerCt = (grid.ownerCt.lockedGrid) ? grid.ownerCt.lockedGrid.headerCt : grid.headerCt,
+            headerCt = (grid.ownerCt && grid.ownerCt.lockedGrid) ? grid.ownerCt.lockedGrid.headerCt : grid.headerCt,
             dragZone = headerCt.reorderer.dragZone;
 
         /**
