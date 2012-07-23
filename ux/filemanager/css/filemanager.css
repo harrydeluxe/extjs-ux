@@ -1,0 +1,417 @@
+
+
+.ux-filemanager-grid-cell-inner img
+{
+	width: 16px;
+	height: 16px;
+	display: inline-block;
+	vertical-align: top;
+	margin: 0px 5px 0 0;
+}
+		
+		
+.x-grid-row
+{
+
+}
+
+.topic {
+    padding: 0 0 0 20px;
+    background:transparent url("../media/icons/16/page_white.png") no-repeat;
+	height:16px;
+}
+
+
+
+.ux-filemanager-view-default
+{
+	background: transparent no-repeat;
+	background-image: url('../media/files.png');
+	background-position: -16px -144px !important;
+}
+.ux-filemanager-view-tile
+{
+	background: transparent no-repeat;
+	background-image: url('../media/files.png');
+	background-position: -32px -144px !important;
+}
+.ux-filemanager-view-medium
+{
+	background: transparent no-repeat;
+	background-image: url('../media/files.png');
+	background-position: -48px -144px !important;
+}
+.ux-filemanager-view-large
+{
+	background: transparent no-repeat;
+	background-image: url('../media/files.png');
+	background-position: -64px -144px !important;
+}
+
+
+/* main toolbar */
+.ux-filemanager-icon-rename
+{
+	background: transparent no-repeat;
+	background-image: url('../media/files.png');
+	background-position: 0 -96px !important;
+}
+
+.ux-filemanager-icon-delete
+{
+	background: transparent no-repeat;
+	background-image: url('../media/files.png');
+	background-position: 0 -32px !important;
+}
+
+.ux-filemanager-icon-upload
+{
+	background: transparent no-repeat;
+	background-image: url('../media/files.png');
+	background-position: 0 -64px !important;
+}
+
+.ux-filemanager-icon-download
+{
+	background: transparent no-repeat;
+	background-image: url('../media/files.png');
+	background-position: 0 -80px !important;
+}
+
+.ux-filemanager-icon-reload
+{
+	background: transparent no-repeat;
+	background-image: url('../media/files.png');
+	background-position: 0 -112px !important;
+}
+
+.ux-filemanager-icon-config
+{
+	background: transparent no-repeat;
+	background-image: url('../media/files.png');
+	background-position: 0 -128px !important;
+}
+
+
+
+.ux-filemanager-icon-view
+{
+	background-image: url('../media/icons/16/application.png') !important;
+}
+
+.ux-filemanager-icon-details
+{
+	background-image: url('../media/icons/16/application_view_detail.png') !important;
+}
+
+.ux-filemanager-icon-thumbnails
+{
+	background-image: url('../media/icons/16/application_view_tile.png') !important;
+}
+
+/* context menu's */
+.ux-filemanager-icon-newfolder
+{
+	background: transparent no-repeat;
+	background-image: url('../media/files.png');
+	background-position: 0 0 !important;
+}
+
+.ux-filemanager-icon-renamefolder
+{
+	background-image: url('../media/icons/16/folder_edit.png') !important;
+}
+
+.ux-filemanager-icon-deletefolder
+{
+	background-image: url('../media/icons/16/folder_delete.png') !important;
+}
+
+.ux-filemanager-icon-renamefile
+{
+	background-image: url('../media/icons/16/page_white_edit.png') !important;
+}
+
+.ux-filemanager-icon-deletefile
+{
+	background-image: url('../media/icons/16/page_white_delete.png') !important;
+}
+
+.ux-filemanager-icon-downloadfile
+{
+	background-image: url('../media/icons/16/page_white_put.png') !important;
+}
+
+/* grid rows */
+.ux-filemanager-iconrow td:first-child div
+{
+	background-repeat: no-repeat;
+	background-position: left center;
+	padding-left: 20px;
+}
+
+.ux-filemanager-icon-folder img
+{
+	background-image: url('http://localhost/delacap/web/labs/ext/extjs-4.1.0/resources/themes/images/delacap/tree/folder.png');
+}
+
+.ux-filemanager-icon-unknown-file img
+{
+	background-image: url('../media/icons/16/page_white.png');
+}
+
+.ux-filemanager-icon-text-file img
+{
+	background-image: url('../media/icons/16/page_white_text.png');
+}
+
+.ux-filemanager-icon-audio-file img
+{
+	background-image: url('../media/icons/16/music.png');
+}
+
+.ux-filemanager-icon-video-file img
+{
+	background-image: url('../media/icons/16/film.png');
+}
+
+.ux-filemanager-icon-image-file img
+{
+	background-image: url('../media/icons/16/image.png');
+}
+
+.ux-filemanager-icon-vector-file img
+{
+	background-image: url('../media/icons/16/page_white_vector.png');
+}
+
+.ux-filemanager-icon-flash-file img
+{
+	background-image: url('../media/icons/16/page_white_flash.png');
+}
+
+.ux-filemanager-icon-document-file img
+{
+	background-image: url('../media/icons/16/page_white_word.png');
+}
+
+.ux-filemanager-icon-spreadsheet-file img
+{
+	background-image: url('../media/icons/16/page_white_excel.png');
+}
+
+.ux-filemanager-icon-presentation-file div
+{
+	background-image: url('../media/icons/16/page_white_powerpoint.png');
+}
+
+.ux-filemanager-icon-acrobat-file img
+{
+	background-image: url('../media/icons/16/page_white_acrobat.png');
+}
+
+.ux-filemanager-icon-archive-file img
+{
+	background-image: url('../media/icons/16/page_white_compressed.png');
+}
+
+.reading-menu .x-menu-item-checked
+{
+	border: 1px dotted #a3bae9 !important;
+	background: #DFE8F6;
+	padding: 0;
+	margin: 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.ux-filemanager-thumbnails .ux-filemanager-thumb-wrap
+{
+	float: left;
+	margin: 5px;
+	padding: 5px;
+	width: 100px;
+	text-align: center;
+}
+
+.ux-filemanager-thumbnails .ux-filemanager-thumb-wrap span
+{
+	display: block;
+	overflow: hidden;
+	text-align: center;
+}
+
+.ux-filemanager-thumbnails .x-view-over
+{
+	border: 1px solid #dddddd;
+	background: #efefef;
+	padding: 4px;
+}
+/*
+.x-grid-rowwrap-div .x-grid-rowwrap-div,
+.x-grid-row-selected .x-grid-cell
+{
+	background-color: #D3E1F1 !important;
+}
+*/
+.ux-filemanager-thumbnails .x-view-selected .thumb
+{
+	background: transparent;
+}
+
+
+
+
+
+/**
+ * Large View
+ */
+.ux-explorerview-large-icon-row
+{
+	width: 270px;
+	height: 270px;
+	float: left;
+	border: none;
+	padding: 1px;
+}
+
+.x-grid-table.tileview .x-grid-row-over .ux-explorerview-large-icon-row
+{
+	border: 1px solid #dddddd;
+	padding: 0px;
+	background: #efefef;
+}
+
+.ux-explorerview-large-icon-row .x-grid-row-table
+{
+	width: 100%;
+	height: 240px;
+}
+
+.ux-explorerview-large-icon-row .x-grid-row-table td
+{
+	text-align: center;
+	/*
+	text-shadow: #fff 0 1px 0;
+	*/
+}
+
+.ux-explorerview-large-icon-row .x-grid-row-table td.ux-explorerview-icon
+{
+	height: 250px;
+	width: 230px;
+	text-align: center;
+	vertical-align: bottom;
+}
+
+
+/**
+ * Medium View
+ */
+.ux-explorerview-medium-icon-row
+{
+	width: 114px;
+	height: 120px;
+	float: left;
+	border: none;
+	padding: 1px;
+}
+
+.x-grid-table.tileview .x-grid-row-over .ux-explorerview-medium-icon-row
+{
+	border: 1px solid #dddddd;
+	padding: 0px;
+	background: #efefef url("../media/img/row-over.gif") repeat-x left top;
+}
+
+.ux-explorerview-medium-icon-row .x-grid-row-table
+{
+	width: 100%;
+}
+
+.ux-explorerview-medium-icon-row .x-grid-row-table td
+{
+	text-align: center;
+	/*
+	text-shadow: #fff 0 1px 0;
+	*/
+}
+
+.ux-explorerview-medium-icon-row .x-grid-row-table td.ux-explorerview-icon
+{
+	height: 100px;
+	text-align: center;
+	vertical-align: bottom;
+}
+
+
+/**
+ * Tile View
+ */
+.ux-explorerview-detailed-icon-row
+{
+	width: 200px;
+	height: 53px;
+	float: left;
+	padding: 1px;
+	border: 0px solid #FFF;
+}
+
+.x-grid-table.tileview .x-grid-row-over .ux-explorerview-detailed-icon-row
+{
+	border: 1px solid #dddddd;
+	padding: 0px;
+	background: #efefef;
+}
+
+.ux-explorerview-detailed-icon-row .x-grid-row-table
+{
+	width: 100%;
+}
+
+.ux-explorerview-detailed-icon-row .x-grid-row-table td
+{
+	vertical-align: bottom;
+	/*
+	text-shadow: #fff 0 1px 0;
+	*/
+}
+
+.ux-explorerview-detailed-icon-row .x-grid-row-table td.ux-explorerview-icon
+{
+	width: 56px;
+	height: 50px;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.ux-explorerview-detailed-icon-row .x-grid-row-table td span
+{
+	color: #aaaaaa;
+	font-size: 11px;
+}
+
+.x-grid-row-selected.tileview td span
+{
+	color: #A3C4E5;
+}
