@@ -255,30 +255,51 @@ Ext.define("Ext.ux.form.field.TinyMCE",	{
 	
 	disable: function()
 	{
-		this.withEd(function()
+        var me = this;
+
+        me.withEd(function()
 		{
-			var bodyEl = this.editor.getBody();
-			bodyEl = Ext.get(bodyEl);
-			if(bodyEl.hasCls('mceContentBody'))
-			{
-				bodyEl.removeCls('mceContentBody');
-				bodyEl.addCls('mceNonEditable');
-			}
+            var editor = me.editor;
+
+            tinymce.each(editor.controlManager.controls, function(c) {
+                c.setDisabled(true);
+            });
+
+            tinymce.dom.Event.clear(editor.getBody());
+            tinymce.dom.Event.clear(editor.getWin());
+            tinymce.dom.Event.clear(editor.getDoc());
+            tinymce.dom.Event.clear(editor.formElement);
+
+            editor.onExecCommand.listeners = [];
+
+            me.iframeEl.dom.contentDocument.body.contentEditable = false;
+            me.iframeEl.addCls('x-form-field x-form-text');
 		});
+
+        return me.callParent(arguments);
 	},
 	
 	enable: function()
 	{
-		this.withEd(function()
+        var me = this;
+
+        me.withEd(function()
 		{
-			var bodyEl = this.editor.getBody();
-			bodyEl = Ext.get(bodyEl);
-			if(bodyEl.hasCls('mceNonEditable'))
-			{
-				bodyEl.removeCls('mceNonEditable');
-				bodyEl.addCls('mceContentBody');
-			}
+            var editor = me.editor;
+
+            editor.bindNativeEvents();
+
+            tinymce.each(editor.controlManager.controls, function(c) {
+                c.setDisabled(false);
+            });
+
+            editor.nodeChanged();
+
+            me.iframeEl.dom.contentDocument.body.contentEditable = true;
+            me.iframeEl.removeCls('x-form-field x-form-text');
 		});
+
+        return me.callParent(arguments);
 	},
     
 	withEd: function(func)
