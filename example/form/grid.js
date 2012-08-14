@@ -1,7 +1,7 @@
 Ext.Loader.setConfig({
 	'enabled': true,
 	'paths': {
-		'Ext.ux': 'http://extjs.cachefly.net/ext-4.1.0-gpl/examples/ux/',
+		'Ext.ux': 'http://extjs.cachefly.net/ext-4.1.1-gpl/examples/ux/',
 		'Ext.ux.grid.plugin': '../../ux/grid/plugin',
 		'Ext.ux.form.field': '../../ux/form/field'
 	}
@@ -139,6 +139,7 @@ Ext.onReady(function()
 		bodyStyle: 'padding:5px 5px 0',
 		width: 600,
 		height: 400,
+        waitMsgTarget: true,
 
 		items: [ {
 			xtype: 'fieldset',
