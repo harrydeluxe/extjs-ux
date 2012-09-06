@@ -404,7 +404,7 @@ Ext.define('Ext.ux.upload.Basic', {
         {
             file.server_error = 0;
             me.success.push(file);
-            me.fireEvent('fileuploaded', me, file);
+            me.fireEvent('fileuploaded', me, file, response);
         }
         else
         {
