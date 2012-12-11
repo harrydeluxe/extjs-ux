@@ -290,39 +290,41 @@ Ext.define('Ext.ux.toggleslide.ToggleSlide', {
             runner = new Ext.util.TaskRunner(),
             to = on ? me.rightside : 0;
         
-        Ext.create('Ext.fx.Anim', {
-            target: me.handle,
-            dynamic: true,
-            easing: 'easeOut',
-            duration: me.duration,
-            to : {
-                left: to
-            },
-            listeners: {
-                beforeanimate: {
-                    fn: function(ani)
-                    {
-                        me.task = runner.newTask({
-                            run: function () {
-                                me.onDrag();
-                            },
-                            interval: 10
-                        });
-                        me.task.start();
-                    },
-                    scope: this
+        if (me.rendered) {
+            Ext.create('Ext.fx.Anim', {
+                target: me.handle,
+                dynamic: true,
+                easing: 'easeOut',
+                duration: me.duration,
+                to : {
+                    left: to
                 },
-                afteranimate: {
-                    fn: function(ani)
-                    {
-                        me.onDrag();
-                        me.task.destroy();
+                listeners: {
+                    beforeanimate: {
+                        fn: function(ani)
+                        {
+                            me.task = runner.newTask({
+                                run: function () {
+                                    me.onDrag();
+                                },
+                                interval: 10
+                            });
+                            me.task.start();
+                        },
+                        scope: this
                     },
-                    scope: this
-                } 
-            },
-            callback: callback
-        });
+                    afteranimate: {
+                        fn: function(ani)
+                        {
+                            me.onDrag();
+                            me.task.destroy();
+                        },
+                        scope: this
+                    } 
+                },
+                callback: callback
+            });
+        }
     },
     
     /**
