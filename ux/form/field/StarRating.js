@@ -44,7 +44,7 @@ Ext.define('Ext.ux.form.field.StarRating', {
      */
     items: [1, 2, 3, 4, 5],
     startText: false,
-    endTest: false,
+    endText: false,
     
     initEvents: function()
     {
