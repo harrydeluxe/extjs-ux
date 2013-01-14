@@ -138,7 +138,8 @@ Ext.define('Ext.ux.upload.plugin.Window', {
             title: me.title || 'Upload files',
             width: me.width || 640,
             height: me.height || 380,
-            // modal : true, // harry
+            //modal : true, // harry
+            modal: me.modal,
             plain: true,
             constrain: true,
             border: false,
