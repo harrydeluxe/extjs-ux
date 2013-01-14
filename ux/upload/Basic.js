@@ -191,13 +191,14 @@ Ext.define('Ext.ux.upload.Basic', {
     start: function()
     {
         var me = this;
-        me.fireEvent('beforestart', me);
-        if(me.multipart_params)
-        {
-            me.uploader.settings.multipart_params = me.multipart_params;
+        if (me.fireEvent('beforestart', me) === true) {
+            if(me.multipart_params)
+            {
+                me.uploader.settings.multipart_params = me.multipart_params;
+            }
+            me.uploader.start();
+            //console.log(me.uploader);
         }
-        me.uploader.start();
-        //console.log(me.uploader);
     },
     
     initializeUploader: function()
