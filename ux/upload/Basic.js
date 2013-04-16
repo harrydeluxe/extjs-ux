@@ -370,7 +370,7 @@ Ext.define('Ext.ux.upload.Basic', {
          
         me.actions.removeUploaded.setDisabled(false);
         me.actions.removeAll.setDisabled(false);
-        me.actions.start.setDisabled(uploader.state == 2);
+        me.actions.start.setDisabled(uploader.state == plupload.STARTED);
         Ext.each(files, function(v)
         {
             me.updateStore(v);
@@ -379,7 +379,7 @@ Ext.define('Ext.ux.upload.Basic', {
 
         if(me.fireEvent('filesadded', me, files) !== false)
         {
-            if(me.autoStart && uploader.state != 2)
+            if(me.autoStart && uploader.state != plupload.STARTED)
                 Ext.defer(function()
                 {
                     me.start();
@@ -436,10 +436,10 @@ Ext.define('Ext.ux.upload.Basic', {
             this.updateStore(v);
         }, this);
     },
-    
+
     _StateChanged: function(uploader)
     {
-        if(uploader.state == 2)
+        if(uploader.state == plupload.STARTED)
         {
             this.fireEvent('uploadstarted', this);
             this.actions.cancel.setDisabled(false);
