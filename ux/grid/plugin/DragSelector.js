@@ -89,22 +89,22 @@ Ext.define('Ext.ux.grid.plugin.DragSelector', {
         
         me.mainRegion = me.scroller.getRegion();
         me.bodyRegion = me.scroller.getRegion();
-        
-        me.view.all.each(function(el)
-        {
+
+        for (var i in this.view.all.elements) {
             objectsSelected.push(me.selModel.isSelected(objectsSelected.length));
-        }, me);
-        
+        }
+
         me.syncScroll();
     },
     
     fillRegions: function()
     {
         var rs = this.rs = [];
-        this.view.all.each(function(el)
+        for (var i in this.view.all.elements)
         {
-            rs.push(el.getRegion());
-        });
+            var el = this.view.all.elements[i];
+            rs.push(Ext.fly(el).getRegion());
+        }
     },
     
     cancelClick: function(e)
@@ -140,6 +140,11 @@ Ext.define('Ext.ux.grid.plugin.DragSelector', {
             return false;
         }
         
+        if(e.getPageY() > this.view.el.getY() + this.view.el.dom.clientHeight - 20)
+        {
+            return false;
+        }
+
         // call cancelClick
         this.cancelClick(e);
         return !this.dragSafe || e.target == this.view.el.dom || Ext.DomQuery.is(e.target, this.targetDragSelector);
@@ -233,7 +238,10 @@ Ext.define('Ext.ux.grid.plugin.DragSelector', {
                 sel = dragRegion.intersect(r),
                 selected = selModel.isSelected(i),
                 selectedBefore = me.objectsSelected[i];
-            
+
+            if (!bodyRegion.intersect(r))
+              continue;
+
             if(me.ctrlState)
             {
                 if(selectedBefore)
