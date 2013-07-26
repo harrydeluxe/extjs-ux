@@ -89,22 +89,22 @@ Ext.define('Ext.ux.grid.plugin.DragSelector', {
         
         me.mainRegion = me.scroller.getRegion();
         me.bodyRegion = me.scroller.getRegion();
-        
-        me.view.all.each(function(el)
-        {
+
+        for (var i in this.view.all.elements) {
             objectsSelected.push(me.selModel.isSelected(objectsSelected.length));
-        }, me);
-        
+        }
+
         me.syncScroll();
     },
     
     fillRegions: function()
     {
         var rs = this.rs = [];
-        this.view.all.each(function(el)
+        for (var i in this.view.all.elements)
         {
-            rs.push(el.getRegion());
-        });
+            var el = this.view.all.elements[i];
+            rs.push(Ext.fly(el).getRegion());
+        }
     },
     
     cancelClick: function(e)
