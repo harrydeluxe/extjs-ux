@@ -233,7 +233,10 @@ Ext.define('Ext.ux.grid.plugin.DragSelector', {
                 sel = dragRegion.intersect(r),
                 selected = selModel.isSelected(i),
                 selectedBefore = me.objectsSelected[i];
-            
+
+            if (!bodyRegion.intersect(r))
+              continue;
+
             if(me.ctrlState)
             {
                 if(selectedBefore)
