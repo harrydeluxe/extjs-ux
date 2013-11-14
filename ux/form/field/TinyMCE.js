@@ -148,6 +148,9 @@ Ext.define("Ext.ux.form.field.TinyMCE", {
                     if (newValue != me.lastValue) {
                         me.fireEvent("change", me, me.getValue(), me.lastValue || "");
                         me.lastValue = me.getValue();
+                        me.fireEvent("dirtychange", me, true);
+                    } else {
+                        me.fireEvent("dirtychange", me, false);
                     }
                 }, 100);
 
