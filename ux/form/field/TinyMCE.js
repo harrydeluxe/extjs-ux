@@ -12,6 +12,7 @@
 Ext.define("Ext.ux.form.field.TinyMCE", {
     extend: 'Ext.form.field.TextArea',
     alias: 'widget.tinymcefield',
+    cls: Ext.baseCSSPrefix + "tinymcefield",
 
     requires: ['Ext.ux.form.field.TinyMCEWindowManager'],
 
@@ -142,6 +143,21 @@ Ext.define("Ext.ux.form.field.TinyMCE", {
                 }, 10, me);
 
                 me.fireEvent('editorcreated', me.editor, me);
+                var dirtyFunc = Ext.Function.createBuffered(function () {
+                    var newValue = me.getValue();
+                    if (newValue != me.lastValue) {
+                        me.fireEvent("change", me, me.getValue(), me.lastValue || "");
+                        me.lastValue = me.getValue();
+                        me.fireEvent("dirtychange", me, true);
+                    } else {
+                        me.fireEvent("dirtychange", me, false);
+                    }
+                }, 100);
+
+                me.editor.onEvent.add(dirtyFunc);
+                me.editor.onExecCommand.add(dirtyFunc);
+                me.editor.onSetContent.add(dirtyFunc);
+                me.editor.onChange.add(dirtyFunc);
             });
         };
 
@@ -347,3 +363,4 @@ Ext.define("Ext.ux.form.field.TinyMCE", {
         return true;
     }
 });
+
