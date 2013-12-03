@@ -15,23 +15,6 @@ Ext.define('Ext.ux.aceeditor.Panel', {
     autofocus: true,
     border: false,
     
-    listeners: {
-        resize: function()
-        {
-            if(this.editor)
-            {
-                this.editor.resize();
-            }
-        },
-        activate: function()
-        {
-            if(this.editor && this.autofocus)
-            {
-                this.editor.focus();
-            }
-        }
-    },
-    
     initComponent: function()
     {
         var me = this,
@@ -45,6 +28,20 @@ Ext.define('Ext.ux.aceeditor.Panel', {
         });
         
         me.callParent(arguments);
+
+        // Event listeners should be here, not in "listeners" to avoid being
+        // overwritten when the component's instantiated with listeners.
+        me.on('activate', function() {
+            if(this.editor && this.autofocus) {
+                this.editor.focus();
+            }
+        }, me);
+
+        me.on('resize', function() {
+            if(this.editor) {
+                this.editor.resize();
+            }
+        }, me);
     },
     
     onRender: function()
