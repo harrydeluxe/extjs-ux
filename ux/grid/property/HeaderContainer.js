@@ -19,6 +19,7 @@ Ext.define('Ext.ux.grid.property.HeaderContainer', {
     falseText: 'false',
     // private
     nameColumnCls: Ext.baseCSSPrefix + 'grid-property-name',
+    nameColumnInnerCls: Ext.baseCSSPrefix + 'grid-cell-inner-property-name',
     
     /**
      * Creates new HeaderContainer.
@@ -37,7 +38,8 @@ Ext.define('Ext.ux.grid.property.HeaderContainer', {
                 itemId: grid.nameField,
                 menuDisabled: true,
                 groupField: true,
-                tdCls: me.nameColumnCls
+                tdCls: me.nameColumnCls,
+                innerCls: me.nameColumnInnerCls
             },
             {
                 header: me.valueText,
@@ -64,6 +66,7 @@ Ext.define('Ext.ux.grid.property.HeaderContainer', {
         me.grid = grid;
         me.store = store;
         me.callParent([{
+            isRootHeader: true,
             items: columns
         }]);
     },
